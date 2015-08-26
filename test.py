@@ -1,5 +1,6 @@
 import mwclient
 import MySQLdb
+import datetime
 from config import *
 
 # Test stuff
@@ -17,13 +18,13 @@ cur.execute( "SELECT p.page_title, p.page_touched FROM page p ORDER BY p.page_to
 site = mwclient.Site('test.wikipedia.org')
 site.login( testbot['user'], testbot['pass'] )
 page = site.Pages['DBR test']
-text = page.text()
+# text = page.text()
 
-print 'Page default text was: ', text
+#print 'Page default text was: ', text
 
-newtext = ''
+newtext = '{| class="wikitable" |- !Title !Last edited |- '
 
 for row in cur.fetchall() :
-    newtext = newtext + cur[0] + '\n'
+    newtext = newtext + '|[[' + row[0] + ']] |' + datetime.datetime.fromtimestamp( int(row[1] ) ).strftime('%Y-%m-%d')
 
-page.save(newtext, summary = 'bot test edit')
+page.save(newtext, summary = 'bot test edit 2')
