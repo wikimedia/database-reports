@@ -15,6 +15,7 @@ cur = db.cursor()
 cur.execute( "SELECT p.page_title, p.page_touched FROM page p ORDER BY p.page_touched DESC LIMIT 20" )
 
 site = mwclient.Site('test.wikipedia.org')
+site.login( testbot['user'], testbot['pass'] )
 page = site.Pages['DBR test']
 text = page.text()
 
