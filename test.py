@@ -25,6 +25,6 @@ page = site.Pages['DBR test']
 newtext = '{| class="wikitable" |- !Title !Last edited |- '
 
 for row in cur.fetchall() :
-    newtext = newtext + '|[[' + row[0] + ']] |' + datetime.datetime.fromtimestamp( int(row[1] ) ).strftime('%Y-%m-%d')
+    newtext = newtext + '|[[' + row[0] + ']] |' + datetime.datetime.fromtimestamp( int(row[1])/1000 ).strftime('%Y-%m-%d')
 
 page.save(newtext, summary = 'bot test edit 2')
