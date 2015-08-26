@@ -22,9 +22,9 @@ page = site.Pages['DBR test']
 
 #print 'Page default text was: ', text
 
-newtext = '{| class="wikitable" |- !Title !Last edited |- '
+newtext = '{| class="wikitable" <br> |- <br> !Title <br> !Last touched <br> |- <br>'
 
 for row in cur.fetchall() :
-    newtext = newtext + '|[[' + row[0] + ']] |' + datetime.datetime.fromtimestamp( int(row[1])/1000 ).strftime('%Y-%m-%d')
+    newtext = newtext + '| [[' + row[0] + ']] | ' + datetime.datetime.fromtimestamp( int(row[1])/1000 ).strftime('%Y-%m-%d') + '<br>'
 
 page.save(newtext, summary = 'bot test edit 2')
