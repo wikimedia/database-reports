@@ -12,7 +12,7 @@ db = MySQLdb.connect( host = credentials['host'], user = credentials['user'], pa
 
 cur = db.cursor()
 
-cur.execute( "SELECT * FROM user WHERE user_editcount > 10000 LIMIT 5" )
+cur.execute( "SELECT p.page_title, p.page_touched FROM page p ORDER BY p.page_touched DESC LIMIT 20" )
 
 for row in cur.fetchall() :
     print row
