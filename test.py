@@ -13,19 +13,20 @@ db = MySQLdb.connect( host = credentials['host'], user = credentials['user'], pa
 
 cur = db.cursor()
 
-cur.execute( "SELECT p.page_title, p.page_touched FROM page p ORDER BY p.page_touched DESC LIMIT 10" )
+query = "SELECT p.page_title, p.page_touched, p.page_namespace, p.page_is_redirect FROM page p" +
+	"WHERE page_is_redirect = 0 AND page_namespace = 0" +
+	"ORDER BY page_touched LIMIT 500"
+
+cur.execute( query )
 
 site = mwclient.Site('test.wikipedia.org')
 site.login( testbot['user'], testbot['pass'] )
 page = site.Pages['DBR test']
-# text = page.text()
-
-#print 'Page default text was: ', text
 
 newtext = '{| class="wikitable" \n |- \n !Title \n !Last touched \n'
 
 for row in cur.fetchall() :
     newtext = newtext + '|- \n | [[' + row[0] + ']] \n | ' 
-    newtext = newtext + datetime.datetime.fromtimestamp( int(row[1])/1000 ).strftime('%Y-%m-%d') + '\n'
+    newtext = newtext + datetime.datetime.fromtimestamp( int(row[1])/1000 ).strftime('%Y-%m-%d %H:%M:%S') + '\n'
 
-page.save(newtext, summary = 'bot test edit 6')
+page.save( newtext, summary = 'bot test edit 7' )
