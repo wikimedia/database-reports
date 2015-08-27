@@ -1,5 +1,6 @@
 import mwclient
 import MySQLdb
+import datetime
 from displayTable import *
 
 class Reports:
