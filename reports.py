@@ -3,7 +3,7 @@ import MySQLdb
 from displayTable import *
 
 class Reports:
-	def forgotten_articles( site, db ):
+	def forgotten_articles( self, site, db ):
 		cur = db.cursor()
 		query = "SELECT p.page_title, p.page_touched, p.page_namespace, p.page_is_redirect FROM page p WHERE page_is_redirect = 0 AND page_namespace = 0 ORDER BY page_touched LIMIT 5"
 		cur.execute( query )
