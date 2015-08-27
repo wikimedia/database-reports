@@ -17,7 +17,7 @@ class Reports:
 		cur.execute( query )
 		page = self.site.Pages['Forgotten articles']
 		content = []
-		content.append( ['Title', 'Last touched'] )
+		content.append( ['Title', 'Last edited'] )
 		for row in cur.fetchall() :
 			content.append( [ '[[' + row[0] + ']]', datetime.datetime.strptime( row[1],'%Y%m%d%H%M%S') ] )
 		text = generate_wikitext( content )
