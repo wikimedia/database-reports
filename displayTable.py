@@ -4,12 +4,12 @@ def generate_wikitext( content ):
 	rowlen = len( content )
 
 	for x in range( 0, collen ):
-		wikitext = wikitext + '! ' + content[0][x] + '\n'
+		wikitext = wikitext + '! ' + str( content[0][x] ) + '\n'
 
-	for x in range( 0, rowlen ):
+	for x in range( 1, rowlen ):
 		wikitext = wikitext + '|- \n'
 		for i in range( 0, collen ):
-			wikitext = wikitext + '| ' + content[x][i] + '\n'
+			wikitext = wikitext + '| ' + str( content[x][i] ) + '\n'
 
 	wikitext = wikitext + '|}'
 	return wikitext
