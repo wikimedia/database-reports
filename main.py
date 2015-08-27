@@ -15,5 +15,6 @@ def main():
 	# Calling Forgotten Articles
 	rep = Reports( site, db )
 	rep.forgotten_articles()
+	rep.page_count_by_namespace()
 
 main()
