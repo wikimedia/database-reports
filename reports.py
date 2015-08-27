@@ -26,12 +26,14 @@ class Reports:
 	def page_count_by_namespace( self ):
 		cur = self.db.cursor()
 		page = self.site.Pages['Page count by namespace']
-		query = "SELECT COUNT(*) AS total, SUM(page_is_redirect) AS redirect, page_namespace FROM page GROUP BY page_namespace"
+		query = "SELECT page_namespace, COUNT(*) AS total, SUM(page_is_redirect) AS redirect FROM page GROUP BY page_namespace"
 		cur.execute( query )
 		page = self.site.Pages['Page count by namespace']
 		content = []
 		content.append( ['Namespace', 'Total', 'Redirects', 'Non-redirects'] )
 		for row in cur.fetchall():
-			content.append( [ row[2], row[0], row[1], row[0]-row[1] ])
+			content.append( [ row[0], row[1], row[2], row[1]-row[2] ])
 		text = generate_wikitext( content )
 		page.save( text, summary = 'bot test edit' )
+
+
