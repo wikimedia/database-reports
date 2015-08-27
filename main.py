@@ -13,6 +13,7 @@ def main():
 	site.login( testbot['user'], testbot['pass'] )
 
 	# Calling Forgotten Articles
-	Reports.forgotten_articles( site, db )
+	rep = Reports()
+	rep.forgotten_articles( site, db )
 
 main()
