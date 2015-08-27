@@ -1,6 +1,6 @@
 def generate_wikitext( content ):
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
-	wikitext = wikitext + '! No.'
+	wikitext = wikitext + '! ' + 'No.' + '\n'
 	collen = len( content[0] )
 	rowlen = len( content )
 
