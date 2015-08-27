@@ -1,5 +1,5 @@
 def generate_wikitext( content ):
-	wikitext = '{| class="wikitable" \n |- \n'
+	wikitext = '{| class="wikitable sortable" \n |- \n'
 	collen = len( content[0] )
 	rowlen = len( content )
 
