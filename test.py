@@ -25,7 +25,6 @@ newtext = '{| class="wikitable" \n |- \n !Title \n !Last touched \n'
 
 for row in cur.fetchall() :
     newtext = newtext + '|- \n | [[' + row[0] + ']] \n | ' 
-    newtext = newtext + datetime.datetime.fromtimestamp( int(row[1])/1000 ).strftime('%Y-%m-%d %H:%M:%S') + '\n'
-    newtext = newtext + row[1][0:3] + '-' + row[1][4:5] + '-' + row[1][6:7]
+    newtext = newtext + row[1][0:3] + '-' + row[1][4:5] + '-' + row[1][6:7] + '\n'
 
 page.save( newtext, summary = 'bot test edit 7' )
