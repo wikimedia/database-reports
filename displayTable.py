@@ -6,8 +6,8 @@ from pprint import pprint
 # @param content - Python 2D array (nested list) containing table entries
 def display_report( wiki, content ):
 	with open('en.json') as data_file:    
-    	data = json.load(data_file)
-	pprint(data)
+    	data = json.load( data_file )
+		pprint(data)
 
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
 	collen = len( content[0] )
