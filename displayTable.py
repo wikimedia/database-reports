@@ -9,7 +9,7 @@ def display_report( wiki, content ):
 	rowlen = len( content )
 
 	for x in range( 0, collen ):
-		wikitext = wikitext + '! ' + en[ str( content[0][x] ) ] + '\n'
+		wikitext = wikitext + '! ' + endict[ str( content[0][x] ) ] + '\n'
 
 	for x in range( 1, rowlen ):
 		wikitext = wikitext + '|- \n'

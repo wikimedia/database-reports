@@ -3,6 +3,7 @@ import MySQLdb
 import datetime
 from displayTable import *
 
+
 class Reports:
 
 	def __init__( self, site, db, wiki ):

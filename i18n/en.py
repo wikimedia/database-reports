@@ -1,4 +1,4 @@
-en = {
+endict = {
     "forgotten-articles-desc": "List of non-disambiguation, non-redirect oldest 1000 articles.",
     "forgotten-articles-title": "Title",
     "forgotten-articles-last-edited": "Last edited",
