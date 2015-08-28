@@ -1,6 +1,5 @@
 def generate_wikitext( content ):
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
-	wikitext = wikitext + '! ' + 'No.' + '\n'
 	collen = len( content[0] )
 	rowlen = len( content )
 
@@ -9,7 +8,6 @@ def generate_wikitext( content ):
 
 	for x in range( 1, rowlen ):
 		wikitext = wikitext + '|- \n'
-		wikitext = wikitext + '| ' + str( x ) + '\n'
 		for i in range( 0, collen ):
 			wikitext = wikitext + '| ' + str( content[x][i] ) + '\n'
 
