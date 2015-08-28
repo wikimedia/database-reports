@@ -5,7 +5,6 @@ from displayTable import *
 
 
 class Reports:
-
 	def __init__( self, site, db, wiki ):
 		self.db = db
 		self.site = site

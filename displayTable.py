@@ -7,9 +7,12 @@ def display_report( wiki, content ):
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
 	collen = len( content[0] )
 	rowlen = len( content )
-	dict_obj = getattr( i18n, wiki + 'dict' )
+
+	# Find out the dictionary containing messages for given wiki/language code
+	dict_obj = i18n.lang_dicts[ str( wiki + 'dict') ]
+
 	for x in range( 0, collen ):
-		wikitext = wikitext + '! ' + i18n.dict_obj[ str( content[0][x] ) ] + '\n'
+		wikitext = wikitext + '! ' + dict_obj[ str( content[0][x] ) ] + '\n'
 
 	for x in range( 1, rowlen ):
 		wikitext = wikitext + '|- \n'
