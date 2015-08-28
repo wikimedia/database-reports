@@ -6,7 +6,7 @@ lang_dicts = {
 	    "forgotten-articles-last-edited": "Last edited",
 	    "forgotten-articles-editcount": "Number of edits",
 
-	    "pagecount-desc": "The number of pages in each [[https://en.wikipedia.org/wiki/Wikipedia:Namespace|namespace]].",
+	    "pagecount-desc": "The number of pages in each [https://en.wikipedia.org/wiki/Wikipedia:Namespace namespace].",
 	    "pagecount-namespace": "Namespace",
 	    "pagecount-total": "Total pages",
 	    "pagecount-redirect": "Pages with redirects",
