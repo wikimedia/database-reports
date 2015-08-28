@@ -1,4 +1,4 @@
-from i18n import en
+from i18n import i18n
 
 # Function to generate the wikitext for the report page
 # @param wiki - Language code for the wiki (eg: 'en', 'es', 'it')
@@ -7,9 +7,9 @@ def display_report( wiki, content ):
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
 	collen = len( content[0] )
 	rowlen = len( content )
-
+	dict_obj = wiki + 'dict'
 	for x in range( 0, collen ):
-		wikitext = wikitext + '! ' + en.endict[ str( content[0][x] ) ] + '\n'
+		wikitext = wikitext + '! ' + i18n.dict_obj[ str( content[0][x] ) ] + '\n'
 
 	for x in range( 1, rowlen ):
 		wikitext = wikitext + '|- \n'
