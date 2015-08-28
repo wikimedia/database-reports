@@ -13,8 +13,8 @@ class Reports:
 	def forgotten_articles( self ):
 		# Make the query
 		cur = self.db.cursor()
-		query = """SELECT p.page_title, r.rev_timestamp, p.page_touched, p.page_namespace, p.page_is_redirect FROM page p
-				   LEFT JOIN revision r ON p.page_latest = r.rev_id 
+		query = """SELECT p.page_title, p.page_namespace, p.page_is_redirect, r.editcount FROM page p
+				   LEFT JOIN ( SELECT COUNT(*) AS editcount FROM revision ) r ON r.rev_page = p.page_id
 				   WHERE page_is_redirect = 0 AND page_namespace = 0 
 				   ORDER BY page_touched 
 				   LIMIT 500"""
@@ -24,7 +24,7 @@ class Reports:
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
-			content.append( [ '[[' + row[0] + ']]', datetime.datetime.strptime( row[1],'%Y%m%d%H%M%S'), 5000 ] )
+			content.append( [ '[[' + row[0] + ']]', datetime.datetime.strptime( row[1],'%Y%m%d%H%M%S'), row[3] ] )
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )
