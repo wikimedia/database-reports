@@ -6,6 +6,7 @@ lang_dicts = {
 	    "forgotten-articles-last-edited": "Last edited",
 	    "forgotten-articles-editcount": "Number of edits",
 
+	    "pagecount-desc": "The number of pages in each namespace."
 	    "pagecount-namespace": "Namespace",
 	    "pagecount-total": "Total pages",
 	    "pagecount-redirect": "Pages with redirects",
@@ -18,6 +19,7 @@ lang_dicts = {
 	    "forgotten-articles-last-edited": "Last edited - Spanish",
 	    "forgotten-articles-editcount": "Number of edits - Spanish",
 
+	    "pagecount-desc": "The number of pages in each namespace. - Spanish"
 	    "pagecount-namespace": "Namespace - Spanish",
 	    "pagecount-total": "Total pages - Spanish",
 	    "pagecount-redirect": "Pages with redirects - Spanish",
