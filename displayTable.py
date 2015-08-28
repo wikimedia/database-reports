@@ -1,4 +1,4 @@
-from i18n import *
+from i18n/en import *
 # Function to generate the wikitext for the report page
 # @param wiki - Language code for the wiki (eg: 'en', 'es', 'it')
 # @param content - Python 2D array (nested list) containing table entries
