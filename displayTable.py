@@ -7,7 +7,7 @@ def display_report( wiki, content ):
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
 	collen = len( content[0] )
 	rowlen = len( content )
-	dict_obj = wiki + 'dict'
+	dict_obj = dict( wiki + 'dict' )
 	for x in range( 0, collen ):
 		wikitext = wikitext + '! ' + i18n.dict_obj[ str( content[0][x] ) ] + '\n'
 
