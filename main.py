@@ -13,7 +13,7 @@ def main():
 	site.login( testbot['user'], testbot['pass'] )
 
 	# Calling Forgotten Articles
-	rep = Reports( site, db )
+	rep = Reports( site, db, 'en' )
 	rep.forgotten_articles()
 	rep.page_count_by_namespace()
 
