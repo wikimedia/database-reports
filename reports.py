@@ -24,7 +24,7 @@ class Reports:
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
-			content.append( [ row[0], datetime.datetime.strptime( row[1],'%Y%m%d%H%M%S'), 5000 ] )
+			content.append( [ '[[' + row[0] + ']]', datetime.datetime.strptime( row[1],'%Y%m%d%H%M%S'), 5000 ] )
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )
