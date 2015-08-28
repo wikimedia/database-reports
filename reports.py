@@ -43,5 +43,3 @@ class Reports:
 		text = display_report( self.wiki, content )
 		page.save( text, summary = 'bot test edit' )
 
-	def 
-

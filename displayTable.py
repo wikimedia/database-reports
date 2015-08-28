@@ -5,9 +5,10 @@ from pprint import pprint
 # @param wiki - Language code for the wiki (eg: 'en', 'es', 'it')
 # @param content - Python 2D array (nested list) containing table entries
 def display_report( wiki, content ):
+	
 	with open('en.json') as data_file:    
     	data = json.load( data_file )
-		pprint(data)
+		pprint( data )
 
 	wikitext = '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
 	collen = len( content[0] )
