@@ -14,7 +14,7 @@ class Reports:
 		# Make the query
 		cur = self.db.cursor()
 		query = """SELECT p.page_title, p.page_namespace, p.page_is_redirect, p.page_touched, r.editcount FROM page p
-				   LEFT JOIN ( SELECT COUNT(*) AS editcount, rev_page FROM revision ) r ON r.rev_page = p.page_id
+				   LEFT JOIN ( SELECT COUNT(*) AS editcount, rev_page FROM revision GROUP BY rev_page ) r ON r.rev_page = p.page_id
 				   WHERE page_is_redirect = 0 AND page_namespace = 0 
 				   ORDER BY page_touched 
 				   LIMIT 500"""
