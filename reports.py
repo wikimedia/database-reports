@@ -48,7 +48,8 @@ class Reports:
 
 	def pages_with_most_revisions( self ):
 		cur = self.db.cursor()
-		query = """SELECT COUNT(*) AS r.revisions, r.rev_page, p.page_namespace, p.page_title FROM revision r LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
+		query = """SELECT COUNT(*) AS revisions, rev_page, p.page_namespace, p.page_title FROM revision r
+				   LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
 				   GROUP BY rev_page
 				   ORDER BY revisions DESC
 				   LIMIT 20"""
@@ -57,7 +58,7 @@ class Reports:
 		content = []
 		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
 		for row in cur.fetchall():
-			content.append( [ row['page_namespace'], '[[' + row['page_title'] + ']]', row['revisions'] ])
+			content.append( [ row[2], '[[' + row[3] + ']]', row[0] ])
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'Pages with most revisions', text )
