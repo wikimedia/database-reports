@@ -16,5 +16,6 @@ def main():
 	rep = Reports( site, db, 'en' )
 	rep.forgotten_articles()
 	rep.page_count_by_namespace()
+	rep.pages_with_most_revisions()
 
 main()
