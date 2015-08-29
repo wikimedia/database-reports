@@ -11,6 +11,11 @@ lang_dicts = {
 	    "pagecount-total": "Total pages",
 	    "pagecount-redirect": "Pages with redirects",
 	    "pagecount-non-redirect": "Pages without redirects",
+
+	    "pagerevisions-namespace": "Namespace",
+	    "pagerevisions-title": "Article",
+	    "pagerevisions-revisions": "Revisions",
+	    "pagerevisions-desc": "Pages with the most revisions (limited to the first 1000 entries)",
 	},
 
 	'esdict' : {

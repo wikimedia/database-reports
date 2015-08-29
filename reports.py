@@ -30,6 +30,7 @@ class Reports:
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )
 		self.publish_report( 'Forgotten articles', text )
 
+
 	def page_count_by_namespace( self ):
 		cur = self.db.cursor()
 		query = """SELECT page_namespace, COUNT(*) AS total, SUM(page_is_redirect) AS redirect FROM page
@@ -44,6 +45,29 @@ class Reports:
 		text = display_report( self.wiki, content , 'pagecount-desc' )
 		self.publish_report( 'Page count by namespace', text )
 
+
+	def pages_with_most_revisions( self ):
+		cur = self.db.cursor()
+		query = """SELECT COUNT(*) AS r.revisions, r.rev_page, p.page_namespace, p.page_title FROM revision r
+				   LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
+				   GROUP BY rev_page
+				   ORDER BY revisions DESC
+				   LIMIT 20"""
+		cur.execute( query )
+
+		content = []
+		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
+		for row in cur.fetchall():
+			content.append( [ row['page_namespace'], '[[' + row['page_title'] + ']]', row['revisions'] ])
+
+		text = display_report( self.wiki, content , 'pagerevisions-desc' )
+		self.publish_report( 'Pages with most revisions', text )
+
+
+	''' Publish report on page with given title, with the given content
+		@param title Page title
+		@param content Content to be displayed on page
+	'''
 	def publish_report( self, title, content ):
 		page = self.site.Pages[ str( title ) ]
 		page.save( content, summary = 'bot test edit' )
