@@ -48,8 +48,7 @@ class Reports:
 
 	def pages_with_most_revisions( self ):
 		cur = self.db.cursor()
-		query = """SELECT COUNT(*) AS r.revisions, r.rev_page, p.page_namespace, p.page_title FROM revision r
-				   LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
+		query = """SELECT COUNT(*) AS r.revisions, r.rev_page, p.page_namespace, p.page_title FROM revision r LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
 				   GROUP BY rev_page
 				   ORDER BY revisions DESC
 				   LIMIT 20"""
