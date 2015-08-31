@@ -17,5 +17,7 @@ def main():
 	rep.forgotten_articles()
 	rep.page_count_by_namespace()
 	rep.pages_with_most_revisions()
+	rep.blank_pages()
+
 
 main()
