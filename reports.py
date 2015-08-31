@@ -80,7 +80,8 @@ class Reports:
 		content = []
 		content.append( ['blankpages-title'] )
 		for row in cur.fetchall():
-			content.append( [ '[[{{subst:ns:' + str( row[3] ) + '}}:' + row[0] + ']]' ] )
+			if row[3] != 6 AND row[3] != 7:
+				content.append( [ '[[{{subst:ns:' + str( row[3] ) + '}}:' + row[0] + ']]' ] )
 
 		text = display_report( self.wiki, content , 'blankpages-desc' )
 		self.publish_report( 'Blank pages', text )
