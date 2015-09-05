@@ -13,4 +13,5 @@ class Main:
 
 
 	def forgotten_articles(self):
-		self.rep.forgotten_articles()
+		print 'Hi'
+		# self.rep.forgotten_articles()
