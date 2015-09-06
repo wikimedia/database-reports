@@ -18,18 +18,18 @@ def main (args):
 class Run:
 	def __init__(self):
 		self.db = MySQLdb.connect( host = credentials['host'], user = credentials['user'], passwd = credentials['pass'], db = credentials['db'] )
-		self.site = mwclient.Site('test.wikipedia.org')
-		site.login( cttbot['user'], cttbot['pass'] )
-		self.rep = Reports( site, db, 'en' )
+		self.site = mwclient.Site('en.wikipedia.org')
+		self.site.login( cttbot['user'], cttbot['pass'] )
+		self.rep = Reports( self.site, self.db, 'en' )
 		print 'initiated'
 
 	def forgotten_articles(self):
 		print 'okay'
-		rep.forgotten_articles()
+		self.rep.forgotten_articles()
 
 	def pagecountbynamespace(self):
 		print 'Still okay'
-		rep.page_count_by_namespace()
+		self.rep.page_count_by_namespace()
 
 if __name__ == '__main__':
 	main(sys.argv)
