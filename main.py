@@ -6,19 +6,20 @@ from reports import *
 import sys
 
 def main (args):
-	for arg in args[1:]:
+	wiki = args[1]
+	for arg in args[2:]:
 		print arg
-		run = Run()
-		method = getattr(run, str(arg))
+		run = Run( wiki )
+		method = getattr(run, str(arg) )
 		if not method:
 			raise Exception("Method not implemented")
 		else:
 			method()
 
 class Run:
-	def __init__(self):
-		self.db = MySQLdb.connect( host = credentials['host'], user = credentials['user'], passwd = credentials['pass'], db = credentials['db'] )
-		self.site = mwclient.Site('en.wikipedia.org')
+	def __init__( self, wiki ):
+		self.db = MySQLdb.connect( host = wiki + 'wiki_p', user = wiki + 'wiki.labsdb', passwd = credentials['pass'], db = credentials['db'] )
+		self.site = mwclient.Site( wiki + '.wikipedia.org' )
 		self.site.login( cttbot['user'], cttbot['pass'] )
 		self.rep = Reports( self.site, self.db, 'en' )
 		print 'initiated'

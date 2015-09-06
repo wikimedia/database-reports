@@ -87,12 +87,15 @@ class Reports:
 		self.publish_report( 'Blank pages', text )
 
 
+	# 
+
+
 	''' Publish report on page with given title, with the given content
 		@param title Page title
 		@param content Content to be displayed on page
 	'''
 	def publish_report( self, title, content ):
-		page = self.site.Pages[ str( title ) ]
+		page = self.site.Pages[ 'Wikipedia:Database reports/' + str( title ) ]
 		page.save( content, summary = 'bot test edit' )
 
 
