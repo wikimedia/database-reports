@@ -32,5 +32,13 @@ class Run:
 		print 'Still okay'
 		self.rep.page_count_by_namespace()
 
+	def pages_with_most_revisions(self):
+		self.rep.pages_with_most_revisions()
+
+	def blank_pages(self):
+		self.rep.blank_pages()
+
+	
+
 if __name__ == '__main__':
 	main(sys.argv)
