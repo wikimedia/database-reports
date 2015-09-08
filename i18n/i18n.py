@@ -7,10 +7,11 @@ lang_dicts = {
 	    "forgotten-articles-editcount": "Number of edits",
 
 	    "pagecount-desc": "The number of pages in each [https://en.wikipedia.org/wiki/Wikipedia:Namespace namespace].",
-	    "pagecount-namespace": "Namespace",
+	    "pagecount-namespace": "Namespace ID",
 	    "pagecount-total": "Total pages",
 	    "pagecount-redirect": "Pages with redirects",
 	    "pagecount-non-redirect": "Pages without redirects",
+	    "pagecount-namespace-name": "Namespace",
 
 	    "pagerevisions-namespace": "Namespace",
 	    "pagerevisions-title": "Article",
