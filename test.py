@@ -6,7 +6,7 @@ from reports import *
 import sys
 from displayTable import *
 
-def forgotten_articles( self ):
+def forgotten_articles():
 
 	db = MySQLdb.connect( host = 'enwiki.labsdb', user = credentials['user'], passwd = credentials['pass'], db = 'enwiki_p' )
 	site = mwclient.Site( 'en.wikipedia.org' )
@@ -33,3 +33,5 @@ def forgotten_articles( self ):
 
 	page = site.Pages[ 'Wikipedia:Database reports/Forgotten_articles']
 	page.save( content, summary = 'bot test edit' )
+
+forgotten_articles()

@@ -40,9 +40,9 @@ class Reports:
 		cur.execute( query )
 
 		content = []
-		content.append( ['pagecount-namespace', 'pagecount-total', 'pagecount-redirect', 'pagecount-non-redirect'] )
+		content.append( ['pagecount-namespace', 'pagecount-namespace-name', 'pagecount-total', 'pagecount-redirect', 'pagecount-non-redirect'] )
 		for row in cur.fetchall():
-			content.append( [ row[0], row[1], row[2], row[1]-row[2] ])
+			content.append( [ row[0], '{{subst:ns:' + row[0] + '}}', row[1], row[2], row[1]-row[2] ])
 
 		text = display_report( self.wiki, content , 'pagecount-desc' )
 		self.publish_report( 'Page count by namespace', text )
@@ -85,9 +85,6 @@ class Reports:
 
 		text = display_report( self.wiki, content , 'blankpages-desc' )
 		self.publish_report( 'Blank pages', text )
-
-
-	# 
 
 
 	''' Publish report on page with given title, with the given content
