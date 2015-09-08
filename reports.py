@@ -61,7 +61,7 @@ class Reports:
 		content = []
 		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
 		for row in cur.fetchall():
-			content.append( [ row[2], '[[' + row[3] + ']]', row[0] ])
+			content.append( [ row[2], '[[' + str( row[3] ) + ']]', row[0] ])
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'Pages with most revisions', text )
