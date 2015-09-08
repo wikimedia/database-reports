@@ -12,7 +12,7 @@ def display_report( wiki, content, desc ):
 	# Find out the dictionary containing messages for given wiki/language code
 	dict_obj = i18n.lang_dicts[ str( wiki + 'dict') ]
 
-	wikitext = dict_obj[ str( desc ) ] + ' -- ~~~~ \n'
+	wikitext = dict_obj[ str( desc ) ] + ' -- [[User:Community Tech bot|Community Tech bot]] ([[User talk:Community Tech bot|talk]]) <onlyinclude>~~~~~</onlyinclude> \n'
 	wikitext = wikitext + '\n Data as of: ' + time.strftime('%H:%M, %d %B %Y (UTC)') + '\n'
 	wikitext = wikitext + '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
 	collen = len( content[0] )
