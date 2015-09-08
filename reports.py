@@ -11,6 +11,7 @@ class Reports:
 		self.wiki = wiki
 
 	# Oldest edited articles
+	# Run time on enwiki 5 hours 23 minutes as of 8 Sept 2015
 	def forgotten_articles( self ):
 		# Make the query
 		cur = self.db.cursor()
@@ -33,6 +34,7 @@ class Reports:
 
 
 	# Page count by namespace
+	# Run time on enwiki 4 hours 8 minutes as of 8 Sept 2015
 	def page_count_by_namespace( self ):
 		cur = self.db.cursor()
 		query = """SELECT page_namespace, COUNT(*) AS total, SUM(page_is_redirect) AS redirect FROM page
@@ -55,7 +57,7 @@ class Reports:
 				   LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
 				   GROUP BY rev_page
 				   ORDER BY revisions DESC
-				   LIMIT 20"""
+				   LIMIT 1000"""
 		cur.execute( query )
 
 		content = []
@@ -65,26 +67,6 @@ class Reports:
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'Pages with most revisions', text )
-
-
-	# Blank pages with a single author
-	def blank_pages( self ):
-		cur = self.db.cursor()
-		query = """SELECT p.page_title, p.page_len, p.page_latest, p.page_namespace, r.authors FROM page p
-				   LEFT JOIN ( SELECT rev_page, COUNT(DISTINCT rev_user_text) AS authors FROM revision
-				   GROUP BY rev_page ) r ON r.rev_page = p.page_latest
-				   WHERE p.page_len = 0
-				   HAVING r.authors = 1"""
-		cur.execute( query )
-
-		content = []
-		content.append( ['blankpages-title'] )
-		for row in cur.fetchall():
-			if row[3] != 6 and row[3] != 7:
-				content.append( [ '[[{{subst:ns:' + str( row[3] ) + '}}:' + row[0] + ']]' ] )
-
-		text = display_report( self.wiki, content , 'blankpages-desc' )
-		self.publish_report( 'Blank pages', text )
 
 
 	''' Publish report on page with given title, with the given content
