@@ -27,7 +27,7 @@ class Reports:
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
-			content.append( [ '[[' + row[0] + ']]', datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
+			content.append( [ self.linkify(row[0]), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )
@@ -64,7 +64,7 @@ class Reports:
 		content = []
 		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
 		for row in cur.fetchall():
-			content.append( [ row[2], '[[' + str( row[3] ) + ']]', row[0] ])
+			content.append( [ row[2], self.linkify(row[3]), row[0] ])
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'Pages with the most revisions', text )
@@ -86,12 +86,10 @@ class Reports:
 		content = []
 		content.append( ['autopatrol-username', 'autopatrol-articles'] )
 		for row in cur.fetchall():
-			content.append( [ '[[User:' + str(row[2]) + '|' +  str(row[2]) + ']]', str(row[0]) ] )
+			content.append( [ self.userify(name), row[0] ] )
 
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
 		self.publish_report( 'Editors eligible for Autopatrol privilege', text )
-
-
 
 
 	''' Publish report on page with given title, with the given content
@@ -103,6 +101,13 @@ class Reports:
 		page.save( content, summary = 'bot test edit' )
 
 
+	def linkify( self, title ):
+		title = str( title )
+		title_clean = title.replace( '_', ' ' )
+		return '[[' + title + ' | ' + title_clean + ']]'
 
 
+	def userify( self, name ):
+		name = str(name)
+		return '[[User:' + name + ' | ' + name + ']]'
 
