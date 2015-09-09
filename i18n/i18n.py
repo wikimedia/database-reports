@@ -20,6 +20,10 @@ lang_dicts = {
 
 	    "blankpages-desc": "Blank pages with a single author",
 	    "blankpages-title": "Page",
+
+	    "autopatrol-desc": "Below is a list of editors who are eligible for the autopatrol privilege and don't have it yet."
+	    "autopatrol-username": "Username",
+	    "autopatrol-articles": "Number of articles created",
 	},
 
 	'esdict' : {

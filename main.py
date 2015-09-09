@@ -38,7 +38,10 @@ class Run:
 	def blank_pages(self):
 		self.rep.blank_pages()
 
-	
+	def autopatrol_eligibles(self):
+		self.rep.autopatrol_eligibles()
+
+
 
 if __name__ == '__main__':
 	main(sys.argv)

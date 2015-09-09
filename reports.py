@@ -17,8 +17,8 @@ class Reports:
 		cur = self.db.cursor()
 		query = """SELECT p.page_title, p.page_namespace, p.page_is_redirect, p.page_touched, r.editcount FROM page p
 				   LEFT JOIN ( SELECT COUNT(*) AS editcount, rev_page FROM revision GROUP BY rev_page ) r ON r.rev_page = p.page_id
-				   LEFT JOIN page_props pp on p.page_id = pp.pp_page and pp.pp_propname = 'disambiguation'
-				   WHERE page_is_redirect = 0 AND page_namespace = 0 AND pp.pp_page is NULL
+				   WHERE page_is_redirect = 0 AND page_namespace = 0
+				   AND p.page_id NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
 				   ORDER BY page_touched 
 				   LIMIT 500"""
 		cur.execute( query )
@@ -67,7 +67,30 @@ class Reports:
 			content.append( [ row[2], '[[' + str( row[3] ) + ']]', row[0] ])
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
-		self.publish_report( 'Pages with most revisions', text )
+		self.publish_report( 'Pages with the most revisions', text )
+
+
+	# Editors eligible for autopatrol privileges
+	def autopatrol_eligibles( self ):
+		cur = self.db.cursor()
+		query = """SELECT COUNT(*) AS creations, rev_user, u.user_name FROM revision r
+				   LEFT JOIN (SELECT user_name, user_id FROM user) u ON u.user_id = r.rev_user
+				   WHERE rev_parent_id = 0
+				   AND rev_page NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
+				   AND rev_user NOT IN ( SELECT DISTINCT ug_user FROM user_groups WHERE ug_group IN ('bot', 'autoreviewer', 'bureaucrat', 'sysop') )
+				   GROUP BY rev_user
+				   HAVING COUNT(*) > 25;"""
+		cur.execute( query )
+
+		content = []
+		content.append( ['autopatrol-username', 'autopatrol-articles'] )
+		for row in cur.fetchall():
+			content.append( [ '[[User:' + str(row[2]) + '|' +  str(row[2]) + ']]', str(row[0]) ] )
+
+		text = display_report( self.wiki, content , 'autopatrol-desc' )
+		self.publish_report( 'Editors eligible for Autopatrol privilege', text )
+
+
 
 
 	''' Publish report on page with given title, with the given content
