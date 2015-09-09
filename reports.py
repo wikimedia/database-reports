@@ -79,7 +79,8 @@ class Reports:
 				   AND rev_page NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
 				   AND rev_user NOT IN ( SELECT DISTINCT ug_user FROM user_groups WHERE ug_group IN ('bot', 'autoreviewer', 'bureaucrat', 'sysop') )
 				   GROUP BY rev_user
-				   HAVING COUNT(*) > 25;"""
+				   HAVING COUNT(*) > 25
+				   ORDER BY creations DESC"""
 		cur.execute( query )
 
 		content = []
