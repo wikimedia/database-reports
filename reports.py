@@ -80,13 +80,14 @@ class Reports:
 				   AND rev_user NOT IN ( SELECT DISTINCT ug_user FROM user_groups WHERE ug_group IN ('bot', 'autoreviewer', 'bureaucrat', 'sysop') )
 				   GROUP BY rev_user
 				   HAVING COUNT(*) > 25
-				   ORDER BY creations DESC"""
+				   ORDER BY creations DESC
+				   LIMIT 500"""
 		cur.execute( query )
 
 		content = []
 		content.append( ['autopatrol-username', 'autopatrol-articles'] )
 		for row in cur.fetchall():
-			content.append( [ self.userify(name), row[0] ] )
+			content.append( [ self.userify(row[2]), row[0] ] )
 
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
 		self.publish_report( 'Editors eligible for Autopatrol privilege', text )
