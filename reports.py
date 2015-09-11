@@ -105,7 +105,7 @@ class Reports:
 	def linkify( self, title ):
 		title = str( title )
 		title_clean = title.replace( '_', ' ' )
-		return '[[' + title + ' | ' + title_clean + ']]'
+		return '[[' + title_clean + ']]'
 
 
 	def userify( self, name ):
