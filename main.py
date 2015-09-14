@@ -22,14 +22,11 @@ class Run:
 		self.site = mwclient.Site( wiki + '.wikipedia.org' )
 		self.site.login( cttbot['user'], cttbot['pass'] )
 		self.rep = Reports( self.site, self.db, 'en' )
-		print 'initiated'
 
 	def forgotten_articles(self):
-		print 'okay'
 		self.rep.forgotten_articles()
 
 	def pagecountbynamespace(self):
-		print 'Still okay'
 		self.rep.page_count_by_namespace()
 
 	def pages_with_most_revisions(self):

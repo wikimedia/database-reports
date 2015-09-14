@@ -64,7 +64,7 @@ class Reports:
 		content = []
 		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
 		for row in cur.fetchall():
-			content.append( [ row[2], self.linkify(row[3]), row[0] ])
+			content.append( [ row[2], self.linkify( row[3], row[2] ), row[0] ])
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'Pages with the most revisions', text )
@@ -102,10 +102,13 @@ class Reports:
 		page.save( content, summary = 'bot test edit' )
 
 
-	def linkify( self, title ):
+	def linkify( self, title, namespace = NULL ):
 		title = str( title )
 		title_clean = title.replace( '_', ' ' )
-		return '[[' + title_clean + ']]'
+		if namespace is null:
+			return '[[' + title_clean + ']]'
+		else:
+			return '[[{{subst:ns:%s}}:%s]]' % (namespace, title_clean)
 
 
 	def userify( self, name ):
