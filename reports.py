@@ -88,6 +88,8 @@ class Reports:
 		content = []
 		content.append( ['autopatrol-username', 'autopatrol-articles'] )
 		for row in cur.fetchall():
+			if row[2] is None:
+				continue
 			content.append( [ self.userify(row[2]), row[0] ] )
 
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
