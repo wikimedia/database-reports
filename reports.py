@@ -109,11 +109,11 @@ class Reports:
 		cur.execute( query )
 
 		content = []
-		content.append( ['tpbs-namespace', 'tpbs:page', 'tpbs-size'] )
+		content.append( ['tpbs-namespace', 'tpbs-page', 'tpbs-size'] )
 		for row in cur.fetchall():
 			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ] )
 
-		text = display_report( self.wiki, content , 'tpbs-desc' )
+		text = display_report( self.wiki, content, 'tpbs-desc' )
 		self.publish_report( 'Talk pages by size', text )
 
 
