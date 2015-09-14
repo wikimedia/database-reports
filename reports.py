@@ -102,10 +102,10 @@ class Reports:
 		page.save( content, summary = 'bot test edit' )
 
 
-	def linkify( self, title, namespace = NULL ):
+	def linkify( self, title, namespace = None ):
 		title = str( title )
 		title_clean = title.replace( '_', ' ' )
-		if namespace is null:
+		if namespace is None:
 			return '[[' + title_clean + ']]'
 		else:
 			return '[[{{subst:ns:%s}}:%s]]' % (namespace, title_clean)
