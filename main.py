@@ -39,7 +39,7 @@ class Run:
 		self.rep.autopatrol_eligibles()
 
 	def talk_pages_by_size(self):
-		self.talk_pages_by_size()
+		self.rep.talk_pages_by_size()
 
 
 
