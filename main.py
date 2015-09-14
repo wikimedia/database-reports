@@ -38,6 +38,9 @@ class Run:
 	def autopatrol_eligibles(self):
 		self.rep.autopatrol_eligibles()
 
+	def talk_pages_by_size(self):
+		self.talk_pages_by_size()
+
 
 
 if __name__ == '__main__':

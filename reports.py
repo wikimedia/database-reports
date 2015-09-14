@@ -96,6 +96,27 @@ class Reports:
 		self.publish_report( 'Editors eligible for Autopatrol privilege', text )
 
 
+	def talk_pages_by_size( self ):
+		cur = self.db.cursor()
+		query = """SELECT page_namespace,
+				   REPLACE( SUBSTRING_INDEX(page_title, '/', 1 ), '_', ' ' ) AS parent,
+				   SUM( page_len ) / 1024 / 1024 AS total_size
+				   FROM page
+				   WHERE page_namespace MOD 2 = 1
+				   GROUP BY page_namespace, parent
+				   ORDER BY page_namespace, total_size DESC
+				   LIMIT 300"""
+		cur.execute( query )
+
+		content = []
+		content.append( ['tpbs-namespace', 'tpbs:page', 'tpbs-size'] )
+		for row in cur.fetchall():
+			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ] )
+
+		text = display_report( self.wiki, content , 'tpbs-desc' )
+		self.publish_report( 'Talk pages by size', text )
+
+
 	''' Publish report on page with given title, with the given content
 		@param title Page title
 		@param content Content to be displayed on page

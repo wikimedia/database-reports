@@ -24,6 +24,11 @@ lang_dicts = {
 	    "autopatrol-desc": "Below is a list of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
 	    "autopatrol-username": "Username",
 	    "autopatrol-articles": "Number of articles created",
+
+	    "tpbs-desc": "Ranked tally of the total size of a given talk page, including all its subpages (e.g. archival subpages for a user talk page, individual WP:RFAs, etc.), to provide statistics on very active discussion pages.",
+	    "tpbs-namespace": "Namespace",
+	    "tpbs-size": "Size (in MB)",
+	    "tpbs-page": "Page",
 	},
 
 	'esdict' : {
