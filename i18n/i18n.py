@@ -1,9 +1,9 @@
 lang_dicts = {
 
 	'endict' : {
-	    "forgotten-articles-desc": "List of non-disambiguation, non-redirect oldest 1000 articles.",
+	    "forgotten-articles-desc": "List of non-disambiguation, non-redirect oldest 1000 articles. The 'Last Touched' timestamp is updated whenever the corresponding page changes in a way requiring it to be re-rendered, invalidating caches. Aside from editing this, it includes permission changes, creation or deletion of linked pages, and alteration of contained templates.",
 	    "forgotten-articles-title": "Title",
-	    "forgotten-articles-last-edited": "Last edited",
+	    "forgotten-articles-last-edited": "Last touched",
 	    "forgotten-articles-editcount": "Number of edits",
 
 	    "pagecount-desc": "The number of pages in each [https://en.wikipedia.org/wiki/Wikipedia:Namespace namespace].",
