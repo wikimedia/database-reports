@@ -104,7 +104,7 @@ class Reports:
 				   FROM page
 				   WHERE page_namespace MOD 2 = 1
 				   GROUP BY page_namespace, parent
-				   ORDER BY page_namespace, total_size DESC
+				   ORDER BY total_size DESC
 				   LIMIT 300"""
 		cur.execute( query )
 
