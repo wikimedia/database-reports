@@ -77,7 +77,7 @@ class Reports:
 				   LEFT JOIN ( SELECT user_name, user_id FROM user ) u ON u.user_id = r.rev_user
 				   WHERE rev_parent_id = 0
 				   AND rev_page NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
-				   AND rev_page IN ( SELECT page_id FROM page WHERE page_namespace = 0 )
+				   AND rev_page IN ( SELECT page_id FROM page WHERE page_namespace = 0 OR page_is_redirect = 1 )
 				   AND rev_user NOT IN ( SELECT DISTINCT ug_user FROM user_groups WHERE ug_group IN ('bot', 'autoreviewer', 'bureaucrat', 'sysop') )
 				   GROUP BY rev_user
 				   HAVING COUNT(*) > 25
