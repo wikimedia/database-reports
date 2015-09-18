@@ -24,7 +24,7 @@ def query( wiki, db ):
 	list1 = set()
 
 	for n in namespaces:
-		placeholder = '?' # http://stackoverflow.com/questions/283645/python-list-in-sql-query-as-parameter
+		placeholder = '%s' # http://stackoverflow.com/questions/283645/python-list-in-sql-query-as-parameter
 		placeholders = ', '.join(placeholder for unused in n)
 		q = """SELECT rc_user, rc_user_text, SUM(CASE WHEN rc_namespace IN (%s) THEN 1 ELSE 0 END) AS hits
 			   FROM recentchanges
