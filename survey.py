@@ -4,7 +4,7 @@ from config import *
 
 def main():
 
-	wikis = ['ar', 'ru']
+	wikis = ['ar', 'ru', 'en', 'fr', 'ja', 'de', 'commons', 'es', 'zh', 'pt']
 	f1 = open( 'result.txt', 'w' )
 	
 	for wiki in wikis:
@@ -13,7 +13,7 @@ def main():
 		res = random.sample( res, 100 )
 		f1.write( wiki + '\n' )
 		for r in res:
-			f1.write( r )
+			f1.write( r + '\n' )
 		f1.write( '\n\n' )
 
 
