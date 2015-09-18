@@ -1,17 +1,20 @@
 import MySQLdb
+import random
 from config import *
 
 def main():
+
 	wikis = ['ar', 'ru']
 	f1 = open( 'result.txt', 'w' )
-	result( wikis )
-
-
-def result( wikis ):
+	
 	for wiki in wikis:
 		db = MySQLdb.connect( host = wiki + 'wiki.labsdb', user = credentials['user'], passwd = credentials['pass'], db = wiki + 'wiki_p' )
-		
-		query( wiki, db )
+		res = query( wiki, db )
+		res = random.sample( res, 100 )
+		f1.write( wiki + '\n' )
+		for r in res:
+			f1.write( r )
+		f1.write( '\n\n' )
 
 
 def query( wiki, db ):
@@ -39,6 +42,7 @@ def query( wiki, db ):
 			list1.add( row[1] )
 
 	print len(list1)
+	return list1
 
 
 
