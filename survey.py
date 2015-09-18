@@ -2,7 +2,7 @@ import MySQLdb
 from config import *
 
 def main():
-	wikis = ['test']
+	wikis = ['ar', 'ru']
 	f1 = open( 'result.txt', 'w' )
 	result( wikis )
 
