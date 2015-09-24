@@ -123,7 +123,7 @@ class Reports:
 	'''
 	def publish_report( self, title, content ):
 		page = self.site.Pages[ 'Wikipedia:Database reports/' + str( title ) ]
-		page.save( content, summary = 'bot test edit' )
+		page.save( content, summary = 'Updating report' )
 
 
 	def linkify( self, title, namespace = None ):
