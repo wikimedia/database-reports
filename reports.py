@@ -150,7 +150,7 @@ class Reports:
 		@param content Content to be displayed on page
 	'''
 	def publish_report( self, title, content ):
-		page = self.site.Pages[ 'User:NiharikaKohli/Database reports/' + str( title ) ]
+		page = self.site.Pages[ 'Wikipedia:Database reports/' + str( title ) ]
 		page.save( content, summary = 'Updating report' )
 
 
