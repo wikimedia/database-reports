@@ -29,6 +29,9 @@ lang_dicts = {
 		"tpbs-namespace": "Namespace",
 		"tpbs-size": "Size (in MB)",
 		"tpbs-page": "Page",
+
+		"ufr-desc": "List of file redirects with at most one incoming link, limited to top 500 results.",
+		"ufr-page": "Page",
 	},
 
 	'esdict' : {

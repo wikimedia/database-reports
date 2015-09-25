@@ -41,6 +41,9 @@ class Run:
 	def talk_pages_by_size(self):
 		self.rep.talk_pages_by_size()
 
+	def unused_file_redirects(self):
+		self.rep.unused_file_redirects()
+
 
 
 if __name__ == '__main__':

@@ -27,7 +27,7 @@ class Reports:
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
-			content.append( [ self.linkify(row[0]), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
+			content.append( [ self.linkify( row[0] ), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )
@@ -115,6 +115,34 @@ class Reports:
 
 		text = display_report( self.wiki, content, 'tpbs-desc' )
 		self.publish_report( 'Talk pages by size', text )
+
+
+	def unused_file_redirects( self ):
+		cur = self.db.cursor()
+		query = """SELECT page_title,
+				   (	SELECT COUNT(*)
+						FROM imagelinks
+						WHERE il_to = page_title
+				   ) AS imagelinks,
+				   (	SELECT COUNT(*)
+						FROM pagelinks
+						WHERE pl_namespace = 6
+						AND pl_title = page_title
+				   ) AS links
+				   FROM page
+				   WHERE page_namespace = 6
+				   AND page_is_redirect = 1
+				   HAVING imagelinks + links <= 1
+				   LIMIT 500"""
+		cur.execute( query )
+
+		content = []
+		content.append( ['ufr-page'] )
+		for row in cur.fetchall():
+			content.append( [ self.linkify( row[0] ) ] )
+
+		text = display_report( self.wiki, content, 'ufr-desc' )
+		self.publish_report()
 
 
 	''' Publish report on page with given title, with the given content

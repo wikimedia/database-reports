@@ -13,7 +13,7 @@ def display_report( wiki, content, desc ):
 	dict_obj = i18n.lang_dicts[ str( wiki + 'dict') ]
 
 	wikitext = dict_obj[ str( desc ) ] + ' -- [[User:Community Tech bot|Community Tech bot]] ([[User talk:Community Tech bot|talk]]) <onlyinclude>~~~~~</onlyinclude> \n'
-	wikitext = wikitext + '{| class="wikitable sortable" style="width:100%; margin:auto;" \n |- \n'
+	wikitext = wikitext + '{| class="wikitable sortable" \n |- \n'
 	collen = len( content[0] )
 	rowlen = len( content )
 
