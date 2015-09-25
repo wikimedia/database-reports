@@ -133,7 +133,7 @@ class Reports:
 				   WHERE page_namespace = 6
 				   AND page_is_redirect = 1
 				   HAVING imagelinks + links <= 1
-				   LIMIT 500"""
+				   """
 		cur.execute( query )
 
 		content = []
