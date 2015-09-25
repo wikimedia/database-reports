@@ -139,7 +139,7 @@ class Reports:
 		content = []
 		content.append( ['ufr-page'] )
 		for row in cur.fetchall():
-			content.append( [ self.linkify( row[0] ) ] )
+			content.append( [ self.linkify( row[0], 6 ) ] )
 
 		text = display_report( self.wiki, content, 'ufr-desc' )
 		self.publish_report( 'Unused file redirects', text )
