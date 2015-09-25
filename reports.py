@@ -150,7 +150,7 @@ class Reports:
 		@param content Content to be displayed on page
 	'''
 	def publish_report( self, title, content ):
-		page = self.site.Pages[ 'User:Niharika/Database reports/' + str( title ) ]
+		page = self.site.Pages[ 'User:NiharikaKohli/Database reports/' + str( title ) ]
 		page.save( content, summary = 'Updating report' )
 
 
@@ -159,6 +159,8 @@ class Reports:
 		title_clean = title.replace( '_', ' ' )
 		if namespace is None:
 			return '[[' + title_clean + ']]'
+		elif namespace is 6:
+			return '[[:{{subst:ns:%s}}:%s]]' % (namespace, title_clean)
 		else:
 			return '[[{{subst:ns:%s}}:%s]]' % (namespace, title_clean)
 
