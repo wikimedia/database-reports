@@ -142,7 +142,7 @@ class Reports:
 			content.append( [ self.linkify( row[0] ) ] )
 
 		text = display_report( self.wiki, content, 'ufr-desc' )
-		self.publish_report()
+		self.publish_report( 'Unused file redirects', text )
 
 
 	''' Publish report on page with given title, with the given content
