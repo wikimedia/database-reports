@@ -137,9 +137,9 @@ class Reports:
 		cur.execute( query )
 
 		content = []
-		content.append( ['ufr-page'] )
+		content.append( ['ufr-page', 'ufr-imagelinks', 'ufr-links'] )
 		for row in cur.fetchall():
-			content.append( [ self.linkify( row[0], 6 ) ] )
+			content.append( [ self.linkify( row[0], 6 ), row[1], row[2] ] )
 
 		text = display_report( self.wiki, content, 'ufr-desc' )
 		self.publish_report( 'Unused file redirects', text )
