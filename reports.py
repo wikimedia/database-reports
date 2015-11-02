@@ -1,5 +1,6 @@
 import mwclient
 import MySQLdb
+from i18n import i18n
 import datetime
 from displayTable import *
 
@@ -19,7 +20,7 @@ class Reports:
 				   LEFT JOIN ( SELECT COUNT(*) AS editcount, rev_page FROM revision GROUP BY rev_page ) r ON r.rev_page = p.page_id
 				   WHERE page_is_redirect = 0 AND page_namespace = 0
 				   AND p.page_id NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
-				   ORDER BY page_touched 
+				   ORDER BY page_touched
 				   LIMIT 500"""
 		cur.execute( query )
 
@@ -31,7 +32,7 @@ class Reports:
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )
-		self.publish_report( 'Forgotten articles', text )
+		self.publish_report( 'forgotten-articles-page-title', text )
 
 
 	# Page count by namespace
@@ -48,7 +49,7 @@ class Reports:
 			content.append( [ row[0], '{{subst:ns:' + str( row[0] ) + '}}', row[1], row[2], row[1]-row[2] ])
 
 		text = display_report( self.wiki, content , 'pagecount-desc' )
-		self.publish_report( 'Page count by namespace', text )
+		self.publish_report( 'pagecount-page-title', text )
 
 
 	# Pages with most revisions
@@ -67,7 +68,7 @@ class Reports:
 			content.append( [ row[2], self.linkify( row[3], row[2] ), row[0] ])
 
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
-		self.publish_report( 'Pages with the most revisions', text )
+		self.publish_report( 'pagerevisions-page-title', text )
 
 
 	# Editors eligible for autopatrol privileges
@@ -93,7 +94,7 @@ class Reports:
 			content.append( [ self.userify(row[2]), row[0] ] )
 
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
-		self.publish_report( 'Editors eligible for Autopatrol privilege', text )
+		self.publish_report( 'autopatrol-page-title', text )
 
 
 	def talk_pages_by_size( self ):
@@ -114,7 +115,7 @@ class Reports:
 			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ] )
 
 		text = display_report( self.wiki, content, 'tpbs-desc' )
-		self.publish_report( 'Talk pages by size', text )
+		self.publish_report( 'tpbs-page-title', text )
 
 
 	def unused_file_redirects( self ):
@@ -142,7 +143,7 @@ class Reports:
 			content.append( [ self.linkify( row[0], 6 ), row[1], row[2] ] )
 
 		text = display_report( self.wiki, content, 'ufr-desc' )
-		self.publish_report( 'Unused file redirects', text )
+		self.publish_report( 'ufr-page-title', text )
 
 
 	''' Publish report on page with given title, with the given content
@@ -150,7 +151,10 @@ class Reports:
 		@param content Content to be displayed on page
 	'''
 	def publish_report( self, title, content ):
-		page = self.site.Pages[ 'Wikipedia:Database reports/' + str( title ) ]
+		dict_obj = i18n.lang_dicts[ str( self.wiki + 'dict') ]
+		reports_base_url = dict_obj[ str( 'reports_base_url' ) ]
+		report_title = dict_obj[ str( title ) ]
+		page = self.site.Pages[ reports_base_url + str( title ) ]
 		page.save( content, summary = 'Updating report' )
 
 
@@ -160,12 +164,12 @@ class Reports:
 		if namespace is None:
 			return '[[' + title_clean + ']]'
 		elif namespace is 6:
-			return '[[:{{subst:ns:%s}}:%s]]' % (namespace, title_clean)
+			return '[[:{{subst:ns:%s}}:%s]]' % ( namespace, title_clean )
 		else:
-			return '[[{{subst:ns:%s}}:%s]]' % (namespace, title_clean)
+			return '[[{{subst:ns:%s}}:%s]]' % ( namespace, title_clean )
 
 
 	def userify( self, name ):
-		name = str(name)
+		name = str( name )
 		return '[[User:' + name + ' | ' + name + ']]'
 
