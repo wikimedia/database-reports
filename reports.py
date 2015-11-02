@@ -154,6 +154,7 @@ class Reports:
 		dict_obj = i18n.lang_dicts[ str( self.wiki + 'dict') ]
 		reports_base_url = dict_obj[ str( 'reports_base_url' ) ]
 		report_title = dict_obj[ str( title ) ]
+		print str( reports_base_url + report_title )
 		page = self.site.Pages[ reports_base_url + report_title ]
 		page.save( content, summary = 'Updating report' )
 
