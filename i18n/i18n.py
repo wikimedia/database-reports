@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 lang_dicts = {
 
 	'endict' : {
@@ -65,7 +68,7 @@ lang_dicts = {
 	},
 
 	'testdict': {
-		"reports_base_url": "Wikipedia/Database reports/",
+		"reports_base_url": "Wikipedia:Database reports/",
 		"forgotten-articles-page-title": "Forgotten articles - test", # The page title where report is published
 		"forgotten-articles-desc": "List of 1000 articles that have not been touched in the longest time (excluding redirects and disambiguation pages). Articles are 'touched' by any action that invalidates their cache. This includes editing, permission changes, creation or deletion of linked pages, and alteration of transcluded templates.",
 		"forgotten-articles-title": "Title - test",
