@@ -184,6 +184,46 @@ class Reports:
 		self.publish_report( 'ufr-page-title', text )
 
 
+        def oldest_active( self ):
+                cur = self.db.cursor()
+                query = """SELECT SQL_SMALL_RESULT
+                                CONCAT(
+                                        '[[User:',user_name,'|',user_name,']]'
+                                ) AS user_name
+                                ,user_registration
+                                ,user_editcount
+                        FROM
+                            (
+                                SELECT  user_name,user_registration,user_editcount
+                                FROM    user
+                                WHERE   user_name IN
+                                (
+                                        SELECT DISTINCT rc_user_text
+                                        FROM    recentchanges
+                                        WHERE   rc_timestamp>date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S')
+                                        AND     rc_user_text NOT REGEXP '^[0-9]{1,3}\\.[0-9]'
+                                        AND     rc_user_text NOT REGEXP '\\:.+\\:'
+                                )
+                                AND user_registration IS NOT NULL
+                                ORDER BY user_id
+                                LIMIT 250
+                          ) AS InnerQuery
+                        ORDER BY user_registration
+                        LIMIT 200"""
+                cur.execute( query )
+
+                content = []
+                content.append( ['oldestactive-username', 'oldestactive-creationdate', 'oldestactive-editcount'] )
+                for row in cur.fetchall():
+                        content.append( [ row[0], row[1] , row[2] ] );
+
+                text = display_report( self.wiki, content, 'oldestactive-desc' )
+                self.publish_report( 'oldestactive-page-title', text )
+
+
+
+
+
 	''' Publish report on page with given title, with the given content
 		@param title Page title
 		@param content Content to be displayed on page

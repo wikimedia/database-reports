@@ -43,6 +43,12 @@ lang_dicts = {
 		"ufr-page": "Page",
 		"ufr-imagelinks": "Image Links",
 		"ufr-links": "Links",
+
+		"oldestactive-page-title": "Active editors with the longest-established accounts",
+		"oldestactive-desc": "The 200 earliest-created editor accounts that have been active in the last thirty days.",
+		"oldestactive-username": "Username",
+		"oldestactive-creationdate": "Date created",
+		"oldestactive-editcount": "Approx. edit count",
 	},
 
 	'esdict' : {
@@ -75,11 +81,19 @@ lang_dicts = {
 		"forgotten-articles-title": "Title - test",
 		"forgotten-articles-last-edited": "Last touched",
 		"forgotten-articles-editcount": "Number of edits",
+
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
 		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
 		"autopatrol-username": "Username",
 		"autopatrol-listlink": " ",
 		"autopatrol-articles": "Article count",
+
+		"oldestactive-page-title": "Active editors with the longest-established accounts",
+		"oldestactive-desc": "The 200 earliest-created editor accounts that have been active in the last thirty days.",
+		"oldestactive-username": "Username",
+		"oldestactive-creationdate": "Date created",
+		"oldestactive-editcount": "Approx. edit count",
+
 
 	}
 
