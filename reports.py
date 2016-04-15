@@ -79,12 +79,13 @@ class Reports:
 		query = """ SELECT
 				/* "editor" consisting of user_name, wrapped in HTML tags linking to the sigma "created" tool */
 				CONCAT (
-					'<a href="https://tools.wmflabs.org/sigma/created.py?name=',
-					user_name,
-					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted">',
-					user_name,
-					'</a>'
+                                        '[[User:',user_name,'|',user_name,']]'
 				 ) AS editor,
+				CONCAT (
+                                        '[https://tools.wmflabs.org/sigma/created.py?name=',
+					REPLACE(user_name,' ','_'),
+					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted (list)]'
+				 ) AS listlink,
 				/* derived column "created count" returned by this subquery */
 				(
 					SELECT count(*)
@@ -124,11 +125,11 @@ class Reports:
 		cur.execute( query )
 
 		content = []
-		content.append( ['autopatrol-username', 'autopatrol-articles'] )
+		content.append( ['autopatrol-username', 'autopatrol-listlink', 'autopatrol-articles'] )
 		for row in cur.fetchall():
-			if row[2] is None:
+			if row[1] is None:
 				continue
-			content.append( [ self.userify(row[2]), row[0] ] )
+			content.append( [  row[0], row[1], row[2] ] )
 
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
 		self.publish_report( 'autopatrol-page-title', text )

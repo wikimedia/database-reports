@@ -27,9 +27,10 @@ lang_dicts = {
 		"pagerevisions-revisions": "Revisions",
 
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
-		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created. Author: Andrew Crawford (User:thparkth) <acrawford@laetabilis.com>",
+		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
 		"autopatrol-username": "Username",
-		"autopatrol-articles": "Number of articles created",
+		"autopatrol-listlink": " ",
+		"autopatrol-articles": "Article count",
 
 		"tpbs-page-title": "Talk pages by size",
 		"tpbs-desc": "Talk pages ranked by total size, including all subpages (e.g. archival subpages, individual WP:RFAs, etc.), to provide statistics on very active discussion pages.",
@@ -74,6 +75,12 @@ lang_dicts = {
 		"forgotten-articles-title": "Title - test",
 		"forgotten-articles-last-edited": "Last touched",
 		"forgotten-articles-editcount": "Number of edits",
+		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
+		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
+		"autopatrol-username": "Username",
+		"autopatrol-listlink": " ",
+		"autopatrol-articles": "Article count",
+
 	}
 
 }
