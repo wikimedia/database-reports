@@ -72,18 +72,55 @@ class Reports:
 
 
 	# Editors eligible for autopatrol privileges
+	# Identify users who meet the criteria for being granted "autopatrolled" on the English Wikipedia but who don't already have it.
+	# Author: Andrew Crawford (thparkth) <acrawford@laetabilis.com>
 	def autopatrol_eligibles( self ):
 		cur = self.db.cursor()
-		query = """SELECT COUNT(*) AS creations, rev_user, u.user_name FROM revision r
-				   LEFT JOIN ( SELECT user_name, user_id FROM user ) u ON u.user_id = r.rev_user
-				   WHERE rev_parent_id = 0
-				   AND rev_page NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
-				   AND rev_page IN ( SELECT page_id FROM page WHERE page_namespace = 0 OR page_is_redirect = 1 )
-				   AND rev_user NOT IN ( SELECT DISTINCT ug_user FROM user_groups WHERE ug_group IN ('bot', 'autoreviewer', 'bureaucrat', 'sysop') )
-				   GROUP BY rev_user
-				   HAVING COUNT(*) > 25
-				   ORDER BY creations DESC
-				   LIMIT 500"""
+		query = """ SELECT
+				/* "editor" consisting of user_name, wrapped in HTML tags linking to the sigma "created" tool */
+				CONCAT (
+					'<a href="https://tools.wmflabs.org/sigma/created.py?name=',
+					user_name,
+					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted">',
+					user_name,
+					'</a>'
+				 ) AS editor,
+				/* derived column "created count" returned by this subquery */
+				(
+					SELECT count(*)
+					FROM revision_userindex
+					LEFT JOIN page ON page_id = rev_page
+					WHERE page_namespace = 0 AND rev_parent_id = 0 AND rev_user_text = user_name AND rev_deleted = 0 AND page_is_redirect = 0
+				) AS created_count
+				FROM
+				(
+					/* This query returns users who have created pages in the last 30 days and who are not already members of autoreviewed */
+					SELECT DISTINCT user_name
+					FROM recentchanges
+					LEFT JOIN user
+					ON rc_user = user_id
+					LEFT JOIN page
+					ON rc_cur_id=page_id
+					WHERE
+							/* User created a page within the last thirty days */
+							rc_timestamp > date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S') AND
+							/* It was an article */
+							rc_namespace = 0 AND
+							/* The user was human */
+							rc_bot = 0 AND
+							/* It was a new page */
+							rc_new = 1 AND
+							/* It's not a redirect */
+							page_is_redirect = 0 AND
+							/* User doesn't already have autoreviewer */
+							NOT EXISTS
+							(
+								SELECT 1 FROM user_groups WHERE ug_user=user_id AND ( ug_group='autoreviewer' OR ug_group='sysop' )
+							)
+				) as InnerQuery
+				HAVING created_count > 24
+				ORDER BY created_count DESC
+				LIMIT 500"""
 		cur.execute( query )
 
 		content = []

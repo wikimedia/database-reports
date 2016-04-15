@@ -27,7 +27,7 @@ lang_dicts = {
 		"pagerevisions-revisions": "Revisions",
 
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
-		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
+		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created. Author: Andrew Crawford (User:thparkth) <acrawford@laetabilis.com>",
 		"autopatrol-username": "Username",
 		"autopatrol-articles": "Number of articles created",
 
@@ -61,7 +61,7 @@ lang_dicts = {
 		"reports_base_url": "Benutzer:Kopiersperre/",
 
 		"forgotten-articles-page-title": "Vergessene Artikel",
-		"forgotten-articles-desc": "Diese Liste enthält die 1000 Artikel, die am längsten nicht mehr bearbeitet wurde. AlsBearbeitung zählt hierbei jede Aktion, die zu einer Aktualisierung des Seitencache führt, also neben Textbearbeitungen auch Seitensperrungen oder Änderungen an eingebundenen Vorlage.",
+		"forgotten-articles-desc": "Diese Liste enthält die 1000 Artikel, die am längsten nicht mehr bearbeitet wurde. Als Bearbeitung zählt hierbei jede Aktion, die zu einer Aktualisierung des Felds <code>page_touched</code> in der Datenbank führt, also neben Textbearbeitungen auch Seitensperrungen oder Änderungen an eingebundenen Vorlage. Für eine Liste der „wirklich“ am längsten nicht mehr von Menschen bearbeiten Artikel, siehe [[Benutzer:Merlissimo/LetzterEdit]].",
 		"forgotten-articles-title": "Artikel",
 		"forgotten-articles-last-edited": "Letzte Bearbeitung",
 		"forgotten-articles-editcount": "Bearbeitungen insgesamt",
