@@ -3,7 +3,7 @@ import MySQLdb
 from i18n import i18n
 import datetime
 from displayTable import *
-
+import re
 
 class Reports:
 	def __init__( self, site, db, wiki ):
@@ -16,19 +16,64 @@ class Reports:
 	def forgotten_articles( self ):
 		# Make the query
 		cur = self.db.cursor()
-		query = """SELECT p.page_title, p.page_namespace, p.page_is_redirect, p.page_touched, r.editcount FROM page p
-				   LEFT JOIN ( SELECT COUNT(*) AS editcount, rev_page FROM revision GROUP BY rev_page ) r ON r.rev_page = p.page_id
-				   WHERE page_is_redirect = 0 AND page_namespace = 0
-				   AND p.page_id NOT IN ( SELECT pp_page FROM page_props WHERE pp_propname = 'disambiguation' )
-				   ORDER BY page_touched
-				   LIMIT 500"""
+		query = """SELECT SQL_SMALL_RESULT
+                        MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
+                FROM
+                        revision,
+                        /******************************************************************************************************/
+                        /* This inner query returns the 500 pages with the earliest timestamps on their latest revisions      */
+                        (
+                        SELECT
+                                rev_timestamp as lastedit,page_id,page_title
+                        FROM
+                                page,revision
+                        WHERE
+                                page_id IN
+                                /**********************************************************************************************/
+                                /* This query returns the list of regular articles created earlier than page_id X             */
+                                (
+                                SELECT
+                                        page_id
+                                FROM
+                                        page
+                                WHERE
+                                        page_namespace = 0
+                                AND
+                                        page_is_redirect = 0
+                                AND
+                                        NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
+                                AND
+                                        /* Big hackerish heuristic cheat here! Ignore all pages newer than page_id X */
+                                        page_id < 21000000
+                                        /* Currently set to ignore articles created after Dec 2008 */
+                                        /* If less than 500 results appear in the final output, this needs to be re-baselined */
+                                )
+                                /**********************************************************************************************/
+                        AND
+                                rev_id=page_latest
+                        ORDER BY lastedit ASC
+                        LIMIT 500
+                        ) as InnerQuery
+                        /******************************************************************************************************/
+                WHERE
+                        rev_page=page_id
+                GROUP BY
+                        page_id
+                ORDER BY
+                        lastedit ASC"""
+
 		cur.execute( query )
 
 		# Extract the data into a Python nested list
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
-			content.append( [ self.linkify( row[0] ), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
+
+                        # A page name is being caught by the testwiki abuse filter - the following lets this run:
+                        if re.search('abuse_filter',row[2],re.IGNORECASE):
+                                continue
+
+			content.append( [ self.linkify( row[2] ), datetime.datetime.strptime( row[0],'%Y%m%d%H%M%S'), row[1] ] )
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'forgotten-articles-desc' )

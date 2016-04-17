@@ -7,9 +7,9 @@ lang_dicts = {
 		"reports_base_url": "Wikipedia:Database reports/", # The base URL for the report, preceding the page title
 
 		"forgotten-articles-page-title": "Forgotten articles", # The page title where report is published
-		"forgotten-articles-desc": "List of 1000 articles that have not been touched in the longest time (excluding redirects and disambiguation pages). Articles are 'touched' by any action that invalidates their cache. This includes editing, permission changes, creation or deletion of linked pages, and alteration of transcluded templates.",
+		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
 		"forgotten-articles-title": "Title",
-		"forgotten-articles-last-edited": "Last touched",
+		"forgotten-articles-last-edited": "Last edited",
 		"forgotten-articles-editcount": "Number of edits",
 
 		"pagecount-page-title": "Page count by namespace",
@@ -77,9 +77,9 @@ lang_dicts = {
 	'testdict': {
 		"reports_base_url": "Wikipedia:Database reports/",
 		"forgotten-articles-page-title": "Forgotten articles - test", # The page title where report is published
-		"forgotten-articles-desc": "List of 1000 articles that have not been touched in the longest time (excluding redirects and disambiguation pages). Articles are 'touched' by any action that invalidates their cache. This includes editing, permission changes, creation or deletion of linked pages, and alteration of transcluded templates.",
+		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
 		"forgotten-articles-title": "Title - test",
-		"forgotten-articles-last-edited": "Last touched",
+		"forgotten-articles-last-edited": "Last edited",
 		"forgotten-articles-editcount": "Number of edits",
 
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
