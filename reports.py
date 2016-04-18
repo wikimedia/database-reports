@@ -69,9 +69,9 @@ class Reports:
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
 
-						# A page name is being caught by the testwiki abuse filter - the following lets this run:
-						if re.search('abuse_filter',row[2],re.IGNORECASE):
-								continue
+			# A page name is being caught by the testwiki abuse filter - the following lets this run:
+			if re.search('abuse_filter',row[2],re.IGNORECASE):
+				continue
 
 			content.append( [ self.linkify( row[2] ), datetime.datetime.strptime( row[0],'%Y%m%d%H%M%S'), row[1] ] )
 
@@ -115,7 +115,6 @@ class Reports:
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'pagerevisions-page-title', text )
 
-
 	# Editors eligible for autopatrol privileges
 	# Identify users who meet the criteria for being granted "autopatrolled" on the English Wikipedia but who don't already have it.
 	# Author: Andrew Crawford (thparkth) <acrawford@laetabilis.com>
@@ -128,7 +127,7 @@ class Reports:
 				 ) AS editor,
 				CONCAT (
 					'[https://tools.wmflabs.org/sigma/created.py?name=',
-					user_name,
+					REPLACE(user_name," ","%20"),
 					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted (list)]'
 				 ) AS listlink,
 				/* derived column "created count" returned by this subquery */
