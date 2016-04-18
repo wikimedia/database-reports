@@ -49,6 +49,15 @@ lang_dicts = {
 		"oldestactive-username": "Username",
 		"oldestactive-creationdate": "Date created",
 		"oldestactive-editcount": "Approx. edit count",
+
+		"deletedprods-page-title": "PRODed articles with deletion logs",
+		"deletedprods-desc": "List of [[WP:PROD|PRODed]] articles that have previously been deleted. Limited to 500 articles.",
+		"deletedprods-title": "Article title",
+		"deletedprods-deletecount": "Delete count",
+		"deletedprods-firstdeltime": "First deletion",
+		"deletedprods-lastdeltime": "Last deletion",
+		"deletedprods-delcomments": "Deletion comments",
+
 	},
 
 	'esdict' : {
@@ -94,6 +103,13 @@ lang_dicts = {
 		"oldestactive-creationdate": "Date created",
 		"oldestactive-editcount": "Approx. edit count",
 
+		"deletedprods-page-title": "PRODed articles with deletion logs",
+		"deletedprods-desc": "Articles which are currently proposed for deletion which have previously been deleted..",
+		"deletedprods-title": "Article title",
+		"deletedprods-deletecount": "Delete count",
+		"deletedprods-firstdeltime": "First deletion",
+		"deletedprods-lastdeltime": "Last deletion",
+		"deletedprods-delcomments": "Deletion comments",
 
 	}
 

@@ -265,6 +265,48 @@ class Reports:
                 text = display_report( self.wiki, content, 'oldestactive-desc' )
                 self.publish_report( 'oldestactive-page-title', text )
 
+	def deleted_prods( self ):
+		cur = self.db.cursor()
+		query = """SELECT
+                        page_title,
+                        count(log_id) AS entries,
+                        min(log_timestamp) AS firstdel,
+                        max(log_timestamp) AS lastdel,
+                        group_concat(
+                                log_timestamp," - ",log_comment,"<br>"
+                                ORDER BY log_timestamp ASC
+                                SEPARATOR " "
+                                      ) as log
+                FROM
+                        categorylinks,page,logging_logindex
+                WHERE
+                        cl_from=page_id
+                AND
+                        cl_to="All_articles_proposed_for_deletion"
+                AND
+                        page_title=log_title
+                AND
+                        log_type="delete"
+                AND
+                        log_action="delete"
+                AND
+                        log_namespace=0
+                GROUP BY
+                        page_id
+                LIMIT 500"""
+		cur.execute( query )
+
+		content = []
+		content.append( ['deletedprods-title',
+                                 'deletedprods-deletecount',
+                                 'deletedprods-firstdeltime',
+                                 'deletedprods-lastdeltime',
+                                 'deletedprods-delcomments'] )
+		for row in cur.fetchall():
+			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
+
+		text = display_report( self.wiki, content, 'deletedprods-desc' )
+		self.publish_report( 'deletedprods-page-title', text )
 
 
 

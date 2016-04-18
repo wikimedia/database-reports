@@ -47,6 +47,9 @@ class Run:
 	def oldest_active( self ):
 		self.rep.oldest_active()
 
+	def deleted_prods( self ):
+		self.rep.deleted_prods()
+
 
 if __name__ == '__main__':
 	main(sys.argv)
