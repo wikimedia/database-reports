@@ -17,50 +17,50 @@ class Reports:
 		# Make the query
 		cur = self.db.cursor()
 		query = """SELECT SQL_SMALL_RESULT
-                        MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
-                FROM
-                        revision,
-                        /******************************************************************************************************/
-                        /* This inner query returns the 500 pages with the earliest timestamps on their latest revisions      */
-                        (
-                        SELECT
-                                rev_timestamp as lastedit,page_id,page_title
-                        FROM
-                                page,revision
-                        WHERE
-                                page_id IN
-                                /**********************************************************************************************/
-                                /* This query returns the list of regular articles created earlier than page_id X             */
-                                (
-                                SELECT
-                                        page_id
-                                FROM
-                                        page
-                                WHERE
-                                        page_namespace = 0
-                                AND
-                                        page_is_redirect = 0
-                                AND
-                                        NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
-                                AND
-                                        /* Big hackerish heuristic cheat here! Ignore all pages newer than page_id X */
-                                        page_id < 21000000
-                                        /* Currently set to ignore articles created after Dec 2008 */
-                                        /* If less than 500 results appear in the final output, this needs to be re-baselined */
-                                )
-                                /**********************************************************************************************/
-                        AND
-                                rev_id=page_latest
-                        ORDER BY lastedit ASC
-                        LIMIT 500
-                        ) as InnerQuery
-                        /******************************************************************************************************/
-                WHERE
-                        rev_page=page_id
-                GROUP BY
-                        page_id
-                ORDER BY
-                        lastedit ASC"""
+						MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
+				FROM
+						revision,
+						/******************************************************************************************************/
+						/* This inner query returns the 500 pages with the earliest timestamps on their latest revisions      */
+						(
+						SELECT
+								rev_timestamp as lastedit,page_id,page_title
+						FROM
+								page,revision
+						WHERE
+								page_id IN
+								/**********************************************************************************************/
+								/* This query returns the list of regular articles created earlier than page_id X             */
+								(
+								SELECT
+										page_id
+								FROM
+										page
+								WHERE
+										page_namespace = 0
+								AND
+										page_is_redirect = 0
+								AND
+										NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
+								AND
+										/* Big hackerish heuristic cheat here! Ignore all pages newer than page_id X */
+										page_id < 21000000
+										/* Currently set to ignore articles created after Dec 2008 */
+										/* If less than 500 results appear in the final output, this needs to be re-baselined */
+								)
+								/**********************************************************************************************/
+						AND
+								rev_id=page_latest
+						ORDER BY lastedit ASC
+						LIMIT 500
+						) as InnerQuery
+						/******************************************************************************************************/
+				WHERE
+						rev_page=page_id
+				GROUP BY
+						page_id
+				ORDER BY
+						lastedit ASC"""
 
 		cur.execute( query )
 
@@ -69,9 +69,9 @@ class Reports:
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
 
-                        # A page name is being caught by the testwiki abuse filter - the following lets this run:
-                        if re.search('abuse_filter',row[2],re.IGNORECASE):
-                                continue
+						# A page name is being caught by the testwiki abuse filter - the following lets this run:
+						if re.search('abuse_filter',row[2],re.IGNORECASE):
+								continue
 
 			content.append( [ self.linkify( row[2] ), datetime.datetime.strptime( row[0],'%Y%m%d%H%M%S'), row[1] ] )
 
@@ -124,11 +124,11 @@ class Reports:
 		query = """ SELECT
 				/* "editor" consisting of user_name, wrapped in HTML tags linking to the sigma "created" tool */
 				CONCAT (
-                                        '[[User:',user_name,'|',user_name,']]'
+					'[[User:',user_name,'|',user_name,']]'
 				 ) AS editor,
 				CONCAT (
-                                        '[https://tools.wmflabs.org/sigma/created.py?name=',
-					REPLACE(user_name,' ','_'),
+					'[https://tools.wmflabs.org/sigma/created.py?name=',
+					user_name,
 					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted (list)]'
 				 ) AS listlink,
 				/* derived column "created count" returned by this subquery */
@@ -229,79 +229,79 @@ class Reports:
 		self.publish_report( 'ufr-page-title', text )
 
 
-        def oldest_active( self ):
-                cur = self.db.cursor()
-                query = """SELECT SQL_SMALL_RESULT
-                                CONCAT(
-                                        '[[User:',user_name,'|',user_name,']]'
-                                ) AS user_name
-                                ,user_registration
-                                ,user_editcount
-                        FROM
-                            (
-                                SELECT  user_name,user_registration,user_editcount
-                                FROM    user
-                                WHERE   user_name IN
-                                (
-                                        SELECT DISTINCT rc_user_text
-                                        FROM    recentchanges
-                                        WHERE   rc_timestamp>date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S')
-                                        AND     rc_user_text NOT REGEXP '^[0-9]{1,3}\\.[0-9]'
-                                        AND     rc_user_text NOT REGEXP '\\:.+\\:'
-                                )
-                                AND user_registration IS NOT NULL
-                                ORDER BY user_id
-                                LIMIT 250
-                          ) AS InnerQuery
-                        ORDER BY user_registration
-                        LIMIT 200"""
-                cur.execute( query )
+		def oldest_active( self ):
+				cur = self.db.cursor()
+				query = """SELECT SQL_SMALL_RESULT
+								CONCAT(
+										'[[User:',user_name,'|',user_name,']]'
+								) AS user_name
+								,user_registration
+								,user_editcount
+						FROM
+							(
+								SELECT  user_name,user_registration,user_editcount
+								FROM    user
+								WHERE   user_name IN
+								(
+										SELECT DISTINCT rc_user_text
+										FROM    recentchanges
+										WHERE   rc_timestamp>date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S')
+										AND     rc_user_text NOT REGEXP '^[0-9]{1,3}\\.[0-9]'
+										AND     rc_user_text NOT REGEXP '\\:.+\\:'
+								)
+								AND user_registration IS NOT NULL
+								ORDER BY user_id
+								LIMIT 250
+						  ) AS InnerQuery
+						ORDER BY user_registration
+						LIMIT 200"""
+				cur.execute( query )
 
-                content = []
-                content.append( ['oldestactive-username', 'oldestactive-creationdate', 'oldestactive-editcount'] )
-                for row in cur.fetchall():
-                        content.append( [ row[0], row[1] , row[2] ] );
+				content = []
+				content.append( ['oldestactive-username', 'oldestactive-creationdate', 'oldestactive-editcount'] )
+				for row in cur.fetchall():
+						content.append( [ row[0], row[1] , row[2] ] );
 
-                text = display_report( self.wiki, content, 'oldestactive-desc' )
-                self.publish_report( 'oldestactive-page-title', text )
+				text = display_report( self.wiki, content, 'oldestactive-desc' )
+				self.publish_report( 'oldestactive-page-title', text )
 
 	def deleted_prods( self ):
 		cur = self.db.cursor()
 		query = """SELECT
-                        page_title,
-                        count(log_id) AS entries,
-                        min(log_timestamp) AS firstdel,
-                        max(log_timestamp) AS lastdel,
-                        group_concat(
-                                log_timestamp," - ",log_comment,"<br>"
-                                ORDER BY log_timestamp ASC
-                                SEPARATOR " "
-                                      ) as log
-                FROM
-                        categorylinks,page,logging_logindex
-                WHERE
-                        cl_from=page_id
-                AND
-                        cl_to="All_articles_proposed_for_deletion"
-                AND
-                        page_title=log_title
-                AND
-                        log_type="delete"
-                AND
-                        log_action="delete"
-                AND
-                        log_namespace=0
-                GROUP BY
-                        page_id
-                LIMIT 500"""
+						page_title,
+						count(log_id) AS entries,
+						min(log_timestamp) AS firstdel,
+						max(log_timestamp) AS lastdel,
+						group_concat(
+								log_timestamp," - ",log_comment,"<br>"
+								ORDER BY log_timestamp ASC
+								SEPARATOR " "
+									  ) as log
+				FROM
+						categorylinks,page,logging_logindex
+				WHERE
+						cl_from=page_id
+				AND
+						cl_to="All_articles_proposed_for_deletion"
+				AND
+						page_title=log_title
+				AND
+						log_type="delete"
+				AND
+						log_action="delete"
+				AND
+						log_namespace=0
+				GROUP BY
+						page_id
+				LIMIT 500"""
 		cur.execute( query )
 
 		content = []
 		content.append( ['deletedprods-title',
-                                 'deletedprods-deletecount',
-                                 'deletedprods-firstdeltime',
-                                 'deletedprods-lastdeltime',
-                                 'deletedprods-delcomments'] )
+								 'deletedprods-deletecount',
+								 'deletedprods-firstdeltime',
+								 'deletedprods-lastdeltime',
+								 'deletedprods-delcomments'] )
 		for row in cur.fetchall():
 			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
 
