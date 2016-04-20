@@ -77,7 +77,7 @@ lang_dicts = {
 		"reports_base_url": "Benutzer:Kopiersperre/",
 
 		"forgotten-articles-page-title": "Vergessene Artikel",
-		"forgotten-articles-desc": "Diese Liste enthält die 1000 Artikel, die am längsten nicht mehr bearbeitet wurde. Als Bearbeitung zählt hierbei jede Aktion, die zu einer Aktualisierung des Felds <code>page_touched</code> in der Datenbank führt, also neben Textbearbeitungen auch Seitensperrungen oder Änderungen an eingebundenen Vorlage. Für eine Liste der „wirklich“ am längsten nicht mehr von Menschen bearbeiten Artikel, siehe [[Benutzer:Merlissimo/LetzterEdit]].",
+		"forgotten-articles-desc": "Diese Liste enthält die 1000 Artikel, die am längsten nicht mehr bearbeitet wurden.",
 		"forgotten-articles-title": "Artikel",
 		"forgotten-articles-last-edited": "Letzte Bearbeitung",
 		"forgotten-articles-editcount": "Bearbeitungen insgesamt",
