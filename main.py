@@ -50,6 +50,9 @@ class Run:
 	def deleted_prods( self ):
 		self.rep.deleted_prods()
 
+	def orphaned_talk( self ):
+		self.rep.orphaned_talk()
+
 
 if __name__ == '__main__':
 	main(sys.argv)

@@ -6,6 +6,9 @@ lang_dicts = {
 	'endict' : {
 		"reports_base_url": "Wikipedia:Database reports/", # The base URL for the report, preceding the page title
 
+		"yes-label": "Yes",
+		"no-label": "No",
+
 		"forgotten-articles-page-title": "Forgotten articles", # The page title where report is published
 		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
 		"forgotten-articles-title": "Title",
@@ -58,6 +61,15 @@ lang_dicts = {
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
 
+		"orphantalk-page-title": "Orphaned talk pages",
+		"orphantalk-desc": "Orphaned talk pages, limited to 1000",
+		"orphantalk-itemtitle": "Page",
+		"orphantalk-namespace": "Namespace",
+		"orphantalk-exists": "Exists?",
+		"orphantalk-isredirect": "Redirect?",
+		"orphantalk-count": "Count",
+		"orphantalk-pagesize": "Size",
+
 	},
 
 	'esdict' : {
@@ -84,6 +96,9 @@ lang_dicts = {
 	},
 
 	'testdict': {
+		"yes-label": "Yes",
+		"no-label": "No",
+
 		"reports_base_url": "Wikipedia:Database reports/",
 		"forgotten-articles-page-title": "Forgotten articles - test", # The page title where report is published
 		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
@@ -101,6 +116,7 @@ lang_dicts = {
 		"oldestactive-desc": "The 200 earliest-created editor accounts that have been active in the last thirty days.",
 		"oldestactive-username": "Username",
 		"oldestactive-creationdate": "Date created",
+
 		"oldestactive-editcount": "Approx. edit count",
 
 		"deletedprods-page-title": "PRODed articles with deletion logs",
@@ -110,7 +126,15 @@ lang_dicts = {
 		"deletedprods-firstdeltime": "First deletion",
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
-
+			
+		"orphantalk-page-title": "Orphaned talk pages",
+		"orphantalk-desc": "Orphaned talk pages, limited to 1000",
+		"orphantalk-count": "Count",
+		"orphantalk-itemtitle": "Page",
+		"orphantalk-namespace": "Namespace",
+		"orphantalk-exists": "Exists?",
+		"orphantalk-isredirect": "Redirect?",
+		"orphantalk-pagesize": "Size",
 	}
 
 }

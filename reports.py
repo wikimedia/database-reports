@@ -302,10 +302,82 @@ class Reports:
 								 'deletedprods-lastdeltime',
 								 'deletedprods-delcomments'] )
 		for row in cur.fetchall():
-			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
+			logtext=row[4];
+			logtext=re.sub("{","<nowiki>{</nowiki>",logtext)
+			logtext=re.sub("}","<nowiki>}</nowiki>",logtext)
+			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), logtext ] )
 
 		text = display_report( self.wiki, content, 'deletedprods-desc' )
 		self.publish_report( 'deletedprods-page-title', text )
+
+
+	def orphaned_talk( self ):
+		cur = self.db.cursor()
+		query = """SELECT
+						page_namespace,
+						page_id,
+						page_title,
+						page_is_redirect,
+						page_len
+				FROM
+						page talkpage
+				WHERE
+						talkpage.page_title NOT LIKE '%/%'
+				AND
+						talkpage.page_namespace IN (1,11,15,101,119)
+				AND
+						NOT EXISTS (
+								SELECT
+										1
+								FROM
+										page mainpage
+								WHERE
+										mainpage.page_namespace=talkpage.page_namespace-1
+								AND
+										mainpage.page_title=talkpage.page_title
+								)
+				AND
+						NOT EXISTS (
+								SELECT
+										1
+								FROM
+										templatelinks
+								WHERE
+										talkpage.page_id=tl_from
+								AND
+										tl_title='G8-exempt'
+								)
+
+				LIMIT 1000"""
+		cur.execute( query )
+
+		content = []
+		content.append( ["orphantalk-count", "orphantalk-isredirect", "orphantalk-namespace", "orphantalk-itemtitle", "orphantalk-pagesize"])
+
+		namespace_translate={1:"Talk",5:"Wikipedia_Talk",11:"Template_Talk",15:"Category_Talk",101:"Portal_Talk",119:"Draft_Talk"}
+
+		count=1
+
+		for row in cur.fetchall():
+
+				namespace=namespace_translate[row[0]]
+				fulllink=namespace+':'+row[2]
+				pagesize=round(row[4]/1024,1);
+				if row[3]==0:
+						redirect_label=" "
+				else:
+						redirect_label="'''Redirect'''"
+				content.append(	[		
+										count,
+										redirect_label,
+										namespace,
+										'{{No redirect|'+fulllink+'|'+row[2]+'}}',
+										str(pagesize) +' kB'
+								] )
+				count=count+1
+
+		text = display_report( self.wiki, content, 'orphantalk-desc' )
+		self.publish_report( 'orphantalk-page-title', text )
 
 
 
