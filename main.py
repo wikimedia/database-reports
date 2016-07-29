@@ -50,8 +50,13 @@ class Run:
 	def deleted_prods( self ):
 		self.rep.deleted_prods()
 
+<<<<<<< HEAD
 	def most_used_templates( self ):
 		self.rep.most_used_templates()
+=======
+	def orphaned_talk( self ):
+		self.rep.orphaned_talk()
+>>>>>>> 1f5f47e9f0f20fcc56a2b40acc1ca6ce46cd159b
 
 
 if __name__ == '__main__':
