@@ -56,6 +56,8 @@ class Run:
 	def orphaned_talk( self ):
 		self.rep.orphaned_talk()
 
+	def unused_templates( self ):
+		self.rep.unused_templates()
 
 if __name__ == '__main__':
 	main(sys.argv)

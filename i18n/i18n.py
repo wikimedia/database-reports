@@ -66,6 +66,10 @@ lang_dicts = {
 		"mostusedtemplate-title": "Template title",
 		"mostusedtemplate-count": "Number of transclusions",
 
+		"unusedtemplate-page-title": "Unused templates",
+		"unusedtemplate-desc": "Templates with the no transclusions (limited to the first 5000 entries)",
+		"unusedtemplate-title": "Template title",
+
 		"orphantalk-page-title": "Orphaned talk pages",
 		"orphantalk-desc": "Orphaned talk pages, limited to 1000",
 		"orphantalk-itemtitle": "Page",
@@ -136,6 +140,9 @@ lang_dicts = {
 		"mostusedtemplate-title": "Template title",
 		"mostusedtemplate-count": "Number of transclusions",
 
+		"unusedtemplate-page-title": "Unused templates",
+		"unusedtemplate-desc": "Templates with the no transclusions (limited to the first 5000 entries)",
+		"unusedtemplate-title": "Template title",
 
 		"orphantalk-page-title": "Orphaned talk pages",
 		"orphantalk-desc": "Orphaned talk pages, limited to 1000",

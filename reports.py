@@ -328,6 +328,22 @@ class Reports:
 		text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
 		self.publish_report( 'mostusedtemplate-page-title', text )
 
+	def unused_templates( self ):
+		cur = self.db.cursor()
+		query = """SELECT page_title
+				FROM page
+				WHERE page_namespace=10 AND page_title NOT IN (
+					SELECT DISTINCT tl_title FROM templatelinks
+				)
+				LIMIT 5000"""
+		cur.execute( query )
+		content = []
+		content.append( ['unusedtemplate-title'] )
+		for row in cur.fetchall():
+			content.append( [ self.linkify( row[0], 10 ) ] )
+		text = display_report( self.wiki, content, 'unusedtemplate-desc' )
+		self.publish_report( 'unusedtemplate-page-title', text )
+
 	def orphaned_talk( self ):
 		cur = self.db.cursor()
 		query = """SELECT page_namespace, page_id, page_title, page_is_redirect, page_len
