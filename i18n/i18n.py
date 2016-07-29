@@ -61,12 +61,11 @@ lang_dicts = {
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
 
-<<<<<<< HEAD
 		"mostusedtemplate-page-title": "Templates transcluded on the most pages",
 		"mostusedtemplate-desc": "Templates with the most transclusions (limited to the first 3000 entries)",
 		"mostusedtemplate-title": "Template title",
 		"mostusedtemplate-count": "Number of transclusions",
-=======
+
 		"orphantalk-page-title": "Orphaned talk pages",
 		"orphantalk-desc": "Orphaned talk pages, limited to 1000",
 		"orphantalk-itemtitle": "Page",
@@ -75,8 +74,6 @@ lang_dicts = {
 		"orphantalk-isredirect": "Redirect?",
 		"orphantalk-count": "Count",
 		"orphantalk-pagesize": "Size",
->>>>>>> 1f5f47e9f0f20fcc56a2b40acc1ca6ce46cd159b
-
 	},
 
 	'esdict' : {
@@ -133,15 +130,13 @@ lang_dicts = {
 		"deletedprods-firstdeltime": "First deletion",
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
-<<<<<<< HEAD
 
 		"mostusedtemplate-page-title": "Templates transcluded on the most pages",
 		"mostusedtemplate-desc": "Templates with the most transclusions (limited to the first 3000 entries)",
 		"mostusedtemplate-title": "Template title",
 		"mostusedtemplate-count": "Number of transclusions",
 
-=======
-			
+
 		"orphantalk-page-title": "Orphaned talk pages",
 		"orphantalk-desc": "Orphaned talk pages, limited to 1000",
 		"orphantalk-count": "Count",
@@ -150,7 +145,6 @@ lang_dicts = {
 		"orphantalk-exists": "Exists?",
 		"orphantalk-isredirect": "Redirect?",
 		"orphantalk-pagesize": "Size",
->>>>>>> 1f5f47e9f0f20fcc56a2b40acc1ca6ce46cd159b
 	}
 
 }
