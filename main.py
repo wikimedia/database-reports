@@ -50,6 +50,9 @@ class Run:
 	def deleted_prods( self ):
 		self.rep.deleted_prods()
 
+	def most_used_templates( self ):
+		self.rep.most_used_templates()
+
 
 if __name__ == '__main__':
 	main(sys.argv)

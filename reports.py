@@ -296,19 +296,34 @@ class Reports:
 		cur.execute( query )
 
 		content = []
-		content.append( ['deletedprods-title',
-								 'deletedprods-deletecount',
-								 'deletedprods-firstdeltime',
-								 'deletedprods-lastdeltime',
-								 'deletedprods-delcomments'] )
+		content.append(
+			['deletedprods-title',
+			 'deletedprods-deletecount',
+			 'deletedprods-firstdeltime',
+			 'deletedprods-lastdeltime',
+			 'deletedprods-delcomments'
+			 ]
+		)
 		for row in cur.fetchall():
 			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), row[4] ] )
 
 		text = display_report( self.wiki, content, 'deletedprods-desc' )
 		self.publish_report( 'deletedprods-page-title', text )
 
-
-
+		def most_used_templates( self ):
+			cur = self.db.cursor()
+			query = """SELECT COUNT(*) AS cnt, tl_title
+					FROM templatelinks
+					GROUP BY tl_title
+					ORDER BY COUNT(*) DESC
+					LIMIT 3000"""
+			cur.execute( query )
+			content = []
+			content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
+			for row in cur.fetchall():
+				content.append( [ self.linkify( row[0], 10 ), row[1] ] )
+			text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
+			self.publish_report( 'mostusedtemplate-page-title' )
 
 	''' Publish report on page with given title, with the given content
 		@param title Page title

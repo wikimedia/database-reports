@@ -58,6 +58,11 @@ lang_dicts = {
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
 
+		"mostusedtemplate-page-title": "Templates transcluded on the most pages",
+		"mostusedtemplate-desc": "Templates with the most transclusions (limited to the first 3000 entries)",
+		"mostusedtemplate-title": "Template title",
+		"mostusedtemplate-count": "Number of transclusions",
+
 	},
 
 	'esdict' : {
@@ -110,6 +115,11 @@ lang_dicts = {
 		"deletedprods-firstdeltime": "First deletion",
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
+
+		"mostusedtemplate-page-title": "Templates transcluded on the most pages",
+		"mostusedtemplate-desc": "Templates with the most transclusions (limited to the first 3000 entries)",
+		"mostusedtemplate-title": "Template title",
+		"mostusedtemplate-count": "Number of transclusions",
 
 	}
 
