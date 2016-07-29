@@ -313,20 +313,20 @@ class Reports:
 		text = display_report( self.wiki, content, 'deletedprods-desc' )
 		self.publish_report( 'deletedprods-page-title', text )
 
-		def most_used_templates( self ):
-			cur = self.db.cursor()
-			query = """SELECT COUNT(*) AS cnt, tl_title
-					FROM templatelinks
-					GROUP BY tl_title
-					ORDER BY COUNT(*) DESC
-					LIMIT 3000"""
-			cur.execute( query )
-			content = []
-			content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
-			for row in cur.fetchall():
-				content.append( [ self.linkify( row[0], 10 ), row[1] ] )
-			text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
-			self.publish_report( 'mostusedtemplate-page-title' )
+	def most_used_templates( self ):
+		cur = self.db.cursor()
+		query = """SELECT COUNT(*) AS cnt, tl_title
+				FROM templatelinks
+				GROUP BY tl_title
+				ORDER BY COUNT(*) DESC
+				LIMIT 3000"""
+		cur.execute( query )
+		content = []
+		content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
+		for row in cur.fetchall():
+			content.append( [ self.linkify( row[0], 10 ), row[1] ] )
+		text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
+		self.publish_report( 'mostusedtemplate-page-title' )
 
 	def orphaned_talk( self ):
 		cur = self.db.cursor()
