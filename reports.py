@@ -326,7 +326,7 @@ class Reports:
 		for row in cur.fetchall():
 			content.append( [ self.linkify( row[0], 10 ), row[1] ] )
 		text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
-		self.publish_report( 'mostusedtemplate-page-title' )
+		self.publish_report( 'mostusedtemplate-page-title', text )
 
 	def orphaned_talk( self ):
 		cur = self.db.cursor()
