@@ -331,12 +331,21 @@ class Reports:
 
 	def unused_templates( self ):
 		cur = self.db.cursor()
-		query = """SELECT page_title
-				FROM page
-				WHERE page_namespace=10 AND page_title NOT IN (
-					SELECT DISTINCT tl_title FROM templatelinks
-				)
-				LIMIT 5000"""
+		query = """SELECT page_namespace, page_title
+					FROM page
+					LEFT JOIN categorylinks
+					ON page_id = cl_from
+					AND cl_to = 'Wikipedia_substituted_templates'
+					LEFT JOIN redirect
+					ON rd_from = page_id
+					LEFT JOIN templatelinks
+					ON page_namespace = tl_namespace
+					AND page_title = tl_title
+					WHERE page_namespace = 10
+					AND rd_from IS NULL
+					AND tl_from IS NULL
+					AND cl_from IS NULL;
+					LIMIT 5000"""
 		cur.execute( query )
 		content = []
 		content.append( ['unusedtemplate-title'] )
