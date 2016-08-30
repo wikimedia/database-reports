@@ -315,11 +315,12 @@ class Reports:
 
 	def most_used_templates( self ):
 		cur = self.db.cursor()
-		query = """SELECT COUNT(*) AS cnt, tl_title
-				FROM templatelinks
-				GROUP BY tl_title
-				ORDER BY COUNT(*) DESC
-				LIMIT 3000"""
+		query = """SELECT tl_title, COUNT(*)
+					FROM templatelinks
+					WHERE tl_namespace IN (10, 828)
+					GROUP BY tl_title
+					ORDER BY COUNT(*) DESC
+					LIMIT 3000"""
 		cur.execute( query )
 		content = []
 		content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
