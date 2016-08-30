@@ -344,7 +344,7 @@ class Reports:
 					WHERE page_namespace = 10
 					AND rd_from IS NULL
 					AND tl_from IS NULL
-					AND cl_from IS NULL;
+					AND cl_from IS NULL
 					LIMIT 5000"""
 		cur.execute( query )
 		content = []
