@@ -331,7 +331,7 @@ class Reports:
 
 	def unused_templates( self ):
 		cur = self.db.cursor()
-		query = """SELECT page_namespace, page_title
+		query = """SELECT page_title
 					FROM page
 					LEFT JOIN categorylinks
 					ON page_id = cl_from
