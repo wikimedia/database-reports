@@ -67,7 +67,7 @@ lang_dicts = {
 		"mostusedtemplate-count": "Number of transclusions",
 
 		"unusedtemplate-page-title": "Unused templates",
-		"unusedtemplate-desc": "Templates with the no transclusions (limited to the first 5000 entries)",
+		"unusedtemplate-desc": "Templates with the no transclusions (limited to the first 2000 entries)",
 		"unusedtemplate-title": "Template title",
 
 		"orphantalk-page-title": "Orphaned talk pages",

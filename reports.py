@@ -345,7 +345,7 @@ class Reports:
 					AND rd_from IS NULL
 					AND tl_from IS NULL
 					AND cl_from IS NULL
-					LIMIT 5000"""
+					LIMIT 2000"""
 		cur.execute( query )
 		content = []
 		content.append( ['unusedtemplate-title'] )
