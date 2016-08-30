@@ -325,7 +325,7 @@ class Reports:
 		content = []
 		content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
 		for row in cur.fetchall():
-			content.append( [ self.linkify( row[1], 10 ), row[0] ] )
+			content.append( [ self.linkify( row[0], 10 ), row[1] ] )
 		text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
 		self.publish_report( 'mostusedtemplate-page-title', text )
 
