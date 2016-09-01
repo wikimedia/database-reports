@@ -1,7 +1,7 @@
 import mwclient
 import MySQLdb
 from displayTable import *
-from config import *
+from .config import *
 from reports import *
 import sys
 
