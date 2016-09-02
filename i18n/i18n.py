@@ -152,6 +152,82 @@ lang_dicts = {
 		"orphantalk-exists": "Exists?",
 		"orphantalk-isredirect": "Redirect?",
 		"orphantalk-pagesize": "Size",
-	}
+	},
+	
+	'frdict' : {
+		"reports_base_url": "Wikipedia:Rapports/", # The base URL for the report, preceding the page title
+		"summary": "Bot: Mise à jour",
+		"yes-label": "Oui",
+		"no-label": "Non",
 
+		"forgotten-articles-page-title": "Articles oublies", # The page title where report is published
+		"forgotten-articles-desc": "Liste des 500 articles qui n'ont pas étés édités depuis le plus longtemps, hors redirections. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"forgotten-articles-title": "Titre",
+		"forgotten-articles-last-edited": "Dernière édition",
+		"forgotten-articles-editcount": "Nombre d'éditions",
+
+		"pagecount-page-title": "Nombre de pages par namespace",
+		"pagecount-desc": "Le nombre d'articles par [[Aide:Espace de noms|espace de nom]] (''namespace''). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"pagecount-namespace": "Namespace ID",
+		"pagecount-total": "Nombre total de pages",
+		"pagecount-redirect": "Pages avec redirections",
+		"pagecount-non-redirect": "Pages sans redirections",
+		"pagecount-namespace-name": "Namespace",
+
+		"pagerevisions-page-title": "Pages avec le plus de modifications",
+		"pagerevisions-desc": "Pages avec le plus de modifications (limité aux 1000 premiers articles). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"pagerevisions-namespace": "Namespace",
+		"pagerevisions-title": "Article",
+		"pagerevisions-revisions": "Modifications",
+
+		"autopatrol-page-title": "Editors eligible for Autopatrol privilege - right not used ?",
+		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
+		"autopatrol-username": "Username",
+		"autopatrol-listlink": " ",
+		"autopatrol-articles": "Article count",
+
+		"tpbs-page-title": "Pages de discussion par taille",
+		"tpbs-desc": "Pages de discussion par leur taille totale, tous espaces de nom confondus, y compris les sous-pages (archives, pages individuelles, PàS, ...). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"tpbs-namespace": "Namespace",
+		"tpbs-size": "Taille (en MB)",
+		"tpbs-page": "Page",
+
+		"ufr-page-title": "Unused file redirects - not necessary ?",
+		"ufr-desc": "List of file redirects with at most one incoming link, limited to top 500 results.",
+		"ufr-page": "Page",
+		"ufr-imagelinks": "Image Links",
+		"ufr-links": "Links",
+
+		"oldestactive-page-title": "Editeurs actifs avec les comptes les plus anciens",
+		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"oldestactive-username": "Nom d'utilisateur",
+		"oldestactive-creationdate": "Date de création",
+		"oldestactive-editcount": "Compteur d'édition approximatif",
+
+		"deletedprods-page-title": "PRODed articles with deletion logs - not necessary ?",
+		"deletedprods-desc": "List of [[WP:PROD|PRODed]] articles that have previously been deleted. Limited to 500 articles.",
+		"deletedprods-title": "Article title",
+		"deletedprods-deletecount": "Delete count",
+		"deletedprods-firstdeltime": "First deletion",
+		"deletedprods-lastdeltime": "Last deletion",
+		"deletedprods-delcomments": "Deletion comments",
+
+		"mostusedtemplate-page-title": "Modeles inclus sur le plus grand nombre de pages",
+		"mostusedtemplate-desc": "Modeles inclus sur le plus grand nombre de pages (limité à 3000)",
+		"mostusedtemplate-title": "Nom du modèle",
+		"mostusedtemplate-count": "Nombre d'inclusions",
+
+		"unusedtemplate-page-title": "Modeles inutilises",
+		"unusedtemplate-desc": "Modèles avec le moins d'inclusions (limité à 2000).",
+		"unusedtemplate-title": "Nom du modèle",
+
+		"orphantalk-page-title": "Pages de discussion orphelines",
+		"orphantalk-desc": "Pages de discussion orphelines (limité à 1000). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"orphantalk-itemtitle": "Page",
+		"orphantalk-namespace": "Namespace",
+		"orphantalk-exists": "Existe",
+		"orphantalk-isredirect": "Redirection",
+		"orphantalk-count": "Compteur",
+		"orphantalk-pagesize": "Taille",
+	}
 }
