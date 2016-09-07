@@ -228,7 +228,7 @@ class Reports:
 		self.publish_report( 'ufr-page-title', text )
 
 
-		def oldest_active( self ):
+	def oldest_active( self ):
 				cur = self.db.cursor()
 				query = """SELECT SQL_SMALL_RESULT
 								CONCAT(
