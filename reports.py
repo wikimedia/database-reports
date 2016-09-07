@@ -412,7 +412,7 @@ class Reports:
 		report_title = dict_obj[ str( title ) ]
 		print str( reports_base_url + report_title )
 		page = self.site.Pages[ reports_base_url + report_title ]
-		page.save( content, summary = 'Updating report' )
+		page.save( content, summary = dict_obj[ 'summary' ] )
 
 
 	def linkify( self, title, namespace = None ):
@@ -424,7 +424,6 @@ class Reports:
 			return '[[:{{subst:ns:%s}}:%s]]' % ( namespace, title_clean )
 		else:
 			return '[[{{subst:ns:%s}}:%s]]' % ( namespace, title_clean )
-
 
 	def userify( self, name ):
 		name = str( name )
