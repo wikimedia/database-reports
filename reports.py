@@ -317,7 +317,7 @@ class Reports:
 		cur = self.db.cursor()
 		query = """SELECT tl_title, COUNT(*)
 					FROM templatelinks
-					WHERE tl_namespace IN (10, 828)
+					WHERE tl_namespace = 10
 					GROUP BY tl_title
 					ORDER BY COUNT(*) DESC
 					LIMIT 3000"""
