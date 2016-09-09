@@ -115,6 +115,8 @@ lang_dicts = {
 	},
 
 	'testdict': {
+		"reports_base_url": "Wikipedia:Database reports/", # The base URL for the report, preceding the page title
+		"summary": "Bot: Updating report",
 		"yes-label": "Yes",
 		"no-label": "No",
 
