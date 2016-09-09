@@ -401,6 +401,49 @@ class Reports:
 		text = display_report( self.wiki, content, 'orphantalk-desc' )
 		self.publish_report( 'orphantalk-page-title', text )
 
+        def most_edited_page_last_month( self ):
+                # Make the query
+                cur = self.db.cursor()
+                query = """SELECT rc_title, count(*) as num_edits
+                                FROM recentchanges
+                                WHERE rc_namespace = 0
+                                GROUP BY 1 ORDER BY 2 DESC
+                                LIMIT 25;"""
+
+                cur.execute( query )
+
+                # Extract the data into a Python nested list
+                content = []
+                content.append( ['most_edited_page_last_month-title', 'most_edited_page_last_month-editcount'] )
+                for row in cur.fetchall() :
+                        content.append( [ self.linkify( row[0] ), row[1] ] )
+
+                # Format the data as wikitext
+                text = display_report( self.wiki, content, 'most_edited_page_last_month-desc' )
+                self.publish_report( 'most_edited_page_last_month-page-title', text )
+                
+        # Longest articles (NS=0)
+        def article_by_size( self ):
+                cur = self.db.cursor()
+                query = """SELECT
+                                page_namespace,
+                                page_title,
+                                page_len
+                                FROM page
+                                WHERE page_namespace = 0
+                                AND page_len > 175000
+                                AND page_title NOT LIKE "%/%"
+                                ORDER BY page_len DESC
+                                LIMIT 1000;"""
+                cur.execute( query )
+
+                content = []
+                content.append( ['article_by_size-namespace', 'article_by_size-title', 'article_by_size-size'] )
+                for row in cur.fetchall():
+                        content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ])
+
+                text = display_report( self.wiki, content , 'article_by_size-desc' )
+                self.publish_report( 'article_by_size-page-title', text )
 
 	''' Publish report on page with given title, with the given content
 		@param title Page title
