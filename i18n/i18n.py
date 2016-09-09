@@ -78,6 +78,17 @@ lang_dicts = {
 		"orphantalk-isredirect": "Redirect?",
 		"orphantalk-count": "Count",
 		"orphantalk-pagesize": "Size",
+		
+                "article_by_size-page-title": "Articles by size",
+                "article_by_size-desc": "Articles ranked by total size, principal mainspace.",
+                "article_by_size-namespace": "Namespace",
+                "article_by_size-title": "Article",
+                "article_by_size-size": "Taille",
+
+                "most_edited_page_last_month-page-title": "Most edited articles last month",
+                "most_edited_page_last_month-desc": "Articles ranked by number of edits during last 30 days, limit to the 25 firsts.",
+                "most_edited_page_last_month-title": "Title",
+                "most_edited_page_last_month-editcount": "Revisions",
 	},
 
 	'esdict' : {
@@ -229,5 +240,17 @@ lang_dicts = {
 		"orphantalk-isredirect": "Redirection",
 		"orphantalk-count": "Compteur",
 		"orphantalk-pagesize": "Taille",
+		
+
+                "article_by_size-page-title": "Articles par taille",
+                "article_by_size-desc": "Articles les plus longs (espace principal). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+                "article_by_size-namespace": "Namespace",
+                "article_by_size-title": "Article",
+                "article_by_size-size": "Taille",
+
+                "most_edited_page_last_month-page-title": "Articles les plus edites le mois dernier",
+                "most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+                "most_edited_page_last_month-title": "Titre",
+                "most_edited_page_last_month-editcount": "Nombre d'éditions",
 	}
 }
