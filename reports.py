@@ -18,49 +18,34 @@ class Reports:
 		cur = self.db.cursor()
 		query = """SELECT SQL_SMALL_RESULT
 						MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
-				FROM
-						revision,
+						FROM revision,
 						/******************************************************************************************************/
 						/* This inner query returns the 500 pages with the earliest timestamps on their latest revisions      */
-						(
-						SELECT
-								rev_timestamp as lastedit,page_id,page_title
-						FROM
-								page,revision
-						WHERE
-								page_id IN
+						( SELECT rev_timestamp as lastedit,page_id,page_title
+							FROM page, revision
+							WHERE page_id IN
 								/**********************************************************************************************/
 								/* This query returns the list of regular articles created earlier than page_id X             */
-								(
-								SELECT
-										page_id
-								FROM
-										page
-								WHERE
-										page_namespace = 0
-								AND
-										page_is_redirect = 0
-								AND
-										NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
-								AND
+								( SELECT page_id
+									FROM page
+									WHERE page_namespace = 0
+									AND page_is_redirect = 0
+									AND NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
+									AND
 										/* Big hackerish heuristic cheat here! Ignore all pages newer than page_id X */
 										page_id < 21000000
 										/* Currently set to ignore articles created after Dec 2008 */
 										/* If less than 500 results appear in the final output, this needs to be re-baselined */
 								)
 								/**********************************************************************************************/
-						AND
-								rev_id=page_latest
+						AND rev_id=page_latest
 						ORDER BY lastedit ASC
 						LIMIT 500
 						) as InnerQuery
 						/******************************************************************************************************/
-				WHERE
-						rev_page=page_id
-				GROUP BY
-						page_id
-				ORDER BY
-						lastedit ASC"""
+				WHERE rev_page=page_id
+				GROUP BY page_id
+				ORDER BY lastedit ASC"""
 
 		cur.execute( query )
 
@@ -68,11 +53,9 @@ class Reports:
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
 		for row in cur.fetchall() :
-
 			# A page name is being caught by the testwiki abuse filter - the following lets this run:
 			if re.search('abuse_filter',row[2],re.IGNORECASE):
 				continue
-
 			content.append( [ self.linkify( row[2] ), datetime.datetime.strptime( row[0],'%Y%m%d%H%M%S'), row[1] ] )
 
 		# Format the data as wikitext
@@ -93,6 +76,7 @@ class Reports:
 		for row in cur.fetchall():
 			content.append( [ row[0], '{{subst:ns:' + str( row[0] ) + '}}', row[1], row[2], row[1]-row[2] ])
 
+		# Format the data as wikitext
 		text = display_report( self.wiki, content , 'pagecount-desc' )
 		self.publish_report( 'pagecount-page-title', text )
 
@@ -111,7 +95,7 @@ class Reports:
 		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
 		for row in cur.fetchall():
 			content.append( [ row[2], self.linkify( row[3], row[2] ), row[0] ])
-
+		# Format the data as wikitext
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'pagerevisions-page-title', text )
 
@@ -174,7 +158,7 @@ class Reports:
 			if row[1] is None:
 				continue
 			content.append( [  row[0], row[1], row[2] ] )
-
+		# Format the data as wikitext
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
 		self.publish_report( 'autopatrol-page-title', text )
 
@@ -182,13 +166,13 @@ class Reports:
 	def talk_pages_by_size( self ):
 		cur = self.db.cursor()
 		query = """SELECT page_namespace,
-				   REPLACE( SUBSTRING_INDEX(page_title, '/', 1 ), '_', ' ' ) AS parent,
-				   SUM( page_len ) / 1024 / 1024 AS total_size
-				   FROM page
-				   WHERE page_namespace MOD 2 = 1
-				   GROUP BY page_namespace, parent
-				   ORDER BY total_size DESC
-				   LIMIT 300"""
+					REPLACE( SUBSTRING_INDEX(page_title, '/', 1 ), '_', ' ' ) AS parent,
+					SUM( page_len ) / 1024 / 1024 AS total_size
+					FROM page
+					WHERE page_namespace MOD 2 = 1
+					GROUP BY page_namespace, parent
+					ORDER BY total_size DESC
+					LIMIT 300"""
 		cur.execute( query )
 
 		content = []
@@ -196,6 +180,7 @@ class Reports:
 		for row in cur.fetchall():
 			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ] )
 
+		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'tpbs-desc' )
 		self.publish_report( 'tpbs-page-title', text )
 
@@ -203,20 +188,20 @@ class Reports:
 	def unused_file_redirects( self ):
 		cur = self.db.cursor()
 		query = """SELECT page_title,
-				   (	SELECT COUNT(*)
+					(	SELECT COUNT(*)
 						FROM imagelinks
 						WHERE il_to = page_title
-				   ) AS imagelinks,
-				   (	SELECT COUNT(*)
+					) AS imagelinks,
+					(	SELECT COUNT(*)
 						FROM pagelinks
 						WHERE pl_namespace = 6
 						AND pl_title = page_title
-				   ) AS links
-				   FROM page
-				   WHERE page_namespace = 6
-				   AND page_is_redirect = 1
-				   HAVING imagelinks + links <= 1
-				   """
+					) AS links
+					FROM page
+					WHERE page_namespace = 6
+					AND page_is_redirect = 1
+					HAVING imagelinks + links <= 1
+					"""
 		cur.execute( query )
 
 		content = []
@@ -224,77 +209,66 @@ class Reports:
 		for row in cur.fetchall():
 			content.append( [ self.linkify( row[0], 6 ), row[1], row[2] ] )
 
+		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'ufr-desc' )
 		self.publish_report( 'ufr-page-title', text )
 
 
 	def oldest_active( self ):
-				cur = self.db.cursor()
-				query = """SELECT SQL_SMALL_RESULT
-								CONCAT(
-										'[[User:',user_name,'|',user_name,']]'
-								) AS user_name
-								,user_registration
-								,user_editcount
-						FROM
-							(
-								SELECT  user_name,user_registration,user_editcount
-								FROM    user
-								WHERE   user_name IN
-								(
-										SELECT DISTINCT rc_user_text
-										FROM    recentchanges
-										WHERE   rc_timestamp>date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S')
-										AND     rc_user_text NOT REGEXP '^[0-9]{1,3}\\.[0-9]'
-										AND     rc_user_text NOT REGEXP '\\:.+\\:'
-								)
-								AND user_registration IS NOT NULL
-								ORDER BY user_id
-								LIMIT 250
-						  ) AS InnerQuery
-						ORDER BY user_registration
-						LIMIT 200"""
-				cur.execute( query )
+		cur = self.db.cursor()
+		query = """SELECT SQL_SMALL_RESULT
+					CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name
+					,user_registration
+					,user_editcount
+					FROM (
+						SELECT user_name,user_registration,user_editcount
+						FROM user
+						WHERE user_name IN (
+							SELECT DISTINCT rc_user_text
+							FROM recentchanges
+							WHERE rc_timestamp > date_format( date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S' )
+							AND rc_user_text NOT REGEXP '^[0-9]{1,3}\\.[0-9]'
+							AND rc_user_text NOT REGEXP '\\:.+\\:'
+						)
+						AND user_registration IS NOT NULL
+						ORDER BY user_id
+						LIMIT 250
+					) AS InnerQuery
+					ORDER BY user_registration
+					LIMIT 200"""
+		cur.execute( query )
 
-				content = []
-				content.append( ['oldestactive-username', 'oldestactive-creationdate', 'oldestactive-editcount'] )
-				for row in cur.fetchall():
-						content.append( [ row[0], row[1] , row[2] ] );
+		content = []
+		content.append( ['oldestactive-username', 'oldestactive-creationdate', 'oldestactive-editcount'] )
+		for row in cur.fetchall():
+			content.append( [ row[0], row[1] , row[2] ] );
 
-				text = display_report( self.wiki, content, 'oldestactive-desc' )
-				self.publish_report( 'oldestactive-page-title', text )
+		# Format the data as wikitext
+		text = display_report( self.wiki, content, 'oldestactive-desc' )
+		self.publish_report( 'oldestactive-page-title', text )
 
 	def deleted_prods( self ):
 		cur = self.db.cursor()
 		query = """SELECT
-						page_title,
-						count(log_id) AS entries,
-						min(log_timestamp) AS firstdel,
-						max(log_timestamp) AS lastdel,
-						group_concat(
-								log_timestamp," - ",log_comment,"<br>"
-								ORDER BY log_timestamp ASC
-								SEPARATOR " "
-									  ) as log
-				FROM
-						categorylinks,page,logging_logindex
-				WHERE
-						cl_from=page_id
-				AND
-						cl_to="All_articles_proposed_for_deletion"
-				AND
-						page_title=log_title
-				AND
-						log_type="delete"
-				AND
-						log_action="delete"
-				AND
-						log_namespace=0
-				GROUP BY
-						page_id
+					page_title,
+					count(log_id) AS entries,
+					min(log_timestamp) AS firstdel,
+					max(log_timestamp) AS lastdel,
+					group_concat(
+						log_timestamp," - ",log_comment,"<br>"
+						ORDER BY log_timestamp ASC
+						SEPARATOR " "
+					) as log
+				FROM categorylinks,page,logging_logindex
+				WHERE cl_from=page_id
+				AND cl_to="All_articles_proposed_for_deletion"
+				AND page_title=log_title
+				AND log_type="delete"
+				AND log_action="delete"
+				AND log_namespace=0
+				GROUP BY page_id
 				LIMIT 500"""
 		cur.execute( query )
-
 		content = []
 		content.append(
 			['deletedprods-title',
@@ -305,11 +279,12 @@ class Reports:
 			 ]
 		)
 		for row in cur.fetchall():
-			logtext=row[4];
-			logtext=re.sub("{","<nowiki>{</nowiki>",logtext)
-			logtext=re.sub("}","<nowiki>}</nowiki>",logtext)
+			logtext = row[4];
+			logtext = re.sub("{","<nowiki>{</nowiki>",logtext)
+			logtext = re.sub("}","<nowiki>}</nowiki>",logtext)
 			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), logtext ] )
 
+		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'deletedprods-desc' )
 		self.publish_report( 'deletedprods-page-title', text )
 
@@ -326,6 +301,8 @@ class Reports:
 		content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
 		for row in cur.fetchall():
 			content.append( [ self.linkify( row[0], 10 ), row[1] ] )
+
+		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'mostusedtemplate-desc' )
 		self.publish_report( 'mostusedtemplate-page-title', text )
 
@@ -351,6 +328,8 @@ class Reports:
 		content.append( ['unusedtemplate-title'] )
 		for row in cur.fetchall():
 			content.append( [ self.linkify( row[0], 10 ) ] )
+
+		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'unusedtemplate-desc' )
 		self.publish_report( 'unusedtemplate-page-title', text )
 
@@ -374,76 +353,68 @@ class Reports:
 					)
 					LIMIT 1000"""
 		cur.execute( query )
-
 		content = []
 		content.append( ["orphantalk-count", "orphantalk-isredirect", "orphantalk-namespace", "orphantalk-itemtitle", "orphantalk-pagesize"] )
-
-		namespace_translate={1:"Talk",5:"Wikipedia_Talk",11:"Template_Talk",15:"Category_Talk",101:"Portal_Talk",119:"Draft_Talk"}
-
-		count=1
+		namespace_translate={ 1:"Talk", 5:"Wikipedia_Talk", 11:"Template_Talk", 15:"Category_Talk", 101:"Portal_Talk", 119:"Draft_Talk" }
+		count = 1
 
 		for row in cur.fetchall():
-				namespace=namespace_translate[row[0]]
-				fulllink=namespace+':'+row[2]
-				pagesize=round(row[4]/1024,1);
-				if row[3]==0:
-						redirect_label=" "
-				else:
-						redirect_label="'''Redirect'''"
-				content.append(	[
-					count,
-					redirect_label,
-					namespace,
-					'{{No redirect|'+fulllink+'|'+row[2]+'}}',
-					str(pagesize) +' kB'
-				] )
-				count=count+1
+			namespace = namespace_translate[row[0]]
+			fulllink  = namespace+':' + row[2]
+			pagesize  = round( row[4]/1024, 1 );
+			if row[3] == 0:
+				redirect_label = " "
+			else:
+				redirect_label = "'''Redirect'''"
+			content.append(	[ count, redirect_label, namespace, '{{No redirect|'+fulllink+'|'+row[2]+'}}', str(pagesize) +' kB' ] )
+			count = count + 1
+
+		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'orphantalk-desc' )
 		self.publish_report( 'orphantalk-page-title', text )
 
-        def most_edited_page_last_month( self ):
-                # Make the query
-                cur = self.db.cursor()
-                query = """SELECT rc_title, count(*) as num_edits
-                                FROM recentchanges
-                                WHERE rc_namespace = 0
-                                GROUP BY 1 ORDER BY 2 DESC
-                                LIMIT 25;"""
+	def most_edited_page_last_month( self ):
+		# Make the query
+		cur = self.db.cursor()
+		query = """SELECT rc_title, count(*) as num_edits
+					FROM recentchanges
+					WHERE rc_namespace = 0
+					GROUP BY 1 ORDER BY 2 DESC
+					LIMIT 25;"""
+		cur.execute( query )
 
-                cur.execute( query )
+		# Extract the data into a Python nested list
+		content = []
+		content.append( ['most_edited_page_last_month-title', 'most_edited_page_last_month-editcount'] )
+		for row in cur.fetchall() :
+			content.append( [ self.linkify( row[0] ), row[1] ] )
 
-                # Extract the data into a Python nested list
-                content = []
-                content.append( ['most_edited_page_last_month-title', 'most_edited_page_last_month-editcount'] )
-                for row in cur.fetchall() :
-                        content.append( [ self.linkify( row[0] ), row[1] ] )
+		# Format the data as wikitext
+		text = display_report( self.wiki, content, 'most_edited_page_last_month-desc' )
+		self.publish_report( 'most_edited_page_last_month-page-title', text )
 
-                # Format the data as wikitext
-                text = display_report( self.wiki, content, 'most_edited_page_last_month-desc' )
-                self.publish_report( 'most_edited_page_last_month-page-title', text )
-                
-        # Longest articles (NS=0)
-        def article_by_size( self ):
-                cur = self.db.cursor()
-                query = """SELECT
-                                page_namespace,
-                                page_title,
-                                page_len
-                                FROM page
-                                WHERE page_namespace = 0
-                                AND page_len > 175000
-                                AND page_title NOT LIKE "%/%"
-                                ORDER BY page_len DESC
-                                LIMIT 1000;"""
-                cur.execute( query )
+	# Longest articles (NS=0)
+	def article_by_size( self ):
+		cur = self.db.cursor()
+		query = """SELECT
+					page_namespace,
+					page_title,
+					page_len
+					FROM page
+					WHERE page_namespace = 0
+					AND page_len > 175000
+					AND page_title NOT LIKE "%/%"
+					ORDER BY page_len DESC
+					LIMIT 1000;"""
+		cur.execute( query )
+		content = []
+		content.append( ['article_by_size-namespace', 'article_by_size-title', 'article_by_size-size'] )
+		for row in cur.fetchall():
+			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ])
 
-                content = []
-                content.append( ['article_by_size-namespace', 'article_by_size-title', 'article_by_size-size'] )
-                for row in cur.fetchall():
-                        content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ])
-
-                text = display_report( self.wiki, content , 'article_by_size-desc' )
-                self.publish_report( 'article_by_size-page-title', text )
+		# Format the data as wikitext
+		text = display_report( self.wiki, content , 'article_by_size-desc' )
+		self.publish_report( 'article_by_size-page-title', text )
 
 	''' Publish report on page with given title, with the given content
 		@param title Page title
