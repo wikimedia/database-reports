@@ -78,17 +78,17 @@ lang_dicts = {
 		"orphantalk-isredirect": "Redirect?",
 		"orphantalk-count": "Count",
 		"orphantalk-pagesize": "Size",
-		
-                "article_by_size-page-title": "Articles by size",
-                "article_by_size-desc": "Articles ranked by total size, principal mainspace.",
-                "article_by_size-namespace": "Namespace",
-                "article_by_size-title": "Article",
-                "article_by_size-size": "Taille",
 
-                "most_edited_page_last_month-page-title": "Most edited articles last month",
-                "most_edited_page_last_month-desc": "Articles ranked by number of edits during last 30 days, limit to the 25 firsts.",
-                "most_edited_page_last_month-title": "Title",
-                "most_edited_page_last_month-editcount": "Revisions",
+		"article_by_size-page-title": "Articles by size",
+		"article_by_size-desc": "Articles ranked by total size, principal mainspace.",
+		"article_by_size-namespace": "Namespace",
+		"article_by_size-title": "Article",
+		"article_by_size-size": "Taille",
+
+		"most_edited_page_last_month-page-title": "Most edited articles last month",
+		"most_edited_page_last_month-desc": "Articles ranked by number of edits during last 30 days, limit to the 25 firsts.",
+		"most_edited_page_last_month-title": "Title",
+		"most_edited_page_last_month-editcount": "Revisions",
 	},
 
 	'esdict' : {
@@ -118,6 +118,38 @@ lang_dicts = {
 		"yes-label": "Yes",
 		"no-label": "No",
 
+		"forgotten-articles-page-title": "Forgotten articles", # The page title where report is published
+		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
+		"forgotten-articles-title": "Title",
+		"forgotten-articles-last-edited": "Last edited",
+		"forgotten-articles-editcount": "Number of edits",
+
+		"pagecount-page-title": "Page count by namespace",
+		"pagecount-desc": "The number of pages in each [[Wikipedia:Namespace|namespace]]",
+		"pagecount-namespace": "Namespace ID",
+		"pagecount-total": "Total pages",
+		"pagecount-redirect": "Pages with redirects",
+		"pagecount-non-redirect": "Pages without redirects",
+		"pagecount-namespace-name": "Namespace",
+
+		"pagerevisions-page-title": "Pages with the most revisions",
+		"pagerevisions-desc": "Pages with the most revisions (limited to the first 1000 entries)",
+		"pagerevisions-namespace": "Namespace",
+		"pagerevisions-title": "Article",
+		"pagerevisions-revisions": "Revisions",
+
+		"tpbs-page-title": "Talk pages by size",
+		"tpbs-desc": "Talk pages ranked by total size, including all subpages (e.g. archival subpages, individual WP:RFAs, etc.), to provide statistics on very active discussion pages.",
+		"tpbs-namespace": "Namespace",
+		"tpbs-size": "Size (in MB)",
+		"tpbs-page": "Page",
+
+		"ufr-page-title": "Unused file redirects",
+		"ufr-desc": "List of file redirects with at most one incoming link, limited to top 500 results.",
+		"ufr-page": "Page",
+		"ufr-imagelinks": "Image Links",
+		"ufr-links": "Links",
+
 		"reports_base_url": "Wikipedia:Database reports/",
 		"forgotten-articles-page-title": "Forgotten articles - test", # The page title where report is published
 		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
@@ -135,7 +167,6 @@ lang_dicts = {
 		"oldestactive-desc": "The 200 earliest-created editor accounts that have been active in the last thirty days.",
 		"oldestactive-username": "Username",
 		"oldestactive-creationdate": "Date created",
-
 		"oldestactive-editcount": "Approx. edit count",
 
 		"deletedprods-page-title": "PRODed articles with deletion logs",
@@ -163,8 +194,19 @@ lang_dicts = {
 		"orphantalk-exists": "Exists?",
 		"orphantalk-isredirect": "Redirect?",
 		"orphantalk-pagesize": "Size",
+
+		"article_by_size-page-title": "Articles by size",
+		"article_by_size-desc": "Articles ranked by total size, principal mainspace.",
+		"article_by_size-namespace": "Namespace",
+		"article_by_size-title": "Article",
+		"article_by_size-size": "Taille",
+
+		"most_edited_page_last_month-page-title": "Most edited articles last month",
+		"most_edited_page_last_month-desc": "Articles ranked by number of edits during last 30 days, limit to the 25 firsts.",
+		"most_edited_page_last_month-title": "Title",
+		"most_edited_page_last_month-editcount": "Revisions",
 	},
-	
+
 	'frdict' : {
 		"reports_base_url": "Wikipedia:Rapports/", # The base URL for the report, preceding the page title
 		"summary": "Bot: Mise à jour",
@@ -240,17 +282,17 @@ lang_dicts = {
 		"orphantalk-isredirect": "Redirection",
 		"orphantalk-count": "Compteur",
 		"orphantalk-pagesize": "Taille",
-		
 
-                "article_by_size-page-title": "Articles par taille",
-                "article_by_size-desc": "Articles les plus longs (espace principal). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
-                "article_by_size-namespace": "Namespace",
-                "article_by_size-title": "Article",
-                "article_by_size-size": "Taille",
 
-                "most_edited_page_last_month-page-title": "Articles les plus edites le mois dernier",
-                "most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
-                "most_edited_page_last_month-title": "Titre",
-                "most_edited_page_last_month-editcount": "Nombre d'éditions",
+		"article_by_size-page-title": "Articles par taille",
+		"article_by_size-desc": "Articles les plus longs (espace principal). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"article_by_size-namespace": "Namespace",
+		"article_by_size-title": "Article",
+		"article_by_size-size": "Taille",
+
+		"most_edited_page_last_month-page-title": "Articles les plus edites le mois dernier",
+		"most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"most_edited_page_last_month-title": "Titre",
+		"most_edited_page_last_month-editcount": "Nombre d'éditions",
 	}
 }
