@@ -17,36 +17,30 @@ class Reports:
 		# Make the query
 		cur = self.db.cursor()
 		query = """SELECT SQL_SMALL_RESULT
-						MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
-						FROM revision,
-						/******************************************************************************************************/
-						/* This inner query returns the 500 pages with the earliest timestamps on their latest revisions      */
-						( SELECT rev_timestamp as lastedit,page_id,page_title
-							FROM page, revision
-							WHERE page_id IN
-								/**********************************************************************************************/
-								/* This query returns the list of regular articles created earlier than page_id X             */
-								( SELECT page_id
-									FROM page
-									WHERE page_namespace = 0
-									AND page_is_redirect = 0
-									AND NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
-									AND
-										/* Big hackerish heuristic cheat here! Ignore all pages newer than page_id X */
-										page_id < 21000000
-										/* Currently set to ignore articles created after Dec 2008 */
-										/* If less than 500 results appear in the final output, this needs to be re-baselined */
-								)
-								/**********************************************************************************************/
+					MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
+					FROM revision,
+					# This inner query returns the 500 pages with the earliest timestamps on their latest revisions
+					( SELECT rev_timestamp as lastedit,page_id,page_title
+						FROM page, revision
+						WHERE page_id IN
+						# This query returns the list of regular articles created earlier than page_id X
+						( SELECT page_id
+							FROM page
+							WHERE page_namespace = 0
+							AND page_is_redirect = 0
+							AND NOT EXISTS ( SELECT 1 FROM page_props WHERE pp_page=page_id AND pp_propname = 'disambiguation' )
+							AND page_id < 21000000
+							# Big hackerish heuristic cheat here! Ignore all pages newer than page_id X.
+							# Currently set to ignore articles created after Dec 2008
+							# If less than 500 results appear in the final output, this needs to be re-baselined
+						)
 						AND rev_id=page_latest
 						ORDER BY lastedit ASC
 						LIMIT 500
-						) as InnerQuery
-						/******************************************************************************************************/
+					) as InnerQuery
 				WHERE rev_page=page_id
 				GROUP BY page_id
 				ORDER BY lastedit ASC"""
-
 		cur.execute( query )
 
 		# Extract the data into a Python nested list
@@ -105,7 +99,7 @@ class Reports:
 	def autopatrol_eligibles( self ):
 		cur = self.db.cursor()
 		query = """ SELECT
-				/* "editor" consisting of user_name, wrapped in HTML tags linking to the sigma "created" tool */
+				# "editor" consisting of user_name, wrapped in HTML tags linking to the sigma "created" tool
 				CONCAT (
 					'[[User:',user_name,'|',user_name,']]'
 				 ) AS editor,
@@ -114,16 +108,14 @@ class Reports:
 					REPLACE(user_name," ","%20"),
 					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted (list)]'
 				 ) AS listlink,
-				/* derived column "created count" returned by this subquery */
-				(
-					SELECT count(*)
+				# derived column "created count" returned by this subquery
+				( SELECT count(*)
 					FROM revision_userindex
 					LEFT JOIN page ON page_id = rev_page
 					WHERE page_namespace = 0 AND rev_parent_id = 0 AND rev_user_text = user_name AND rev_deleted = 0 AND page_is_redirect = 0
 				) AS created_count
 				FROM
-				(
-					/* This query returns users who have created pages in the last 30 days and who are not already members of autoreviewed */
+				( # This query returns users who have created pages in the last 30 days and who are not already members of autoreviewed
 					SELECT DISTINCT user_name
 					FROM recentchanges
 					LEFT JOIN user
@@ -131,21 +123,20 @@ class Reports:
 					LEFT JOIN page
 					ON rc_cur_id=page_id
 					WHERE
-							/* User created a page within the last thirty days */
+							# User created a page within the last thirty days
 							rc_timestamp > date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S') AND
-							/* It was an article */
+							# It was an article
 							rc_namespace = 0 AND
-							/* The user was human */
+							# The user was human
 							rc_bot = 0 AND
-							/* It was a new page */
+							# It was a new page
 							rc_new = 1 AND
-							/* It's not a redirect */
+							# It's not a redirect
 							page_is_redirect = 0 AND
-							/* User doesn't already have autoreviewer */
+							# User doesn't already have autoreviewer
 							NOT EXISTS
-							(
-								SELECT 1 FROM user_groups WHERE ug_user=user_id AND ( ug_group='autoreviewer' OR ug_group='sysop' )
-							)
+							( SELECT 1 FROM user_groups WHERE ug_user=user_id AND ( ug_group='autoreviewer' OR ug_group='sysop' )
+					)
 				) as InnerQuery
 				HAVING created_count > 24
 				ORDER BY created_count DESC
