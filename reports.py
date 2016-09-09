@@ -412,7 +412,7 @@ class Reports:
 		report_title = dict_obj[ str( title ) ]
 		print str( reports_base_url + report_title )
 		page = self.site.Pages[ reports_base_url + report_title ]
-		page.save( content, summary = dict_obj[ 'summary' ] )
+		page.save( content, summary = dict_obj[ 'summary' ] , minor=True)
 
 
 	def linkify( self, title, namespace = None ):
