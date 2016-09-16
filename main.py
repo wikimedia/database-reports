@@ -59,11 +59,11 @@ class Run:
 	def unused_templates( self ):
 		self.rep.unused_templates()
 
-        def article_by_size( self ):
-                self.rep.article_by_size()
+	def article_by_size( self ):
+		self.rep.article_by_size()
 
-        def most_edited_page_last_month( self ):
-                self.rep.most_edited_page_last_month()
+	def most_edited_page_last_month( self ):
+		self.rep.most_edited_page_last_month()
 
 if __name__ == '__main__':
 	main(sys.argv)
