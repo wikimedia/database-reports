@@ -152,13 +152,6 @@ lang_dicts = {
 		"ufr-imagelinks": "Image Links",
 		"ufr-links": "Links",
 
-		"reports_base_url": "Wikipedia:Database reports/",
-		"forgotten-articles-page-title": "Forgotten articles - test", # The page title where report is published
-		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
-		"forgotten-articles-title": "Title - test",
-		"forgotten-articles-last-edited": "Last edited",
-		"forgotten-articles-editcount": "Number of edits",
-
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
 		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
 		"autopatrol-username": "Username",
@@ -268,7 +261,7 @@ lang_dicts = {
 		"deletedprods-delcomments": "Deletion comments",
 
 		"mostusedtemplate-page-title": "Modeles inclus sur le plus grand nombre de pages",
-		"mostusedtemplate-desc": "Modeles inclus sur le plus grand nombre de pages (limité à 3000)",
+		"mostusedtemplate-desc": "Modèles inclus sur le plus grand nombre de pages (limité à 3000)",
 		"mostusedtemplate-title": "Nom du modèle",
 		"mostusedtemplate-count": "Nombre d'inclusions",
 
