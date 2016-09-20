@@ -208,7 +208,7 @@ lang_dicts = {
 		"yes-label": "Oui",
 		"no-label": "Non",
 
-		"forgotten-articles-page-title": "Articles oublies", # The page title where report is published
+		"forgotten-articles-page-title": "Articles oubli&eacute;s", # The page title where report is published
 		"forgotten-articles-desc": "Liste des 500 articles qui n'ont pas étés édités depuis le plus longtemps, hors redirections. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"forgotten-articles-title": "Titre",
 		"forgotten-articles-last-edited": "Dernière édition",
@@ -246,7 +246,7 @@ lang_dicts = {
 		"ufr-imagelinks": "Image Links",
 		"ufr-links": "Links",
 
-		"oldestactive-page-title": "Editeurs actifs avec les comptes les plus anciens",
+		"oldestactive-page-title": "Éditeurs actifs avec les comptes les plus anciens",
 		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"oldestactive-username": "Nom d'utilisateur",
 		"oldestactive-creationdate": "Date de création",
@@ -260,12 +260,12 @@ lang_dicts = {
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
 
-		"mostusedtemplate-page-title": "Modeles inclus sur le plus grand nombre de pages",
+		"mostusedtemplate-page-title": "Mod&egrave;les inclus sur le plus grand nombre de pages",
 		"mostusedtemplate-desc": "Modèles inclus sur le plus grand nombre de pages (limité à 3000)",
 		"mostusedtemplate-title": "Nom du modèle",
 		"mostusedtemplate-count": "Nombre d'inclusions",
 
-		"unusedtemplate-page-title": "Modeles inutilises",
+		"unusedtemplate-page-title": "Mod&egrave;les inutilises",
 		"unusedtemplate-desc": "Modèles avec le moins d'inclusions (limité à 2000).",
 		"unusedtemplate-title": "Nom du modèle",
 
@@ -285,7 +285,7 @@ lang_dicts = {
 		"article_by_size-title": "Article",
 		"article_by_size-size": "Taille",
 
-		"most_edited_page_last_month-page-title": "Articles les plus edites le mois dernier",
+		"most_edited_page_last_month-page-title": "Articles les plus &eacute;dites le mois dernier",
 		"most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"most_edited_page_last_month-title": "Titre",
 		"most_edited_page_last_month-editcount": "Nombre d'éditions",
