@@ -425,7 +425,7 @@ class Reports:
 		title_clean = title.replace( '_', ' ' )
 		if namespace is None:
 			return '[[' + title_clean + ']]'
-		elif namespace is 6:
+		elif namespace in [6, 14]:
 			return '[[:{{subst:ns:%s}}:%s]]' % ( namespace, title_clean )
 		else:
 			return '[[{{subst:ns:%s}}:%s]]' % ( namespace, title_clean )
