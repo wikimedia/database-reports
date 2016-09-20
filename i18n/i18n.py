@@ -246,7 +246,7 @@ lang_dicts = {
 		"ufr-imagelinks": "Image Links",
 		"ufr-links": "Links",
 
-		"oldestactive-page-title": "Éditeurs actifs avec les comptes les plus anciens",
+		"oldestactive-page-title": "&Eacute;diteurs actifs avec les comptes les plus anciens",
 		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"oldestactive-username": "Nom d'utilisateur",
 		"oldestactive-creationdate": "Date de création",
