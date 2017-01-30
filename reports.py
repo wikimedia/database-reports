@@ -429,7 +429,7 @@ class Reports:
 			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ])
 
 		# Format the data as wikitext
-		text = display_report(self.wiki, content, 'most_watched-desc')
+		text = display_report(self.wiki, content, 'most_watched-desc', numbers=True)
 		self.publish_report('most_watched-page-title', text)
 
 	''' Publish report on page with given title, with the given content
