@@ -94,7 +94,8 @@ lang_dicts = {
 		"most_watched-desc": "Most-watched non-deleted pages (limited to the first 1000 entries)",
 		"most_watched-namespace": "Namespace",
 		"most_watched-title": "Title",
-		"most_watched-watchers": "Count"
+		"most_watched-watchers": "Count",
+		"most_watched-id": "N%C2%B0"
 	},
 
 	'esdict' : {
@@ -211,7 +212,8 @@ lang_dicts = {
 		"most_watched-desc": "Most-watched non-deleted pages (limited to the first 1000 entries)",
 		"most_watched-namespace": "Namespace",
 		"most_watched-title": "Title",
-		"most_watched-watchers": "Count"
+		"most_watched-watchers": "Count",
+		"most_watched-id": "N%C2%B0"
 	},
 
 	'frdict' : {
@@ -306,6 +308,7 @@ lang_dicts = {
 		"most_watched-desc": "Liste des pages non-supprimées les plus suivies (limitée aux 1 000 premières entrées)",
 		"most_watched-namespace": "[[Aide:Espace de noms|NS]]",
 		"most_watched-title": "Titre",
-		"most_watched-watchers": "Nombre"
+		"most_watched-watchers": "Nombre",
+		"most_watched-id": "N%C2%B0"
 	}
 }
