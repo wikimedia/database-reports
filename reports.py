@@ -407,6 +407,31 @@ class Reports:
 		text = display_report( self.wiki, content , 'article_by_size-desc' )
 		self.publish_report( 'article_by_size-page-title', text )
 
+	def most_watched( self ):
+		cur = self.db.cursor()
+		# query on Public domain; bjweeks, MZMcBride; 2009, 2017
+		query = """SELECT
+					wl_namespace,
+					wl_title,
+					watchers
+					FROM watchlist_count
+					JOIN page
+					ON wl_namespace = page_namespace
+					AND wl_title = page_title
+					WHERE wl_namespace mod 2 = 0
+					AND wl_namespace >= 0
+					ORDER BY watchers DESC, wl_title ASC
+					LIMIT 1000;"""
+		cur.execute(query)
+		content = []
+		content.append( ['most_watched-namespace', 'most_watched-title', 'most_watched-watchers'] )
+		for row in cur.fetchall():
+			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ])
+
+		# Format the data as wikitext
+		text = display_report(self.wiki, content, 'most_watched-desc')
+		self.publish_report('most_watched-page-title', text)
+
 	''' Publish report on page with given title, with the given content
 		@param title Page title
 		@param content Content to be displayed on page
@@ -415,7 +440,7 @@ class Reports:
 		dict_obj = i18n.lang_dicts[ str( self.wiki + 'dict') ]
 		reports_base_url = dict_obj[ str( 'reports_base_url' ) ]
 		report_title = dict_obj[ str( title ) ]
-		print str( reports_base_url + report_title )
+		print(str( reports_base_url + report_title ))
 		page = self.site.Pages[ reports_base_url + report_title ]
 		page.save( content, summary = dict_obj[ 'summary' ] , minor=True)
 
