@@ -309,7 +309,7 @@ lang_dicts = {
 		"most_watched-namespace": "[[Aide:Espace de noms|NS]]",
 		"most_watched-title": "Titre",
 		"most_watched-watchers": "Nombre",
-		"most_watched-id": "N%C2%B0"
+		"most_watched-id": "N."
 	}
 }
 
