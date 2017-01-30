@@ -8,7 +8,7 @@ import time
 	@param numbers - If table have to contain numbers of rows
 '''
 
-def display_report( wiki, content, desc, numbers=False ):
+def display_report( wiki, content, desc, ):
 
 	# Find out the dictionary containing messages for given wiki/language code
 	dict_obj = i18n.lang_dicts[ str( wiki + 'dict') ]
@@ -17,16 +17,12 @@ def display_report( wiki, content, desc, numbers=False ):
 	wikitext = wikitext + '{| class="wikitable sortable" \n |- \n'
 	collen = len( content[0] )
 	rowlen = len( content )
-	i = 1
 
 	for x in range( 0, collen ):
 		wikitext = wikitext + '! ' + dict_obj[ str( content[0][x] ) ] + '\n'
 
 	for x in range( 1, rowlen ):
 		wikitext = wikitext + '|- \n'
-		if numbers:
-			wikitext = wikitext + '| ' + str(i)
-			i += 1
 		for i in range( 0, collen ):
 			wikitext = wikitext + '| ' + str( content[x][i] ) + '\n'
 
