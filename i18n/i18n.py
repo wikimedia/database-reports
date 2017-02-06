@@ -261,7 +261,7 @@ lang_dicts = {
 		"ufr-links": "Links",
 
 		"oldestactive-page-title": "&Eacute;diteurs actifs avec les comptes les plus anciens",
-		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création du compte (à partir du 22 décembre 2005. Pour le moment, les comptes antérieurs ne sont pas listés). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"oldestactive-username": "Nom d'utilisateur",
 		"oldestactive-creationdate": "Date de création",
 		"oldestactive-editcount": "Compteur d'édition approximatif",
