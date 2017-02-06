@@ -279,7 +279,7 @@ lang_dicts = {
 		"mostusedtemplate-title": "Nom du modèle",
 		"mostusedtemplate-count": "Nombre d'inclusions",
 
-		"unusedtemplate-page-title": "Mod&egrave;les inutilises",
+		"unusedtemplate-page-title": "Mod&egrave;les inutilis&eacute;s",
 		"unusedtemplate-desc": "Modèles avec le moins d'inclusions (limité à 2000).",
 		"unusedtemplate-title": "Nom du modèle",
 
@@ -299,7 +299,7 @@ lang_dicts = {
 		"article_by_size-title": "Article",
 		"article_by_size-size": "Taille",
 
-		"most_edited_page_last_month-page-title": "Articles les plus &eacute;dites le mois dernier",
+		"most_edited_page_last_month-page-title": "Articles les plus &eacute;dit&eacute;s le mois dernier",
 		"most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"most_edited_page_last_month-title": "Titre",
 		"most_edited_page_last_month-editcount": "Nombre d'éditions",
