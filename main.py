@@ -32,9 +32,6 @@ class Run:
 	def pages_with_most_revisions( self ):
 		self.rep.pages_with_most_revisions()
 
-	def blank_pages( self ):
-		self.rep.blank_pages()
-
 	def autopatrol_eligibles( self ):
 		self.rep.autopatrol_eligibles()
 
