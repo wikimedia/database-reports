@@ -431,7 +431,7 @@ class Reports:
 			i += 1
 
 		# Format the data as wikitext
-		text = display_report(self.wiki, content, 'most_watched-desc')
+		text = display_report( self.wiki, content , 'most_watched-desc' )
 		self.publish_report('most_watched-page-title', text)
 
 	''' Publish report on page with given title, with the given content
