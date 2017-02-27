@@ -5,7 +5,6 @@ import time
 	@param wiki - Language code for the wiki (eg: 'en', 'es', 'it')
 	@param content - Python 2D array (nested list) containing table entries
 	@param desc - Key to the description message of the report
-	@param numbers - If table have to contain numbers of rows
 '''
 
 def display_report( wiki, content, desc, ):
