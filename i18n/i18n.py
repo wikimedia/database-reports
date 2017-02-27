@@ -91,7 +91,7 @@ lang_dicts = {
 		"most_edited_page_last_month-editcount": "Revisions",
 
 		"most_watched-page-title": "Most-watched pages",
-		"most_watched-desc": "Most-watched non-deleted pages (limited to the first 1000 entries)",
+		"most_watched-desc": "Most-watched pages (limited to the first 1000 entries)",
 		"most_watched-namespace": "Namespace",
 		"most_watched-title": "Title",
 		"most_watched-watchers": "Count",
@@ -305,7 +305,7 @@ lang_dicts = {
 		"most_edited_page_last_month-editcount": "Nombre d'éditions",
 
 		"most_watched-page-title": "Pages les plus suivies",
-		"most_watched-desc": "Liste des pages non-supprimées les plus suivies (limitée aux 1 000 premières entrées).  Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"most_watched-desc": "Liste des pages non-supprimées les plus suivies (limitée aux 1 000 premières entrées). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"most_watched-namespace": "[[Aide:Espace de noms|NS]]",
 		"most_watched-title": "Titre",
 		"most_watched-watchers": "Nombre",
