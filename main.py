@@ -26,6 +26,9 @@ class Run:
 	def forgotten_articles( self ):
 		self.rep.forgotten_articles()
 
+	def new_wikiprojects( self ):
+		self.rep.new_wikiprojects()
+
 	def pagecountbynamespace( self ):
 		self.rep.page_count_by_namespace()
 

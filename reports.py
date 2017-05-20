@@ -93,6 +93,7 @@ class Reports:
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
 		self.publish_report( 'pagerevisions-page-title', text )
 
+
 	# Editors eligible for autopatrol privileges
 	# Identify users who meet the criteria for being granted "autopatrolled" on the English Wikipedia but who don't already have it.
 	# Author: Andrew Crawford (thparkth) <acrawford@laetabilis.com>
@@ -152,6 +153,29 @@ class Reports:
 		# Format the data as wikitext
 		text = display_report( self.wiki, content , 'autopatrol-desc' )
 		self.publish_report( 'autopatrol-page-title', text )
+
+
+	def new_wikiprojects( self ):
+		cur = self.db.cursor()
+		query = """SELECT rc_timestamp, rc_title
+					FROM recentchanges
+					WHERE rc_new = 1
+					AND rc_namespace = 4
+					AND rc_title LIKE 'WikiProject%'
+					AND rc_title NOT LIKE '%/%'
+					ORDER BY rc_timestamp DESC
+				""";
+		cur.execute( query )
+
+		content = []
+		content.append( [ 'newwp-date', 'newwp-title' ] )
+		for row in cur.fetchall():
+			if row[1] is None:
+				continue
+			content.append( [  row[0], self.linkify( row[1], 4 ) ] )
+		# Format the data as wikitext
+		text = display_report( self.wiki, content, 'newwp-desc' )
+		self.publish_report( 'newwp-page-title', text )
 
 
 	def talk_pages_by_size( self ):

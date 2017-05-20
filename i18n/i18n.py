@@ -29,6 +29,11 @@ lang_dicts = {
 		"pagerevisions-title": "Article",
 		"pagerevisions-revisions": "Revisions",
 
+		"newwp-date": "Date created",
+		"newwp-title": "Title",
+		"newwp-page-title": "New WikiProjects",
+		"newwp-desc": "Wikiprojects created in the last month",
+
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
 		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
 		"autopatrol-username": "Username",
