@@ -7,7 +7,7 @@ import time
 	@param desc - Key to the description message of the report
 '''
 
-def display_report( wiki, content, desc ):
+def display_report( wiki, content, desc, ):
 
 	# Find out the dictionary containing messages for given wiki/language code
 	dict_obj = i18n.lang_dicts[ str( wiki + 'dict') ]

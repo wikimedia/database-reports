@@ -94,6 +94,13 @@ lang_dicts = {
 		"most_edited_page_last_month-desc": "Articles ranked by number of edits during last 30 days, limit to the 25 firsts.",
 		"most_edited_page_last_month-title": "Title",
 		"most_edited_page_last_month-editcount": "Revisions",
+
+		"most_watched-page-title": "Most-watched pages",
+		"most_watched-desc": "Most-watched pages (limited to the first 1000 entries)",
+		"most_watched-namespace": "Namespace",
+		"most_watched-title": "Title",
+		"most_watched-watchers": "Count",
+		"most_watched-id": "N%C2%B0"
 	},
 
 	'esdict' : {
@@ -157,13 +164,6 @@ lang_dicts = {
 		"ufr-imagelinks": "Image Links",
 		"ufr-links": "Links",
 
-		"reports_base_url": "Wikipedia:Database reports/",
-		"forgotten-articles-page-title": "Forgotten articles - test", # The page title where report is published
-		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
-		"forgotten-articles-title": "Title - test",
-		"forgotten-articles-last-edited": "Last edited",
-		"forgotten-articles-editcount": "Number of edits",
-
 		"autopatrol-page-title": "Editors eligible for Autopatrol privilege",
 		"autopatrol-desc": "List of editors who are eligible for the autopatrol privilege and don't have it yet. Limited to 500 users with most articles created.",
 		"autopatrol-username": "Username",
@@ -212,6 +212,13 @@ lang_dicts = {
 		"most_edited_page_last_month-desc": "Articles ranked by number of edits during last 30 days, limit to the 25 firsts.",
 		"most_edited_page_last_month-title": "Title",
 		"most_edited_page_last_month-editcount": "Revisions",
+
+		"most_watched-page-title": "Most-watched pages",
+		"most_watched-desc": "Most-watched non-deleted pages (limited to the first 1000 entries)",
+		"most_watched-namespace": "Namespace",
+		"most_watched-title": "Title",
+		"most_watched-watchers": "Count",
+		"most_watched-id": "N%C2%B0"
 	},
 
 	'frdict' : {
@@ -220,7 +227,7 @@ lang_dicts = {
 		"yes-label": "Oui",
 		"no-label": "Non",
 
-		"forgotten-articles-page-title": "Articles oublies", # The page title where report is published
+		"forgotten-articles-page-title": "Articles oubli&eacute;s", # The page title where report is published
 		"forgotten-articles-desc": "Liste des 500 articles qui n'ont pas étés édités depuis le plus longtemps, hors redirections. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"forgotten-articles-title": "Titre",
 		"forgotten-articles-last-edited": "Dernière édition",
@@ -258,8 +265,8 @@ lang_dicts = {
 		"ufr-imagelinks": "Image Links",
 		"ufr-links": "Links",
 
-		"oldestactive-page-title": "Editeurs actifs avec les comptes les plus anciens",
-		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"oldestactive-page-title": "&Eacute;diteurs actifs avec les comptes les plus anciens",
+		"oldestactive-desc": "Les 200 éditeurs actifs (dernière modification dans les 30 derniers jours) par date de création du compte (à partir du 22 décembre 2005. Pour le moment, les comptes antérieurs ne sont pas listés). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"oldestactive-username": "Nom d'utilisateur",
 		"oldestactive-creationdate": "Date de création",
 		"oldestactive-editcount": "Compteur d'édition approximatif",
@@ -272,12 +279,12 @@ lang_dicts = {
 		"deletedprods-lastdeltime": "Last deletion",
 		"deletedprods-delcomments": "Deletion comments",
 
-		"mostusedtemplate-page-title": "Modeles inclus sur le plus grand nombre de pages",
-		"mostusedtemplate-desc": "Modeles inclus sur le plus grand nombre de pages (limité à 3000)",
+		"mostusedtemplate-page-title": "Mod&egrave;les inclus sur le plus grand nombre de pages",
+		"mostusedtemplate-desc": "Modèles inclus sur le plus grand nombre de pages (limité à 3000)",
 		"mostusedtemplate-title": "Nom du modèle",
 		"mostusedtemplate-count": "Nombre d'inclusions",
 
-		"unusedtemplate-page-title": "Modeles inutilises",
+		"unusedtemplate-page-title": "Mod&egrave;les inutilis&eacute;s",
 		"unusedtemplate-desc": "Modèles avec le moins d'inclusions (limité à 2000).",
 		"unusedtemplate-title": "Nom du modèle",
 
@@ -297,9 +304,17 @@ lang_dicts = {
 		"article_by_size-title": "Article",
 		"article_by_size-size": "Taille",
 
-		"most_edited_page_last_month-page-title": "Articles les plus edites le mois dernier",
+		"most_edited_page_last_month-page-title": "Articles les plus &eacute;dit&eacute;s le mois dernier",
 		"most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"most_edited_page_last_month-title": "Titre",
 		"most_edited_page_last_month-editcount": "Nombre d'éditions",
+
+		"most_watched-page-title": "Pages les plus suivies",
+		"most_watched-desc": "Liste des pages non-supprimées les plus suivies (limitée aux 1 000 premières entrées). Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
+		"most_watched-namespace": "[[Aide:Espace de noms|NS]]",
+		"most_watched-title": "Titre",
+		"most_watched-watchers": "Nombre",
+		"most_watched-id": "N."
 	}
 }
+

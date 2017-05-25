@@ -35,9 +35,6 @@ class Run:
 	def pages_with_most_revisions( self ):
 		self.rep.pages_with_most_revisions()
 
-	def blank_pages( self ):
-		self.rep.blank_pages()
-
 	def autopatrol_eligibles( self ):
 		self.rep.autopatrol_eligibles()
 
@@ -67,6 +64,9 @@ class Run:
 
 	def most_edited_page_last_month( self ):
 		self.rep.most_edited_page_last_month()
+
+	def most_watched(self):
+		self.rep.most_watched()
 
 if __name__ == '__main__':
 	main(sys.argv)
