@@ -301,5 +301,98 @@ lang_dicts = {
 		"most_edited_page_last_month-desc": "Liste des 25 articles ayant eu le plus de modifications durant les 30 derniers jours. Il est possible de trier une colonne en cliquant sur les deux flèches de son libellé.",
 		"most_edited_page_last_month-title": "Titre",
 		"most_edited_page_last_month-editcount": "Nombre d'éditions",
+	},
+
+	'kodict' : {
+		"reports_base_url": "위키백과:데이터베이스 보고서/", # The base URL for the report, preceding the page title
+		"summary": "봇: 보고서 업데이트",
+		"yes-label": "예",
+		"no-label": "아니오",
+
+		"forgotten-articles-page-title": "잊혀진 문서", # The page title where report is published
+		"forgotten-articles-desc": "가장 오랫동안 편집되지 않은 500개 문서, 넘겨주기/동음이의어 문서 제외.",
+		"forgotten-articles-title": "제목",
+		"forgotten-articles-last-edited": "마지막 편집",
+		"forgotten-articles-editcount": "편집 수",
+
+		"pagecount-page-title": "이름공간 별 문서 수",
+		"pagecount-desc": "각 [[위키백과:이름공간|이름공간]] 별로 포함된 문서 수",
+		"pagecount-namespace": "이름공간 ID",
+		"pagecount-total": "총 문서 수",
+		"pagecount-redirect": "넘겨주기 문서 수",
+		"pagecount-non-redirect": "넘겨주기가 아닌 문서 수",
+		"pagecount-namespace-name": "이름공간",
+
+		"pagerevisions-page-title": "가장 많이 편집된 문서",
+		"pagerevisions-desc": "가장 많은 편집을 가진 문서. 첫 1000개 값만 표시됩니다.",
+		"pagerevisions-namespace": "이름공간",
+		"pagerevisions-title": "문서",
+		"pagerevisions-revisions": "편집 수",
+
+		"newwp-date": "생성된 날짜",
+		"newwp-title": "제목",
+		"newwp-page-title": "새 위키프로젝트",
+		"newwp-desc": "최근 한 달 사이에 생성된 위키프로젝트들",
+
+		"autopatrol-page-title": "점검 면제자를 받아도 될 만한 사용자",
+		"autopatrol-desc": "점검 면제자를 받아도 될 만한 편집 수를 가지고 있지만 점검 면제자 권한은 없는 사용자. 가장 많은 문서를 생성한 사람을 기준으로 첫 500명까지만 표시됩니다.",
+		"autopatrol-username": "사용자 이름",
+		"autopatrol-listlink": " ",
+		"autopatrol-articles": "문서 카운트",
+
+		"tpbs-page-title": "크기별 토론 문서",
+		"tpbs-desc": "의견이 많이 오가는 토론장을 파악하기 위해 보존문서, 의견 요청, 그 외 하위 문서를 모두 포함한 토론 문서의 총 크기.",
+		"tpbs-namespace": "이름공간",
+		"tpbs-size": "크기 (MB)",
+		"tpbs-page": "문서",
+
+		"ufr-page-title": "쓰지 않는 파일 넘겨주기",
+		"ufr-desc": "최대 1개의 문서에서 사용되는 파일 넘겨주기 목록. 최근 500개만 표시됩니다.",
+		"ufr-page": "문서",
+		"ufr-imagelinks": "사진 링크",
+		"ufr-links": "링크",
+
+		"oldestactive-page-title": "가장 오래 활동한 편집자",
+		"oldestactive-desc": "최근 30일동안 활동한 편집자 중 가장 먼저 계정을 생성한 사용자 200명.",
+		"oldestactive-username": "사용자 이름",
+		"oldestactive-creationdate": "계정을 생성한 날짜",
+		"oldestactive-editcount": "대략적인 편집 수",
+
+		# "deletedprods-page-title": "PRODed articles with deletion logs",
+		# "deletedprods-desc": "List of [[WP:PROD|PRODed]] articles that have previously been deleted. Limited to 500 articles.",
+		# "deletedprods-title": "Article title",
+		# "deletedprods-deletecount": "Delete count",
+		# "deletedprods-firstdeltime": "First deletion",
+		# "deletedprods-lastdeltime": "Last deletion",
+		# "deletedprods-delcomments": "Deletion comments",
+
+		"mostusedtemplate-page-title": "가장 많은 문서에서 끼워넣는 틀",
+		"mostusedtemplate-desc": "가장 많은 문서에서 끼워넣는 틀. 첫 3000개만 표시합니다.",
+		"mostusedtemplate-title": "틀 이름",
+		"mostusedtemplate-count": "끼워넣기 수",
+
+		"unusedtemplate-page-title": "쓰이지 않는 틀",
+		"unusedtemplate-desc": "끼워넣는 문서가 없는 틀. 첫 2000개만 표시합니다.)",
+		"unusedtemplate-title": "틀 이름",
+
+		"orphantalk-page-title": "버려진 토론 문서",
+		"orphantalk-desc": "버려진 토론 문서. 첫 1000개만 표시됩니다.",
+		"orphantalk-itemtitle": "문서",
+		"orphantalk-namespace": "이름공간",
+		"orphantalk-exists": "존재하는 문서 여부",
+		"orphantalk-isredirect": "넘겨주기",
+		"orphantalk-count": "카운트",
+		"orphantalk-pagesize": "크기",
+
+		"article_by_size-page-title": "크기별 문서",
+		"article_by_size-desc": "주 이름공간의 문서 크기가 가장 많은 순으로 정렬",
+		"article_by_size-namespace": "이름공간",
+		"article_by_size-title": "문서",
+		"article_by_size-size": "크기",
+
+		"most_edited_page_last_month-page-title": "지난 달에 가장 많이 편집된 문서",
+		"most_edited_page_last_month-desc": "최근 30일동안 가장 많이 편집된 문서. 첫 25개 한정으로 표시합니다.",
+		"most_edited_page_last_month-title": "제목",
+		"most_edited_page_last_month-editcount": "편집 수",
 	}
 }
