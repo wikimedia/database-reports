@@ -393,7 +393,7 @@ class Reports:
 		cur = self.db.cursor()
 		query = """SELECT rc_title, count(*) as num_edits
 					FROM recentchanges
-					WHERE rc_namespace = 0
+					WHERE rc_namespace = 0 AND rc_type < 2
 					GROUP BY 1 ORDER BY 2 DESC
 					LIMIT 25;"""
 		cur.execute( query )
