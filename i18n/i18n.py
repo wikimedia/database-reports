@@ -394,5 +394,34 @@ lang_dicts = {
 		"most_edited_page_last_month-desc": "최근 30일동안 가장 많이 편집된 문서. 첫 25개 한정으로 표시합니다.",
 		"most_edited_page_last_month-title": "제목",
 		"most_edited_page_last_month-editcount": "편집 수",
+	},
+
+	'vidict' : {
+		"reports_base_url": "Wikipedia:Báo cáo cơ sở dữ liệu/",
+
+		"article_by_size-page-title": "Bài viết theo kích cỡ",
+		"article_by_size-desc": "Các bài viết theo tổng kích cỡ, chủ yếu trong không gian tên chính",
+		"article_by_size-namespace": "Không gian tên",
+		"article_by_size-title": "Bài viết",
+		"article_by_size-size": "Độ dài",
+
+		"most_edited_page_last_month-page-title": "Bài viết được sửa nhiều lần nhất trong tháng vừa qua",
+		"most_edited_page_last_month-desc": "Các bài viết theo số lần sửa đổi trong 30 ngày vừa qua, giới hạn trong 25 bài được sửa nhiều nhất",
+		"most_edited_page_last_month-title": "Tên bài",
+		"most_edited_page_last_month-editcount": "Số phiên bản",
+
+		"oldestactive-page-title": "Thành viên tích cực có lịch sử đóng",
+		"oldestactive-desc": "50 tài khoản người dùng được mở sớm nhất tích cực sửa đổi trong 30 ngày vừa qua",
+		"oldestactive-username": "Tên người dùng",
+		"oldestactive-creationdate": "Ngày mở tài khoản",
+		"oldestactive-editcount": "Số sửa đổi xấp xỉ",
+
+		"pagecount-page-title": "Số trang theo không gian tên",
+		"pagecount-desc": "Số trang theo từng không gian tên",
+		"pagecount-namespace": "ID không gian tên",
+		"pagecount-total": "Tổng số trang",
+		"pagecount-redirect": "Trang đổi hướng",
+		"pagecount-non-redirect": "Trang không đổi hướng",
+		"pagecount-namespace-name": "Không gian tên",
 	}
 }
