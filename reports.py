@@ -4,6 +4,9 @@ from i18n import i18n
 import datetime
 from displayTable import *
 import re
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 class Reports:
 	def __init__( self, site, db, wiki ):
