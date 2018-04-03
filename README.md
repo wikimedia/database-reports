@@ -19,11 +19,15 @@ This project allows the [Community Tech bot](https://en.wikipedia.org/wiki/User:
 * Editors eligible for autopatrol privileges
 * Active editors with the longest-established accounts
 
-## Usage 
+## Generating a report 
 * Log into the Toolforge bastion using your Wikimedia developer account ```ssh username@login.tools.wmflabs.org```
 * Become your tool account ```become database-reports```
 * Run ```python main.py test articles_by_size```. It takes two arguments; in this example test refers to `test.wikipedia.org` and `articles_by_size` is the type of statistics you're requesting. This command outputs the name of the page on which the report got dumped  
 * To alter the default settings for periodic updates, make changes to the crontab file ```crontab -e```
+
+## Adding support for a report
+* To add support for a specific statistics that you would like to see in a report, declare a function in `main.py` and define it in `reports.py` 
+* To provide support for translations in a specific language, include the dictionary in `i18n/i18n.py` 	
 
 ## Contributing
 Bug reports, fixes, and new features are welcomed. If you'd like to contribute code please:
