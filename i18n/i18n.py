@@ -413,7 +413,7 @@ lang_dicts = {
 		"most_edited_page_last_month-title": "Tên bài",
 		"most_edited_page_last_month-editcount": "Số phiên bản",
 
-		"oldestactive-page-title": "Thành viên tích cực có lịch sử đóng",
+		"oldestactive-page-title": "Thành viên tích cực có lịch sử đóng góp lâu đời nhất",
 		"oldestactive-desc": "50 tài khoản người dùng được mở sớm nhất tích cực sửa đổi trong 30 ngày vừa qua",
 		"oldestactive-username": "Tên người dùng",
 		"oldestactive-creationdate": "Ngày mở tài khoản",
