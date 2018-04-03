@@ -398,6 +398,9 @@ lang_dicts = {
 
 	'vidict' : {
 		"reports_base_url": "Wikipedia:Báo cáo cơ sở dữ liệu/",
+		"summary": "Bot: Đang cập nhật báo cáo",
+		"yes-label": "Vâng",
+		"no-label": "Không",
 
 		"article_by_size-page-title": "Bài viết theo kích cỡ",
 		"article_by_size-desc": "Các bài viết theo tổng kích cỡ, chủ yếu trong không gian tên chính",
