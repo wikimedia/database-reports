@@ -273,11 +273,12 @@ class Reports:
 					min(log_timestamp) AS firstdel,
 					max(log_timestamp) AS lastdel,
 					group_concat(
-						log_timestamp," - ",log_comment,"<br>"
+						log_timestamp," - ",comment_text,"<br>"
 						ORDER BY log_timestamp ASC
 						SEPARATOR " "
 					) as log
 				FROM categorylinks,page,logging_logindex
+				LEFT OUTER JOIN comment ON log_comment_id = comment_id
 				WHERE cl_from=page_id
 				AND cl_to="All_articles_proposed_for_deletion"
 				AND page_title=log_title
