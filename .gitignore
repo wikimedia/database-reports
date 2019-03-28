@@ -1,5 +1,5 @@
 .config.py
-
 .DS_STORE
-
 *.pyc
+venv
+config.py

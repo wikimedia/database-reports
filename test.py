@@ -1,5 +1,5 @@
 import mwclient
-import MySQLdb
+import pymysql
 import datetime
 from .config import *
 from reports import *
@@ -8,7 +8,7 @@ from displayTable import *
 
 def forgotten_articles():
 
-	db = MySQLdb.connect( host = 'enwiki.labsdb', user = credentials['user'], passwd = credentials['pass'], db = 'enwiki_p' )
+	db = pymysql.connect( host = 'enwiki.labsdb', user = credentials['user'], passwd = credentials['pass'], db = 'enwiki_p' )
 	site = mwclient.Site( 'en.wikipedia.org' )
 	site.login( cttbot['user'], cttbot['pass'] )
 	print 'initiated'
