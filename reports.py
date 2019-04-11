@@ -1,5 +1,5 @@
 import mwclient
-import MySQLdb
+import pymysql
 from i18n import i18n
 import datetime
 from displayTable import *
@@ -13,6 +13,8 @@ class Reports:
 		self.db = db
 		self.site = site
 		self.wiki = wiki
+		# 30s is not enough
+		self.site.requests['timeout'] = 120
 
 	# Oldest edited articles
 	# Run time on enwiki 5 hours 23 minutes as of 8 Sept 2015
