@@ -7,21 +7,31 @@ import sys
 
 def main ( args ):
 	wiki = args[1]
+	dry_run = False
+	methods = []
 	for arg in args[2:]:
-		print arg
-		run = Run( wiki )
-		method = getattr( run, str( arg ) )
+		if arg == '--dry-run':
+			dry_run = True
+		else:
+			methods.append(arg)
+
+	for m in methods:
+		print( m )
+		run = Run( wiki, dry_run )
+		method = getattr( run, str( m ) )
 		if not method:
 			raise Exception( "Method not implemented" )
 		else:
 			method()
 
 class Run:
-	def __init__( self, wiki ):
-		self.db = pymysql.connect( host = wiki + 'wiki.labsdb', user = credentials['user'], passwd = credentials['pass'], db = wiki + 'wiki_p' )
+	def __init__( self, wiki, dry_run ):
+		host = '127.0.0.1' if dry_run else wiki + 'wiki.labsdb'
+		port = credentials.get( 'port', 3306 )
+		self.db = pymysql.connect( host = host, user = credentials['user'], passwd = credentials['pass'], db = wiki + 'wiki_p', port = port )
 		self.site = mwclient.Site( wiki + '.wikipedia.org' )
 		self.site.login( cttbot['user'], cttbot['pass'] )
-		self.rep = Reports( self.site, self.db, wiki )
+		self.rep = Reports( self.site, self.db, wiki, dry_run )
 
 	def forgotten_articles( self ):
 		self.rep.forgotten_articles()

@@ -9,12 +9,13 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 class Reports:
-	def __init__( self, site, db, wiki ):
+	def __init__( self, site, db, wiki, dry_run=False ):
 		self.db = db
 		self.site = site
 		self.wiki = wiki
 		# 30s is not enough
 		self.site.requests['timeout'] = 120
+		self.dry_run = dry_run
 
 	# Oldest edited articles
 	# Run time on enwiki 5 hours 23 minutes as of 8 Sept 2015
@@ -446,8 +447,11 @@ class Reports:
 		reports_base_url = dict_obj[ str( 'reports_base_url' ) ]
 		report_title = dict_obj[ str( title ) ]
 		print str( reports_base_url + report_title )
-		page = self.site.Pages[ reports_base_url + report_title ]
-		page.save( content, summary = dict_obj[ 'summary' ] , minor=True)
+		if self.dry_run:
+			print content
+		else:
+			page = self.site.Pages[ reports_base_url + report_title ]
+			page.save( content, summary = dict_obj[ 'summary' ] , minor=True)
 
 
 	def linkify( self, title, namespace = None ):
