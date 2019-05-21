@@ -106,29 +106,33 @@ class Reports:
 	def autopatrol_eligibles( self ):
 		cur = self.db.cursor()
 		query = """ SELECT
-				# "editor" consisting of user_name, wrapped in HTML tags linking to the sigma "created" tool
+				# "editor" consisting of username, wrapped in HTML tags linking to the sigma "created" tool
 				CONCAT (
-					'[[User:',user_name,'|',user_name,']]'
+					'[[User:',username,'|',username,']]'
 				 ) AS editor,
 				CONCAT (
 					'[https://tools.wmflabs.org/sigma/created.py?name=',
-					REPLACE(user_name," ","%20"),
+					REPLACE(username," ","%20"),
 					'&server=enwiki&max=100&startdate=&ns=,,&redirects=none&deleted=undeleted (list)]'
 				 ) AS listlink,
 				# derived column "created count" returned by this subquery
 				( SELECT count(*)
 					FROM revision_userindex
 					LEFT JOIN page ON page_id = rev_page
-					WHERE page_namespace = 0 AND rev_parent_id = 0 AND rev_user_text = user_name AND rev_deleted = 0 AND page_is_redirect = 0
+					WHERE page_namespace = 0 AND rev_parent_id = 0 AND rev_actor = actor AND rev_deleted = 0 AND page_is_redirect = 0
 				) AS created_count
 				FROM
 				( # This query returns users who have created pages in the last 30 days and who are not already members of autoreviewed
-					SELECT DISTINCT user_name
+					SELECT
+						actor_name AS username,
+						actor_id AS actor
 					FROM recentchanges
-					LEFT JOIN user
-					ON rc_user = user_id
-					LEFT JOIN page
-					ON rc_cur_id=page_id
+						JOIN actor
+							ON rc_actor=actor_id
+						JOIN user ON
+							actor_user=user_id
+						LEFT JOIN page
+							ON rc_cur_id=page_id
 					WHERE
 							# User created a page within the last thirty days
 							rc_timestamp > date_format(date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S') AND
@@ -143,6 +147,7 @@ class Reports:
 							# User doesn't already have autoreviewer
 							NOT EXISTS
 							( SELECT 1 FROM user_groups WHERE ug_user=user_id AND ( ug_group='autoreviewer' OR ug_group='sysop' )
+						GROUP BY actor_id, actor_name
 					)
 				) as InnerQuery
 				HAVING created_count > 24
@@ -238,18 +243,17 @@ class Reports:
 	def oldest_active( self ):
 		cur = self.db.cursor()
 		query = """SELECT SQL_SMALL_RESULT
-					CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name
-					,user_registration
-					,user_editcount
+					CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name,
+						user_registration,
+						user_editcount
 					FROM (
-						SELECT user_name,user_registration,user_editcount
+						SELECT user_name, user_registration, user_editcount
 						FROM user
-						WHERE user_name IN (
-							SELECT DISTINCT rc_user_text
-							FROM recentchanges
+						WHERE user_id IN (
+							SELECT DISTINCT actor_user
+							FROM recentchanges, actor
 							WHERE rc_timestamp > date_format( date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S' )
-							AND rc_user_text NOT REGEXP '^[0-9]{1,3}\\.[0-9]'
-							AND rc_user_text NOT REGEXP '\\:.+\\:'
+							AND actor_user > 0
 						)
 						AND user_registration IS NOT NULL
 						ORDER BY user_id
