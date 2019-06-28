@@ -22,16 +22,16 @@ This project allows the [Community Tech bot](https://en.wikipedia.org/wiki/User:
 ## Installation
 Virtualenv is recommended:
 
-    virtualenv venv
+    python3 -m venv venv
     source venv/bin/activate
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
 
 After installation, either activate virtualenv like above or use `venv/bin/python` to run scripts.
 
 ## Generating a report
 * Log into the Toolforge bastion using your Wikimedia developer account ```ssh username@login.tools.wmflabs.org```
 * Become your tool account ```become database-reports```
-* Run ```python main.py test articles_by_size```. It takes two arguments; in this example test refers to `test.wikipedia.org` and `articles_by_size` is the type of statistics you're requesting. This command outputs the name of the page on which the report got dumped
+* Run ```python3 main.py test articles_by_size```. It takes two arguments; in this example test refers to `test.wikipedia.org` and `articles_by_size` is the type of statistics you're requesting. This command outputs the name of the page on which the report got dumped
 * To alter the default settings for periodic updates, make changes to the crontab file ```crontab -e```
 
 ## Adding support for a report

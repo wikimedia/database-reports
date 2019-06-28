@@ -11,7 +11,7 @@ def forgotten_articles():
 	db = pymysql.connect( host = 'enwiki.labsdb', user = credentials['user'], passwd = credentials['pass'], db = 'enwiki_p' )
 	site = mwclient.Site( 'en.wikipedia.org' )
 	site.login( cttbot['user'], cttbot['pass'] )
-	print 'initiated'
+	print('initiated')
 
 	# Make the query
 	cur = db.cursor()
