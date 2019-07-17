@@ -4,9 +4,6 @@ from i18n import i18n
 import datetime
 from displayTable import *
 import re
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 class Reports:
 	def __init__( self, site, db, wiki, dry_run=False ):
@@ -450,9 +447,9 @@ class Reports:
 		dict_obj = i18n.lang_dicts[ str( self.wiki + 'dict') ]
 		reports_base_url = dict_obj[ str( 'reports_base_url' ) ]
 		report_title = dict_obj[ str( title ) ]
-		print str( reports_base_url + report_title )
+		print(str( reports_base_url + report_title ))
 		if self.dry_run:
-			print content
+			print(content)
 		else:
 			page = self.site.Pages[ reports_base_url + report_title ]
 			page.save( content, summary = dict_obj[ 'summary' ] , minor=True)
