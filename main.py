@@ -4,6 +4,9 @@ from displayTable import *
 from config import *
 from reports import *
 import sys
+from datetime import datetime
+import traceback
+
 
 def main ( args ):
 	wiki = args[1]
@@ -15,14 +18,21 @@ def main ( args ):
 		else:
 			methods.append(arg)
 
-	for m in methods:
-		print( m )
-		run = Run( wiki, dry_run )
-		method = getattr( run, str( m ) )
-		if not method:
-			raise Exception( "Method not implemented" )
-		else:
-			method()
+	try:
+		for m in methods:
+			print( m )
+			run = Run( wiki, dry_run )
+			method = getattr( run, str( m ) )
+			if not method:
+				raise Exception( "Method not implemented" )
+			else:
+				method()
+	except Exception:
+		ts = datetime.now().replace(microsecond=0).isoformat()
+		print(ts + ' ', end='', file=sys.stderr)
+		traceback.print_exc(file=sys.stderr)
+		sys.exit(1)
+
 
 class Run:
 	def __init__( self, wiki, dry_run ):
