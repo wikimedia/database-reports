@@ -309,8 +309,8 @@ class Reports:
 		)
 		for row in self.query( query ):
 			logtext = row[4]
-			logtext = re.sub("{","<nowiki>{</nowiki>",logtext)
-			logtext = re.sub("}","<nowiki>}</nowiki>",logtext)
+			logtext = logtext.replace('{', '<nowiki>{</nowiki>')
+			logtext = logtext.replace('}', '<nowiki>}</nowiki>')
 			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), logtext ] )
 
 		# Format the data as wikitext
