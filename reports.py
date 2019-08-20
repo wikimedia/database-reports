@@ -5,6 +5,20 @@ import datetime
 from displayTable import *
 import re
 
+def decode_tuple(tuple):
+    """
+    Decodes binary strings in a result row
+    @param tuple: Database row
+    @type tuple: tuple
+    @rtype: tuple
+    """
+    result = ()
+    for var in tuple:
+        if isinstance(var, bytes):
+            var = var.decode('utf8')
+        result += (var,)
+    return result
+
 class Reports:
 	def __init__( self, site, db, wiki, dry_run=False ):
 		self.db = db
@@ -14,11 +28,19 @@ class Reports:
 		self.site.requests['timeout'] = 120
 		self.dry_run = dry_run
 
+	def query( self, sql ):
+		"""
+		Executes an SQL query and returns a generator producing rows
+		"""
+		cur = self.db.cursor()
+		cur.execute( sql )
+		for row in cur.fetchall():
+			yield decode_tuple(row)
+
 	# Oldest edited articles
 	# Run time on enwiki 5 hours 23 minutes as of 8 Sept 2015
 	def forgotten_articles( self ):
 		# Make the query
-		cur = self.db.cursor()
 		query = """SELECT SQL_SMALL_RESULT
 					MAX(rev_timestamp) AS lastedit, COUNT(rev_id) AS editcount, page_title
 					FROM revision,
@@ -44,12 +66,11 @@ class Reports:
 				WHERE rev_page=page_id
 				GROUP BY page_id
 				ORDER BY lastedit ASC"""
-		cur.execute( query )
 
 		# Extract the data into a Python nested list
 		content = []
 		content.append( ['forgotten-articles-title', 'forgotten-articles-last-edited', 'forgotten-articles-editcount'] )
-		for row in cur.fetchall() :
+		for row in self.query( query ) :
 			# A page name is being caught by the testwiki abuse filter - the following lets this run:
 			if re.search('abuse_filter',row[2],re.IGNORECASE):
 				continue
@@ -63,14 +84,12 @@ class Reports:
 	# Page count by namespace
 	# Run time on enwiki 4 hours 8 minutes as of 8 Sept 2015
 	def page_count_by_namespace( self ):
-		cur = self.db.cursor()
 		query = """SELECT page_namespace, COUNT(*) AS total, SUM(page_is_redirect) AS redirect FROM page
 				   GROUP BY page_namespace"""
-		cur.execute( query )
 
 		content = []
 		content.append( ['pagecount-namespace', 'pagecount-namespace-name', 'pagecount-total', 'pagecount-redirect', 'pagecount-non-redirect'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ row[0], '{{subst:ns:' + str( row[0] ) + '}}', row[1], row[2], row[1]-row[2] ])
 
 		# Format the data as wikitext
@@ -80,17 +99,15 @@ class Reports:
 
 	# Pages with most revisions
 	def pages_with_most_revisions( self ):
-		cur = self.db.cursor()
 		query = """SELECT COUNT(*) AS revisions, rev_page, p.page_namespace, p.page_title FROM revision r
 				   LEFT JOIN ( SELECT page_id, page_title, page_namespace FROM page ) p ON r.rev_page = p.page_id
 				   GROUP BY rev_page
 				   ORDER BY revisions DESC
 				   LIMIT 1000"""
-		cur.execute( query )
 
 		content = []
 		content.append( ['pagerevisions-namespace', 'pagerevisions-title', 'pagerevisions-revisions'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ row[2], self.linkify( row[3], row[2] ), row[0] ])
 		# Format the data as wikitext
 		text = display_report( self.wiki, content , 'pagerevisions-desc' )
@@ -101,7 +118,6 @@ class Reports:
 	# Identify users who meet the criteria for being granted "autopatrolled" on the English Wikipedia but who don't already have it.
 	# Author: Andrew Crawford (thparkth) <acrawford@laetabilis.com>
 	def autopatrol_eligibles( self ):
-		cur = self.db.cursor()
 		query = """ SELECT
 				# "editor" consisting of username, wrapped in HTML tags linking to the sigma "created" tool
 				CONCAT (
@@ -150,11 +166,10 @@ class Reports:
 				HAVING created_count > 24
 				ORDER BY created_count DESC
 				LIMIT 500"""
-		cur.execute( query )
 
 		content = []
 		content.append( ['autopatrol-username', 'autopatrol-listlink', 'autopatrol-articles'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			if row[1] is None:
 				continue
 			content.append( [  row[0], row[1], row[2] ] )
@@ -164,7 +179,6 @@ class Reports:
 
 
 	def new_wikiprojects( self ):
-		cur = self.db.cursor()
 		query = """SELECT rc_timestamp, rc_title
 					FROM recentchanges
 					WHERE rc_new = 1
@@ -172,12 +186,11 @@ class Reports:
 					AND rc_title LIKE 'WikiProject%'
 					AND rc_title NOT LIKE '%/%'
 					ORDER BY rc_timestamp DESC
-				""";
-		cur.execute( query )
+				"""
 
 		content = []
 		content.append( [ 'newwp-date', 'newwp-title' ] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			if row[1] is None:
 				continue
 			content.append( [  row[0], self.linkify( row[1], 4 ) ] )
@@ -187,7 +200,6 @@ class Reports:
 
 
 	def talk_pages_by_size( self ):
-		cur = self.db.cursor()
 		query = """SELECT page_namespace,
 					REPLACE( SUBSTRING_INDEX(page_title, '/', 1 ), '_', ' ' ) AS parent,
 					SUM( page_len ) / 1024 / 1024 AS total_size
@@ -196,11 +208,10 @@ class Reports:
 					GROUP BY page_namespace, parent
 					ORDER BY total_size DESC
 					LIMIT 300"""
-		cur.execute( query )
 
 		content = []
 		content.append( ['tpbs-namespace', 'tpbs-page', 'tpbs-size'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ] )
 
 		# Format the data as wikitext
@@ -209,7 +220,6 @@ class Reports:
 
 
 	def unused_file_redirects( self ):
-		cur = self.db.cursor()
 		query = """SELECT page_title,
 					(	SELECT COUNT(*)
 						FROM imagelinks
@@ -225,11 +235,10 @@ class Reports:
 					AND page_is_redirect = 1
 					HAVING imagelinks + links <= 1
 					"""
-		cur.execute( query )
 
 		content = []
 		content.append( ['ufr-page', 'ufr-imagelinks', 'ufr-links'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ self.linkify( row[0], 6 ), row[1], row[2] ] )
 
 		# Format the data as wikitext
@@ -238,7 +247,6 @@ class Reports:
 
 
 	def oldest_active( self ):
-		cur = self.db.cursor()
 		query = """SELECT SQL_SMALL_RESULT
 					CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name,
 						user_registration,
@@ -258,12 +266,11 @@ class Reports:
 					) AS InnerQuery
 					ORDER BY user_registration
 					LIMIT 200"""
-		cur.execute( query )
 
 		content = []
 		content.append( ['oldestactive-username', 'oldestactive-creationdate', 'oldestactive-editcount'] )
-		for row in cur.fetchall():
-			content.append( [ row[0], row[1] , row[2] ] );
+		for row in self.query( query ):
+			content.append( [ row[0], row[1] , row[2] ] )
 
 		# Format the data as wikitext
 		text = display_report( self.wiki, content, 'oldestactive-desc' )
@@ -291,7 +298,6 @@ class Reports:
 				AND log_namespace=0
 				GROUP BY page_id
 				LIMIT 500"""
-		cur.execute( query )
 		content = []
 		content.append(
 			['deletedprods-title',
@@ -301,8 +307,8 @@ class Reports:
 			 'deletedprods-delcomments'
 			 ]
 		)
-		for row in cur.fetchall():
-			logtext = row[4];
+		for row in self.query( query ):
+			logtext = row[4]
 			logtext = re.sub("{","<nowiki>{</nowiki>",logtext)
 			logtext = re.sub("}","<nowiki>}</nowiki>",logtext)
 			content.append( [ self.linkify( row[0] ), row[1], datetime.datetime.strptime( row[2],'%Y%m%d%H%M%S'), datetime.datetime.strptime( row[3],'%Y%m%d%H%M%S'), logtext ] )
@@ -312,17 +318,15 @@ class Reports:
 		self.publish_report( 'deletedprods-page-title', text )
 
 	def most_used_templates( self ):
-		cur = self.db.cursor()
 		query = """SELECT tl_title, COUNT(*)
 					FROM templatelinks
 					WHERE tl_namespace = 10
 					GROUP BY tl_title
 					ORDER BY COUNT(*) DESC
 					LIMIT 3000"""
-		cur.execute( query )
 		content = []
 		content.append( ['mostusedtemplate-title', 'mostusedtemplate-count'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ self.linkify( row[0], 10 ), row[1] ] )
 
 		# Format the data as wikitext
@@ -330,7 +334,6 @@ class Reports:
 		self.publish_report( 'mostusedtemplate-page-title', text )
 
 	def unused_templates( self ):
-		cur = self.db.cursor()
 		query = """SELECT page_title
 					FROM page
 					LEFT JOIN categorylinks
@@ -346,10 +349,9 @@ class Reports:
 					AND tl_from IS NULL
 					AND cl_from IS NULL
 					LIMIT 2000"""
-		cur.execute( query )
 		content = []
 		content.append( ['unusedtemplate-title'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ self.linkify( row[0], 10 ) ] )
 
 		# Format the data as wikitext
@@ -357,7 +359,6 @@ class Reports:
 		self.publish_report( 'unusedtemplate-page-title', text )
 
 	def orphaned_talk( self ):
-		cur = self.db.cursor()
 		query = """SELECT page_namespace, page_id, page_title, page_is_redirect, page_len
 					FROM page talkpage
 					WHERE talkpage.page_title NOT LIKE '%/%'
@@ -375,16 +376,15 @@ class Reports:
 						AND tl_title='G8-exempt'
 					)
 					LIMIT 1000"""
-		cur.execute( query )
 		content = []
 		content.append( ["orphantalk-count", "orphantalk-isredirect", "orphantalk-namespace", "orphantalk-itemtitle", "orphantalk-pagesize"] )
 		namespace_translate={ 1:"Talk", 5:"Wikipedia_Talk", 11:"Template_Talk", 15:"Category_Talk", 101:"Portal_Talk", 119:"Draft_Talk" }
 		count = 1
 
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			namespace = namespace_translate[row[0]]
 			fulllink  = namespace+':' + row[2]
-			pagesize  = round( row[4]/1024, 1 );
+			pagesize  = round( row[4]/1024, 1 )
 			if row[3] == 0:
 				redirect_label = " "
 			else:
@@ -398,18 +398,16 @@ class Reports:
 
 	def most_edited_page_last_month( self ):
 		# Make the query
-		cur = self.db.cursor()
 		query = """SELECT rc_title, count(*) as num_edits
 					FROM recentchanges
 					WHERE rc_namespace = 0 AND rc_type < 2
 					GROUP BY 1 ORDER BY 2 DESC
 					LIMIT 25;"""
-		cur.execute( query )
 
 		# Extract the data into a Python nested list
 		content = []
 		content.append( ['most_edited_page_last_month-title', 'most_edited_page_last_month-editcount'] )
-		for row in cur.fetchall() :
+		for row in self.query( query ):
 			content.append( [ self.linkify( row[0] ), row[1] ] )
 
 		# Format the data as wikitext
@@ -418,7 +416,6 @@ class Reports:
 
 	# Longest articles (NS=0)
 	def article_by_size( self ):
-		cur = self.db.cursor()
 		query = """SELECT
 					page_namespace,
 					page_title,
@@ -429,10 +426,9 @@ class Reports:
 					AND page_title NOT LIKE "%/%"
 					ORDER BY page_len DESC
 					LIMIT 1000;"""
-		cur.execute( query )
 		content = []
 		content.append( ['article_by_size-namespace', 'article_by_size-title', 'article_by_size-size'] )
-		for row in cur.fetchall():
+		for row in self.query( query ):
 			content.append( [ row[0], self.linkify( row[1], row[0] ), row[2] ])
 
 		# Format the data as wikitext
