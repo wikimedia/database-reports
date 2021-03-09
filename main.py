@@ -36,7 +36,7 @@ def main ( args ):
 
 class Run:
 	def __init__( self, wiki, dry_run ):
-		host = '127.0.0.1' if dry_run else wiki + 'wiki.db.svc.eqiad.wmflabs'
+		host = '127.0.0.1' if dry_run else wiki + 'wiki.analytics.db.svc.wikimedia.cloud'
 		port = credentials.get( 'port', 3306 )
 		self.db = pymysql.connect( host = host, user = credentials['user'], passwd = credentials['pass'], db = wiki + 'wiki_p', port = port )
 		self.site = mwclient.Site( wiki + '.wikipedia.org' )
