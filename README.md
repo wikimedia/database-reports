@@ -16,7 +16,6 @@ This project allows the [Community Tech bot](https://en.wikipedia.org/wiki/User:
 * Page count by namespace
 * Most edited articles last month
 * PRODed articles with deletion logs
-* Editors eligible for autopatrol privileges
 * Active editors with the longest-established accounts
 
 ## Installation
@@ -29,10 +28,17 @@ Virtualenv is recommended:
 After installation, either activate virtualenv like above or use `venv/bin/python` to run scripts.
 
 ## Generating a report
-* Log into the Toolforge bastion using your Wikimedia developer account ```ssh username@login.tools.wmflabs.org```
-* Become your tool account ```become database-reports```
-* Run ```python3 main.py test articles_by_size```. It takes two arguments; in this example test refers to `test.wikipedia.org` and `articles_by_size` is the type of statistics you're requesting. This command outputs the name of the page on which the report got dumped
-* To alter the default settings for periodic updates, make changes to the crontab file ```crontab -e```
+
+Run ```python3 main.py test orphaned_talk```. It takes two arguments; in this example test refers to
+`test.wikipedia.org` and `orphaned_talk` is the type of statistics you're requesting. This command outputs
+the name of the page on which the report got dumped.
+
+You can pass the ```--dry-run``` flag to print output to stdout rather than editing the wiki.
+
+On Toolforge, the reports are defined in the ```jobs.yaml``` file.
+See the [Toolforge jobs framework documentation](https://wikitech.wikimedia.org/wiki/Help:Toolforge/Jobs_framework) for more information.
+
+If you need to run a one-off job on Toolforge, find the corresponding command in ```jobs.yaml``` and [schedule it](https://wikitech.wikimedia.org/wiki/Help:Toolforge/Jobs_framework#Creating_one-off_jobs) using ```toolforge-jobs```.
 
 ## Adding support for a report
 * To add support for a specific statistics that you would like to see in a report, declare a function in `main.py` and define it in `reports.py`
