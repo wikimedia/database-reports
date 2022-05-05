@@ -10,7 +10,7 @@ lang_dicts = {
 		"no-label": "No",
 
 		"forgotten-articles-page-title": "Forgotten articles", # The page title where report is published
-		"forgotten-articles-desc": "List of 500 articles that not been edited in the longest time, ignoring redirects and disambiguation pages.",
+		"forgotten-articles-desc": "List of 500 articles that have not been edited in the longest time, ignoring redirects and disambiguation pages.",
 		"forgotten-articles-title": "Title",
 		"forgotten-articles-last-edited": "Last edited",
 		"forgotten-articles-editcount": "Number of edits",
@@ -426,5 +426,16 @@ lang_dicts = {
 		"pagecount-redirect": "Trang đổi hướng",
 		"pagecount-non-redirect": "Trang không đổi hướng",
 		"pagecount-namespace-name": "Không gian tên",
-	}
+	},
+	
+	'mrdict' : {
+		"reports_base_url": "विकिपीडिया:डेटाबेस अहवाल/", # The base URL for the report, preceding the page title
+		"summary": "अहवाल अद्ययावत केला.", # edit summary when the report is updated.
+		
+		"forgotten-articles-page-title": "विस्मरणातील लेख",
+		"forgotten-articles-desc": "अत्याधिक काळ संपादने न झालेली ५०० पाने (पुनर्निर्देशन, व निःसंदिग्धीकरण पाने सोडून).",
+		"forgotten-articles-title": "लेख",
+		"forgotten-articles-last-edited": "शेवटचे संपादन",
+		"forgotten-articles-editcount": "संपादनांची संख्या",
+	},
 }
