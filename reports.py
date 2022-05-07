@@ -257,7 +257,7 @@ class Reports:
 						WHERE user_id IN (
 							SELECT DISTINCT actor_user
 							FROM recentchanges, actor
-							WHERE rc_timestamp > date_format( date_sub(NOW(),INTERVAL 30 DAY),'%Y-%m-%d-%H-%-i%-S' )
+							WHERE rc_timestamp > date_format( date_sub(NOW(),INTERVAL 30 DAY),'%Y-%m-%d% H-%-i%-S' )
 							AND actor_user > 0
 						)
 						AND user_registration IS NOT NULL
