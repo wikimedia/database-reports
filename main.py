@@ -28,7 +28,7 @@ def main ( args ):
 			else:
 				method()
 	except Exception:
-		ts = datetime.now().replace(microsecond=0).isoformat()
+		ts = datetime.datetime.strptime(datetime.now(), '%Y%m%d%H%M%S').strftime('%Y-%m-%d %H:%M:%S')
 		print(ts + ' ', end='', file=sys.stderr)
 		traceback.print_exc(file=sys.stderr)
 		sys.exit(1)
