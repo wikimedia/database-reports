@@ -249,7 +249,7 @@ class Reports:
 	def oldest_active( self ):
 		query = """SELECT SQL_SMALL_RESULT
 					CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name,
-						user_registration,
+						date_format(user_registration, '%Y-%m-%d %H-%i-%S'),
 						user_editcount
 					FROM (
 						SELECT user_name, user_registration, user_editcount
