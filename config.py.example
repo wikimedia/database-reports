@@ -1,0 +1,2 @@
+credentials = { 'user':'db_username', 'pass': 'db_password', 'port': 3306 }
+cttbot = { 'user': 'Bot username', 'pass': 'password' }

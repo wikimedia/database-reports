@@ -1,0 +1,98 @@
+# Toolforge jobs configuration.
+# See https://wikitech.wikimedia.org/wiki/Help:Toolforge/Jobs_framework for documentation.
+# After making changes, reload the config on Toolforge with `toolforge-jobs load jobs.yaml`
+
+# enwiki
+- name: en-forgotten-articles
+  command: pyvenv/bin/python reports/database-reports/main.py en forgotten_articles
+  image: tf-python39
+  schedule: "09 00 * * 1"
+  emails: onfailure
+- name: en-pagecountbynamespace
+  command: pyvenv/bin/python reports/database-reports/main.py en pagecountbynamespace
+  image: tf-python39
+  schedule: "09 00 * * 2"
+  emails: onfailure
+- name: en-pages-with-most-revisions
+  command: pyvenv/bin/python reports/database-reports/main.py en pages_with_most_revisions
+  image: tf-python39
+  schedule: "09 00 * * 3"
+  emails: onfailure
+- name: en-talk-pages-by-size
+  command: pyvenv/bin/python reports/database-reports/main.py en talk_pages_by_size
+  image: tf-python39
+  schedule: "09 00 * * 5"
+  emails: onfailure
+- name: en-unused-file-redirects
+  command: pyvenv/bin/python reports/database-reports/main.py en unused_file_redirects
+  image: tf-python39
+  schedule: "09 00 * * 6"
+  emails: onfailure
+- name: en-oldest-active
+  command: pyvenv/bin/python reports/database-reports/main.py en oldest_active
+  image: tf-python39
+  schedule: "00 02 * * 2"
+  emails: onfailure
+- name: en-orphaned-talk
+  command: pyvenv/bin/python reports/database-reports/main.py en orphaned_talk
+  image: tf-python39
+  schedule: "00 05 * * *"
+  emails: onfailure
+- name: en-most-edited-page-last-month
+  command: pyvenv/bin/python reports/database-reports/main.py en most_edited_page_last_month
+  image: tf-python39
+  schedule: "12 00 * * 1"
+  emails: onfailure
+- name: en-article-by-size
+  command: pyvenv/bin/python reports/database-reports/main.py en article_by_size
+  image: tf-python39
+  schedule: "12 00 * * 2"
+  emails: onfailure
+- name: en-deleted-prods
+  command: pyvenv/bin/python reports/database-reports/main.py en deleted_prods
+  image: tf-python39
+  schedule: "30 06,18 * * *"
+  emails: onfailure
+# kowiki
+- name: ko-articles-by-size
+  command: pyvenv/bin/python reports/database-reports/main.py ko article_by_size
+  image: tf-python39
+  schedule: "00 1 * * 1"
+  emails: onfailure
+- name: ko-most-edited-page-last-month
+  command: pyvenv/bin/python reports/database-reports/main.py ko most_edited_page_last_month
+  image: tf-python39
+  schedule: "00 2 * * 1"
+  emails: onfailure
+- name: ko-orphaned-talk
+  command: pyvenv/bin/python reports/database-reports/main.py ko orphaned_talk
+  image: tf-python39
+  schedule: "00 3 * * 1"
+  emails: onfailure
+# viwiki
+- name: vi-article-by-size
+  command: pyvenv/bin/python reports/database-reports/main.py vi article_by_size
+  image: tf-python39
+  schedule: "12 00 * * 2"
+  emails: onfailure
+- name: vi-pagecountbynamespace
+  command: pyvenv/bin/python reports/database-reports/main.py vi pagecountbynamespace
+  image: tf-python39
+  schedule: "09 00 * * 2"
+  emails: onfailure
+- name: vi-oldest-active
+  command: pyvenv/bin/python reports/database-reports/main.py vi oldest_active
+  image: tf-python39
+  schedule: "00 02 * * 2"
+  emails: onfailure
+- name: vi-most-edited-page-last-month
+  command: pyvenv/bin/python reports/database-reports/main.py vi most_edited_page_last_month
+  image: tf-python39
+  schedule: "12 00 * * 1"
+  emails: onfailure
+# mrwiki
+- name: mr-forgotten-articles
+  command: pyvenv/bin/python reports/database-reports/main.py mr forgotten_articles
+  image: tf-python39
+  schedule: "15 0 * * 5"
+  emails: onfailure

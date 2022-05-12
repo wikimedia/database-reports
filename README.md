@@ -1,7 +1,9 @@
 # Database Reports
 Generates statistical reports which are used by community members to improve Wikipedia.
 
-This project allows the [Community Tech bot](https://en.wikipedia.org/wiki/User:Community_Tech_bot) to make periodic updates to these reports on different language Wikipedias. As of now the project support report generation for English ([see here](https://en.wikipedia.org/wiki/Wikipedia:Database_reports)), Vietnamese, Korean and French Wikipedia.
+This project allows the [Community Tech bot](https://en.wikipedia.org/wiki/User:Community_Tech_bot) to make periodic updates
+to these reports on different language Wikipedias. As of now the project support report generation for the English
+([see here](https://en.wikipedia.org/wiki/Wikipedia:Database_reports)), Vietnamese, Korean and Hindi Wikipedias.
 
 ## Specific statistics that the reports support:
 * Unused templates
@@ -19,7 +21,10 @@ This project allows the [Community Tech bot](https://en.wikipedia.org/wiki/User:
 * Active editors with the longest-established accounts
 
 ## Installation
-Virtualenv is recommended:
+Copy `config.py.example` to `config.py` and fill in the credentials for your database user
+and bot account. Make sure to properly set permissions on the new file with `chmod 600 config.py`.
+
+Virtualenv is recommended for installing the Python environment:
 
     python3 -m venv venv
     source venv/bin/activate
