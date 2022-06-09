@@ -1,3 +1,4 @@
+---
 # Toolforge jobs configuration.
 # See https://wikitech.wikimedia.org/wiki/Help:Toolforge/Jobs_framework for documentation.
 # After making changes, reload the config on Toolforge with `toolforge-jobs load jobs.yaml`
