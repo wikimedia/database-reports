@@ -294,6 +294,7 @@ class Reports:
                         ORDER BY user_id
                         LIMIT 250
                     ) AS InnerQuery
+                    WHERE user_editcount > 0
                     ORDER BY user_registration
                     LIMIT 200"""
 
