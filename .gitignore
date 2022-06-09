@@ -3,3 +3,6 @@
 *.pyc
 venv
 config.py
+.vscode/
+.tox/
+__pycache__/
