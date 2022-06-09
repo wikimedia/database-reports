@@ -277,8 +277,7 @@ class Reports:
         self.publish_report("ufr-page-title", text)
 
     def oldest_active(self):
-        query = """SELECT SQL_SMALL_RESULT
-                    CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name,
+        query = """SELECT CONCAT( '[[User:',user_name,'|',user_name,']]' ) AS user_name,
                         date_format(user_registration, '%Y-%m-%d %H-%i-%S'),
                         user_editcount
                     FROM (
@@ -286,9 +285,11 @@ class Reports:
                         FROM user
                         WHERE user_id IN (
                             SELECT DISTINCT actor_user
-                            FROM recentchanges, actor
-                            WHERE rc_timestamp > date_format( date_sub(NOW(),INTERVAL 30 DAY),'%Y%m%d%H%i%S' )
+                            FROM recentchanges_userindex
+                            JOIN actor_recentchanges ON actor_id = rc_actor
+                            WHERE rc_timestamp > date_format( date_sub(NOW(), INTERVAL 30 DAY), '%Y%m%d%H%i%S' )
                             AND actor_user > 0
+                            AND rc_bot = 0
                         )
                         AND user_registration IS NOT NULL
                         ORDER BY user_id
