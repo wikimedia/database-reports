@@ -8,7 +8,7 @@ lang_dicts = {
         "yes-label": "Yes",
         "no-label": "No",
         "forgotten-articles-page-title": "Forgotten articles",  # The page title where report is published
-        "forgotten-articles-desc": "List of 500 articles that have not been edited in the longest time, ignoring redirects and disambiguation pages.",
+        "forgotten-articles-desc": "{{Shortcut|WP:DUSTY}}\nList of 500 articles that have not been edited in the longest time, ignoring redirects and disambiguation pages.",
         "forgotten-articles-title": "Title",
         "forgotten-articles-last-edited": "Last edited",
         "forgotten-articles-editcount": "Number of edits",
