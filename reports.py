@@ -363,10 +363,11 @@ class Reports:
         self.publish_report("deletedprods-page-title", text)
 
     def most_used_templates(self):
-        query = """SELECT tl_title, COUNT(*)
+        query = """SELECT lt_title, COUNT(*)
                     FROM templatelinks
-                    WHERE tl_namespace = 10
-                    GROUP BY tl_title
+                    JOIN linktarget ON tl_target_id = lt_id
+                    WHERE lt_namespace = 10
+                    GROUP BY lt_title
                     ORDER BY COUNT(*) DESC
                     LIMIT 3000"""
         content = []
@@ -381,14 +382,12 @@ class Reports:
     def unused_templates(self):
         query = """SELECT page_title
                     FROM page
-                    LEFT JOIN categorylinks
-                    ON page_id = cl_from
-                    AND cl_to = 'Wikipedia_substituted_templates'
-                    LEFT JOIN redirect
-                    ON rd_from = page_id
-                    LEFT JOIN templatelinks
-                    ON page_namespace = tl_namespace
-                    AND page_title = tl_title
+                    LEFT JOIN categorylinks ON page_id = cl_from
+                        AND cl_to = 'Wikipedia_substituted_templates'
+                    LEFT JOIN redirect ON rd_from = page_id
+                    LEFT JOIN linktarget ON page_namespace = lt_namespace
+                        AND page_title = lt_title
+                    LEFT JOIN templatelinks ON tl_target_id = lt_id
                     WHERE page_namespace = 10
                     AND rd_from IS NULL
                     AND tl_from IS NULL
@@ -417,8 +416,10 @@ class Reports:
                     AND NOT EXISTS (
                         SELECT 1
                         FROM templatelinks
+                        JOIN linktarget ON tl_target_id = lt_id
                         WHERE talkpage.page_id=tl_from
-                        AND tl_title='G8-exempt'
+                        AND lt_title='G8-exempt'
+                        AND lt_namespace = 10
                     )
                     LIMIT 1000"""
         content = []
