@@ -186,7 +186,7 @@ class Reports:
                             # The user was human
                             rc_bot = 0 AND
                             # It was a new page
-                            rc_new = 1 AND
+                            rc_source = 'mb.new' AND
                             # It's not a redirect
                             page_is_redirect = 0 AND
                             # User doesn't already have autoreviewer
@@ -214,7 +214,7 @@ class Reports:
     def new_wikiprojects(self):
         query = """SELECT rc_timestamp, rc_title
                     FROM recentchanges
-                    WHERE rc_new = 1
+                    WHERE rc_source = 'mb.new'
                     AND rc_namespace = 4
                     AND rc_title LIKE 'WikiProject%'
                     AND rc_title NOT LIKE '%/%'
@@ -469,7 +469,7 @@ class Reports:
         # Make the query
         query = """SELECT rc_title, count(*) as num_edits
                     FROM recentchanges
-                    WHERE rc_namespace = 0 AND rc_type < 2
+                    WHERE rc_namespace = 0 AND rc_source IN ('mw.edit', 'mw.new')
                     GROUP BY 1 ORDER BY 2 DESC
                     LIMIT 25;"""
 
