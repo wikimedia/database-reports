@@ -49,11 +49,6 @@
   image: tf-python39
   schedule: "12 00 * * 2"
   emails: onfailure
-- name: en-deleted-prods
-  command: pyvenv/bin/python reports/database-reports/main.py en deleted_prods
-  image: tf-python39
-  schedule: "30 06,18 * * *"
-  emails: onfailure
 # kowiki
 - name: ko-articles-by-size
   command: pyvenv/bin/python reports/database-reports/main.py ko article_by_size
