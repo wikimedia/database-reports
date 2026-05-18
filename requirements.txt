@@ -1,2 +1,2 @@
-mwclient == 0.9.3
+mwclient == 0.10.1
 PyMySQL == 0.9.3
