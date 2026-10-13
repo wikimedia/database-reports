@@ -39,16 +39,6 @@
   image: tf-python39
   schedule: "00 05 * * *"
   emails: onfailure
-- name: en-most-edited-page-last-month
-  command: pyvenv/bin/python reports/database-reports/main.py en most_edited_page_last_month
-  image: tf-python39
-  schedule: "12 00 * * 1"
-  emails: onfailure
-- name: en-article-by-size
-  command: pyvenv/bin/python reports/database-reports/main.py en article_by_size
-  image: tf-python39
-  schedule: "12 00 * * 2"
-  emails: onfailure
 # kowiki
 - name: ko-articles-by-size
   command: pyvenv/bin/python reports/database-reports/main.py ko article_by_size
